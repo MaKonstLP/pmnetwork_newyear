@@ -75,6 +75,7 @@ AppAsset::register($this);
                             <p>Тел.: (846) 205-78-45</p>
                         </div>
                         <div class="footer_phone_button">
+                        <div class="footer_phone_button_img"></div>
                             <p class="_link">Подберите мне зал</p>
                         </div>
                     </div>
