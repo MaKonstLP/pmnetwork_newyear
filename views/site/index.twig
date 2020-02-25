@@ -18,49 +18,19 @@
 		</div>
 	</div>
 
-	<div class="content_block">
+	<div class="content_block filter_wrapper">
 		<div class="title">
-			<h2>Банкетные залы на природе</h2>
-			<div class="title_count">{{count}} зал{{Declension.end_rooms(count)}}</div>
+			<h2>Найдите своё место</h2>
 		</div>
 
-		{{filter | raw }}
+		{{ this.render('//components/generic/slice.twig') | raw }}
+		{{ this.render('//components/filter/filter.twig') | raw }}
 	</div>
 
-	{% for widget in widgets %}
-		<div data-widget-wrapper>
-			<div class="listing_widget_header">
-				<h3 class="listing_widget_title">{{widget.title}}</h3>
-				<p class="listing_widget_subtitle">{{widget.subtitle}}</p>
-			</div>
-			<div class="items_list_listing swiper-container" data-listing-wrapper>
-				<div class="items_list swiper-wrapper" data-listing-list>
-					{{ this.render('//components/generic/listing.twig', {'items':widget.items, 'img_alt': widget.img_alt}) | raw }}
-					<a href="/catalog/{{widget.slice.alias}}/" class="item listing_widget_link swiper-slide">
-						<div class="listing_widget_link_img"></div>
-						<div class="listing_widget_link_text">{{widget.link_text}}</div>
-						<div class="listing_widget_link_arrow"></div>
-					</a>
-				</div>
-				<div class="listing_widget_controll">
-					<div class="listing_widget_arrow _prev"></div>
-					<div class="listing_widget_pagination"></div>
-					<div class="listing_widget_arrow _next"></div>
-				</div>					
-			</div>
-			<div class="listing_widget_footer">
-				<div class="seo_text" data-seo-text>
-					{{widget.text | raw }}
-					<div class="seo_text_control" data-seo-control>
-						<p class="_link">Показать полностью</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	{% endfor %}
+	<div class="content_block map"></div>
 
-	<div class="content_block">
-		{{ this.render('//components/generic/form.twig') | raw }}
+		<div class="content_block form_callback_wrapper">
+		{{ this.render('//components/generic/form_callback.twig') | raw }}
 	</div>
 
 </div>
