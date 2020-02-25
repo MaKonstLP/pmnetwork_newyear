@@ -1,5 +1,6 @@
 .form_wrapper.callback {
   display: flex;
+  position: relative;
   width: 954px;
   padding: 20px 120px 50px 120px;
   flex-flow: column nowrap;
@@ -12,12 +13,44 @@
   @include for-pad{
     width: 532px;
     padding: 20px 20px 32px 20px;
+
+    &:before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -160px;
+      width: 270px;
+      height: 277px;
+      background: url("/img/filter_pad_bg/form_Left_branch.png");
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    &:after{
+      content: "";
+      position: absolute;
+      top: 50px;
+      right: -140px;
+      width: 270px;
+      height: 277px;
+      background: url("/img/filter_pad_bg/form_Right_branch.png");
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
   }
 
   @include for-mobile{
     width: 100%;
     margin: 50px 0;
     padding: 25px 15px 50px 15px;
+
+    &:before{
+      content: none;
+    }
+
+    &:after{
+      content: none;
+    }
   }
 
   .form_title{

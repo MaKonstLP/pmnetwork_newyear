@@ -45,13 +45,13 @@ header{
                 transition: filter 0.2s ease;
 
                 @include for-pad{
-                    width: 132px;
-                    height: 56px;
+                    
                 }
 
                 @include for-mobile{
-                    width: 90px;
-                    height: 38px;
+                    width: 57px;
+                    height: 57px;
+                    background-image: url(/img/ny_logo_mobile.svg);
                 }
             }
 
@@ -70,17 +70,17 @@ header{
             .header_menu_item{
                 line-height: 30px;
                 font-size: 16px;
-                color: $clrButton;
+                color: #333333;
                 font-weight: 600;
                 margin: 0px 33px;
                 padding: 0px 10px;
 
                 &:hover{
-                    color: $clrGreen;
+                    color: #F0440D;
                 }
 
                 &._active{
-                    color: $clrButtonPressed;
+                    color: #D83603;
                 }
             }
         }
@@ -100,6 +100,7 @@ header{
                 right: 50px;
             }
 
+
             & > p{
                 font-size: 26px;
                 color: #000;
@@ -112,6 +113,11 @@ header{
                     font-size: 16px;
                     line-height: 20px;
                 }
+            }
+
+            p._link{
+                color: #333333;
+                border-bottom:1px dashed #333333;
             }
 
             .header_phone_button{
@@ -136,7 +142,6 @@ header{
                 }
 
                 & > p{
-
                     height: 21px;
                     text-align: right;
                     line-height: 25px;
