@@ -17,6 +17,7 @@ use frontend\components\RoomsFilter;
 use common\models\ItemsFilter;
 use backend\models\Filter;
 use backend\models\Slices;
+use common\models\GorkoApi;
 
 class ListingController extends Controller
 {
@@ -176,7 +177,10 @@ class ListingController extends Controller
 //class ListingController extends Controller
 //{
 //	public function actionIndex(){
-//		GorkoApi::renewAllData();
+//		GorkoApi::renewAllData([
+//			'city_id=4400&type_id=1&event=15',
+//			'city_id=4400&type_id=1&event=17'
+//		]);
 //		return 1;
 //	}	
 //}
