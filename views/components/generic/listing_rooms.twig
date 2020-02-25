@@ -1,0 +1,9 @@
+{% for item in items %}  
+    <div>
+        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+        <p>Название - {{item.name}}</p>
+        <p>Вместимость на банкет - {{item.capacity}}</p>
+        <p>Вместимость на фуршет - {{item.capacity_reception}}</p>
+        <p>Цена на человека {{item.price}}</p>
+    </div>
+{% endfor %}
