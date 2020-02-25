@@ -9,11 +9,13 @@
 
 	<div class="content_block submenu">
 		<div class="submenu_wrapper">
-			<div class="submenu_restaurants">
+			<div class="submenu submenu_restaurants">
 				<h2>В городе</h2>
+				<img src="/img/restaurant_image.png" alt="restaurant_image">
 			</div>
-			<div class="submenu_cottages">
+			<div class="submenu submenu_cottages">
 				<h2>На природе</h2>
+				<img src="/img/cottage_image.png" alt="cottage_image">
 			</div>
 		</div>
 	</div>
@@ -24,10 +26,14 @@
 		</div>
 
 		{{ this.render('//components/generic/slice.twig') | raw }}
-		{{ this.render('//components/filter/filter.twig') | raw }}
+		{{ filter | raw }}
 	</div>
 
-	<div class="content_block map"></div>
+	<script defer="" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+	<div class="content_block map">
+
+	</div>
 
 		<div class="content_block form_callback_wrapper">
 		{{ this.render('//components/generic/form_callback.twig') | raw }}

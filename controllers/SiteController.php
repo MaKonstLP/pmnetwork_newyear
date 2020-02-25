@@ -29,13 +29,13 @@ class SiteController extends Controller
         $seo = Pages::find()->where(['name' => 'index'])->one();
         $this->setSeo($seo);
 
-        //$filter = FilterWidget::widget([
-        //    'filter_active' => [],
-        //    'filter_model' => $filter_model
-        //]);
+        $filter = FilterWidget::widget([
+            'filter_active' => [],
+            'filter_model' => $filter_model
+        ]);
 
         return $this->render('index.twig', [
-            //'filter' => $filter,
+            'filter' => $filter,
             'widgets' => $apiMain['widgets'],
             'count' => $apiMain['total'],
             'seo' => $seo,
