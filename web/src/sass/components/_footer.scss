@@ -59,11 +59,9 @@ footer{
                         background-image: url(/img/ny_logo.svg);
                         background-size: contain;
                         background-repeat: no-repeat;
-                        filter: hue-rotate(0deg);
                         transition: filter 0.2s ease;
                     }
                     &:hover .footer_logo_img{
-                        filter: hue-rotate(25deg);
                     }
                 }
 
