@@ -7,7 +7,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\Rooms;
+use common\models\Restaurants;
 use common\components\Breadcrumbs;
 use common\models\ItemsWidget;
 
@@ -17,8 +17,7 @@ class ItemController extends Controller
 	public function actionIndex($id)
 	{
 
-		$item = Rooms::find()
-			->with('restaurants')
+		$item = Restaurants::find()
 			->where(['id' => $id])
 			->one();
 
@@ -26,11 +25,11 @@ class ItemController extends Controller
 
 		$seo['h1'] = $item->name;
 		$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs(2);
-		$seo['desc'] = $item->restaurants->name;
-		$seo['address'] = $item->restaurants->address;
+		$seo['desc'] = $item->name;
+		$seo['address'] = $item->address;
 
 		$itemsWidget = new ItemsWidget;
-		$other_rooms = $itemsWidget->getOther($item->restaurants->id, $id);
+		$other_rooms = $itemsWidget->getOther($item->id, $id);
 
 		return $this->render('index.twig', array(
 			'item' => $item,

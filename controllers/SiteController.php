@@ -24,7 +24,7 @@ class SiteController extends Controller
         $slices_model = Slices::find()->all();
 
         $itemsWidget = new ItemsWidget;
-        $apiMain = $itemsWidget->getMain($filter_model, $slices_model);
+        $apiMain = $itemsWidget->getMain($filter_model, $slices_model, 'restaurants');
 
         $seo = Pages::find()->where(['name' => 'index'])->one();
         $this->setSeo($seo);

@@ -10,19 +10,23 @@
         </div>
         <div class="item_info">
             <div class="item_info_top">
-                <p class="item_name">{{item.restaurants.name}}</p>
+                <p class="item_name">{{item.name}}</p>
 
                 {% if type != 'other' %}
-                    <p class="item_address">{{item.restaurants.address}}</p>
+                    <p class="item_address">{{item.address}}</p>
                 {% endif %}
 
                 <hr class="item_horizontal_raw">
                     
                 <div class="item_meta">
 
-                    {% if item.capacity %}
+                    {% if item.min_capacity != item.max_capacity %}
                         <div class="item_meta_item">
-                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.capacity}} чел.</span>
+                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.min_capacity}} - {{item.max_capacity}} чел.</span>
+                        </div>
+                    {% else %}
+                        <div class="item_meta_item">
+                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.min_capacity}} чел.</span>
                         </div>
                     {% endif %}
 
