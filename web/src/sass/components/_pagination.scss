@@ -9,14 +9,22 @@
     }
 
     .items_pagination_item{
-        width: 36px;
-        height: 45px;
+        width: 43px;
+        height: 54px;
         position: relative;
         background-image: url("/img/pagination_ny_img.svg");
+        background-size: contain;
         margin: 0px 13px;
         cursor: pointer;
 
+        @include for-pad{
+            width: 36px;
+            height: 45px;
+        }
+
         @include for-mobile{
+            width: 36px;
+            height: 45px;
             margin: 0 10px;
         }
 
@@ -68,7 +76,7 @@
         &:after{
             content: attr(data-page-id);
             position: absolute;
-            top: 15px;
+            top: 20px;
             width: 100%;
             line-height: 26px;
             font-size: 16px;
@@ -76,7 +84,14 @@
             text-align: center;
             color: $clrBlack;
 
+            @include for-pad{
+                top: 15px;
+                line-height: 25px;
+                font-size: 14px;
+            }
+
             @include for-mobile{
+                top: 15px;
                 line-height: 25px;
                 font-size: 14px;
             }

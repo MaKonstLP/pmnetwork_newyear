@@ -8,3 +8,97 @@
 		height: 100%;
 	}
 }
+
+.balloon_layout{
+	display: block;
+	position: absolute;
+	width: 412px;
+	height: 194px;
+	background: white;
+
+	.close{
+		position: absolute;
+    right: 5px;
+		top: 1px;
+		width: 30px;
+		height: 30px;
+		background: url("/img/close_icon.svg");
+
+		&:hover{
+			background: url("/img/close_icon_hover.svg");
+		}
+	}
+	
+	.arrow{
+		position: absolute;
+		top: -12px;
+		right: 40px;
+		width: 24px;
+		height: 24px;
+		background: white;
+		transform: rotate(45deg);
+		z-index: -1;
+	}
+}
+
+.balloon_wrapper{
+	height: 194px;
+	width: 370px;
+	display: flex;
+	flex-flow: column nowrap;
+	padding: 20px 0 0 20px;
+
+	.balloon_content{
+		width: 100%;
+		display: flex;
+		justify-content: flex-start;
+
+		img {
+			height: auto;
+			max-height: 100px;
+			width: 143px;
+		}
+
+		.balloon_text{
+			display: flex;
+			flex-flow: column nowrap;
+			padding-left: 15px;
+
+			.balloon_header{
+				font-family: "Montserrat";
+				font-style: normal;
+				font-weight: bold;
+				font-size: 16px;
+				line-height: 142.56%;
+				color: #333333;
+			}
+		
+			.balloon_address{
+				font-family: "Montserrat";
+				font-style: normal;
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 15px;
+				color: #666666;
+				padding-top: 5px;
+			}
+		}
+	}
+	
+	.balloon_link{
+		margin: auto;
+		
+
+		.balloon_link_button{
+			padding: 6px 20px;
+
+			a{
+				font-family: "Montserrat";
+				font-style: normal;
+				font-weight: 500;
+				font-size: 14px;
+				line-height: 22px;
+			}
+		}
+	}
+}

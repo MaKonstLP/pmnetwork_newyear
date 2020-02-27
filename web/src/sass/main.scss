@@ -17,7 +17,7 @@ body{
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
     box-sizing: border-box;
-    background-color: $clrBg;
+    background-color: white;
 }
 
 body, html {
@@ -45,7 +45,7 @@ body._overflow .main_wrap{
 
 .main_wrap{
     min-height:100%;
-    background-color: $clrBg;
+    background-color: white;
     display:flex;
     flex-direction:column;
 }
@@ -175,7 +175,7 @@ body._overflow .main_wrap{
         left: 0;
         width: 100%;
         height: 100%;
-        background: $clrBg;
+        background: white;
         opacity: 0.6;
         z-index: 10;
         overflow: hidden;
