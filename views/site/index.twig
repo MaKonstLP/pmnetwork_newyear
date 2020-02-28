@@ -11,10 +11,30 @@
 		<div class="submenu_wrapper">
 			<div class="submenu submenu_restaurants">
 				<h2>В городе</h2>
+				<div class="submenu_restaurants_bg_filter"></div>
+				<div class="slices">
+						<a href="#">Район 1</a>
+						<a href="#">Район 2</a>
+						<a href="#">Район 3</a>
+						<a href="#">Район 4</a>
+						<a href="#">Район 5</a>
+						<a href="#">Район 6</a>
+						<a href="#">Район 7</a>
+					</div>
 				<img src="/img/restaurant_image.png" alt="restaurant_image">
 			</div>
 			<div class="submenu submenu_cottages">
 				<h2>На природе</h2>
+				<div class="submenu_cottages_bg_filter"></div>
+				<div class="slices">
+					<a href="#">Район 1</a>
+					<a href="#">Район 2</a>
+					<a href="#">Район 3</a>
+					<a href="#">Район 4</a>
+					<a href="#">Район 5</a>
+					<a href="#">Район 6</a>
+					<a href="#">Район 7</a>
+				</div>
 				<img src="/img/cottage_image.png" alt="cottage_image">
 			</div>
 		</div>
@@ -31,12 +51,19 @@
 
 	<script defer="" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
-	<div class="content_block map">
+	<div class="content_block map"></div>
 
-	</div>
-
-		<div class="content_block form_callback_wrapper">
+	<div class="content_block form_callback_wrapper">
 		{{ this.render('//components/generic/form_callback.twig') | raw }}
 	</div>
 
+	<div class="content_block seo_text"></div>
+
+	<div class="best_offer_slider">
+	</div>
+
+
+	<div class="content_block seo_text_wrapper last">
+		<div class="seo_text"></div>
+	</div>
 </div>

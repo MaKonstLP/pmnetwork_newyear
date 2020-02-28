@@ -33,6 +33,11 @@ AppAsset::register($this);
                 <a href="/" class="header_logo">
                     <div class="header_logo_img"></div>
                 </a>
+
+                <div class="header_city_select">
+                    <span>Москва</span>
+                </div>
+
                 <div class="header_menu">
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-podmoskovie')echo '_active';?>" href="/catalog/v-podmoskovie/">За городом</a>
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-sharte')echo '_active';?>" href="/catalog/v-sharte/">В шатре</a>

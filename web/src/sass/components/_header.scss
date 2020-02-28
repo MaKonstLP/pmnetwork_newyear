@@ -18,6 +18,7 @@ header{
     }
 
     .header_wrap{
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -37,9 +38,9 @@ header{
             }
 
             .header_logo_img{
-                width: 253px;
-                height: 55px;
-                background-image: url(/img/ny_logo.svg);
+                width: 333px;
+                height: 72px;
+                background: url("/img/ny_logo.svg");
                 background-size: contain;
                 transition: filter 0.2s ease;
                 @include for-pad{
@@ -49,12 +50,55 @@ header{
                 @include for-mobile{
                     width: 57px;
                     height: 57px;
-                    background-image: url(/img/ny_logo_mobile.svg);
+                    background-image: url("/img/ny_logo_mobile.svg");
                 }
             }
 
             &:hover .header_logo_img{
 
+            }
+        }
+
+        .header_city_select{
+            position: absolute;
+            left: 420px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 26px;
+            border-bottom: 1px dashed #333333;
+
+            &:before{
+                content: "";
+                position: absolute;
+                top: -1px;
+                left: -18px;
+                background: url("/img/location_icon.svg");
+                background-size: contain;
+                width: 20px;
+                height: 20px;
+            }
+
+            &:after{
+                content: "";
+                position: absolute;
+                top: 5px;
+                right: -16px;
+                width: 8px;
+                height: 8px;
+                border-right: 2px solid $clrLightGrey;
+                border-bottom: 2px solid $clrLightGrey;
+                border-radius: 2px;
+                transform: rotate(45deg);
+                z-index: 2;
+            }
+
+            span{
+                display: block;
+            }
+
+            @include for-notdesc{
+                display: none;
             }
         }
 
