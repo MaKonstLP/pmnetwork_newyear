@@ -2,29 +2,13 @@
 
 export default class YaMap{
 	constructor(){
+		this.init();
+	}
+
+	init() {
 		ymaps.ready(function(){
 			let map = document.querySelector(".map");
 			let myMap = new ymaps.Map(map, {center: [55.76, 37.64], zoom: 15});
-
-			/*let testData = 
-				{"type": "FeatureCollection", 
-					"features": [
-						{	
-							"type": "Feature",
-							"id": 0,
-							"geometry": {
-								"type": "Point",
-								"coordinates": [55.831903, 37.411961]
-							},
-							"properties": {
-								"balloonContent": "Магазин на углу",
-								"organization": "Магазиин на углу",
-								"address": "Москва, где-то",
-								"img": "img"
-							}
-						}
-					]
-				};*/
 
 			let myBalloonLayout = ymaps.templateLayoutFactory.createClass(
 				`<div class="balloon_layout">
@@ -50,27 +34,6 @@ export default class YaMap{
 
 					this.constructor.superclass.clear.call(this);
 				},
-
-				/*onSublayoutSizeChange: function () {
-					myBalloonLayout.superclass.onSublayoutSizeChange.apply(this, arguments);
-
-					if(!this._isElement(this._$element)) {
-							return;
-					}
-
-					this.applyElementOffset();
-
-					this.events.fire('shapechange');
-				},
-
-				applyElementOffset: function () {
-					this._$element.css({
-							left: -(this._$element[0].offsetWidth / 2),
-							top: -(this._$element[0].offsetHeight + this._$element.find('.arrow')[0].offsetHeight)
-					});
-					console.log(-(this._$element[0].offsetWidth / 2));
-					console.log(-(this._$element[0].offsetHeight + this._$element.find('.arrow')[0].offsetHeight));
-				},*/
 
 				onCloseClick: function (e) {
 					e.preventDefault();
@@ -156,16 +119,18 @@ export default class YaMap{
 			);
 
 			let objectManager = new ymaps.ObjectManager(
-				{geoObjectBalloonLayout: myBalloonLayout, 
-				geoObjectBalloonContentLayout: myBalloonContentLayout,
-				geoObjectHideIconOnBalloonOpen: false,
-				geoObjectBalloonOffset: [-360, 17],
-				clusterize: true,
-				clusterDisableClickZoom: false,
-				clusterBalloonItemContentLayout: customItemContentLayout
+				{
+					geoObjectBalloonLayout: myBalloonLayout, 
+					geoObjectBalloonContentLayout: myBalloonContentLayout,
+					geoObjectHideIconOnBalloonOpen: false,
+					geoObjectBalloonOffset: [-360, 17],
+					clusterize: true,
+					clusterDisableClickZoom: false,
+					clusterBalloonItemContentLayout: customItemContentLayout,
+					clusterIconColor: "green",
+					geoObjectIconColor: "green"
 				}
 			);
-
 
 			let serverData = null;
 			let serverResponse = fetch("/api/map_all/")

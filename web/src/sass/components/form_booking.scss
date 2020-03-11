@@ -1,0 +1,61 @@
+.form_wrapper.booking{
+  background: linear-gradient(139.76deg,
+                            #FEDA5A 0.69%,
+                            #FFBA35 112.92%);
+  box-shadow: 0px 5px 20px rgba(253, 172, 77, 0.3);
+
+  .form_block{
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .form_inputs{
+    display: flex;
+    flex-flow: row nowrap;
+    order: 1;
+    margin-right: 20px;
+
+    .input_wrapper{
+      width: 200px;
+  
+      &:first-child{
+        width: 250px;
+      }
+  
+      &:last-child{
+        width: 135px;
+      }
+
+      input{
+        background: white;
+      }
+    }
+  }
+
+  .form_checkboxes{
+    display: flex;
+    flex-flow: row nowrap;
+    order: 3;
+    margin-top: -80px;
+  }
+
+  .form_submit_booking{
+    width: 233px;
+    order: 2;
+    padding-top: 22px;
+
+    .checkbox_item{
+      padding-top: 10px;
+
+      .checkbox_pseudo{
+        font-size: 12px;
+      }
+    }
+    
+
+    button{
+      height: 50px;
+    }
+
+  }
+}

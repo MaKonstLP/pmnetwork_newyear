@@ -91,7 +91,7 @@ body._overflow .main_wrap{
             z-index: 1;
         }
 
-        .submenu_restaurants_bg_filter{
+        .submenu_bg_filter{
             display: none;
             position: absolute;
             width: 100%;
@@ -124,22 +124,13 @@ body._overflow .main_wrap{
 
         }
 
-        .submenu_cottages_bg_filter{
-            display: none;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #624600;
-            opacity: 0.6;
-        }
-
         img{
             width: 100%;
             height: 100%;
         }
 
-        .submenu_restaurants:hover{
-            .submenu_restaurants_bg_filter{
+        .submenu:hover{
+            .submenu_bg_filter{
                 display: block;
             }
 
@@ -148,21 +139,8 @@ body._overflow .main_wrap{
             }
         }
 
-        .submenu_cottages:hover{
-            .submenu_cottages_bg_filter{
-                display: block;
-            }
-
-            .slices{
-                display: block;
-            }
-        } 
-
         @include for-notdesc{
-            .submenu_restaurants_bg_filter{
-                display: block;
-            }
-            .submenu_cottages_bg_filter{
+            .submenu_bg_filter{
                 display: block;
             }
 
@@ -599,6 +577,7 @@ h3{
     justify-content: center;
     align-items: baseline;
     flex-wrap: wrap;
+    padding-top: 20px;
 
     @include for-notdesc{
         flex-direction: column;
@@ -653,8 +632,8 @@ h3{
             font-weight: 500;
             font-size: 16px;
             line-height: 19px;           
-            color: #5BA641;
-            border-bottom: 1px solid rgba(91,166,65,0.5);
+            color: #D83603;
+            border-bottom: 1px solid rgba(216, 54, 3, 0.3);
             position: relative;
 
             &:before{
@@ -676,7 +655,7 @@ h3{
 
 .breadcrumbs{
     position: absolute;
-    bottom: calc(100% + 20px);
+    bottom: calc(100% - 10px);
     display: flex;
     justify-content: center;
     width: 100%;
