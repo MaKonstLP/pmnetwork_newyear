@@ -28,7 +28,7 @@ class ListingController extends Controller
 
 	public function beforeAction($action)
 	{
-		$this->filter_model = Filter::find()->with('items')->all();
+		$this->filter_model = Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all();
 		$this->slices_model = Slices::find()->all();
 
 	    return parent::beforeAction($action);
