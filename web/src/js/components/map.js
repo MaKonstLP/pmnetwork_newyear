@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-export default class YaMap{
+export default class YaMapAll{
 	constructor(){
 		this.init();
 	}
@@ -90,34 +90,6 @@ export default class YaMap{
 				</div>`
 			);
 
-			let customItemContentLayout = ymaps.templateLayoutFactory.createClass(
-				`<div class="balloon_wrapper">
-
-					<div class="balloon_content">
-
-						<img src={{properties.img}}>
-
-						<div class="balloon_text">
-
-							<div class="balloon_header">
-								{{properties.organization}}
-							</div>
-
-							<div class="balloon_address">
-								{{properties.address}}
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="balloon_link">
-						<button class="balloon_link_button _button"><a href="#">Посмотреть зал</a></button>
-					</div>
-					
-				</div>`
-			);
-
 			let objectManager = new ymaps.ObjectManager(
 				{
 					geoObjectBalloonLayout: myBalloonLayout, 
@@ -126,7 +98,7 @@ export default class YaMap{
 					geoObjectBalloonOffset: [-360, 17],
 					clusterize: true,
 					clusterDisableClickZoom: false,
-					clusterBalloonItemContentLayout: customItemContentLayout,
+					clusterBalloonItemContentLayout: myBalloonContentLayout,
 					clusterIconColor: "green",
 					geoObjectIconColor: "green"
 				}
@@ -146,9 +118,9 @@ export default class YaMap{
 					serverData = json;
 					
 					objectManager.add(serverData);  
-					console.log(`objectManager length: ${objectManager.objects.getLength()}`);
+					//console.log(`objectManager length: ${objectManager.objects.getLength()}`);
 					myMap.geoObjects.add(objectManager);
-					console.log(`objectManager: ${objectManager.getBounds()}`);
+					//console.log(`objectManager: ${objectManager.getBounds()}`);
 					myMap.setBounds(objectManager.getBounds());
 				});				
 		});

@@ -456,6 +456,11 @@ body._overflow .main_wrap{
 
 .content_block.seo_text_wrapper.last{
     width: 100%;
+    background:
+     url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png"),
+     url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
+    background-position: bottom left, bottom right;
+    background-repeat: no-repeat, no-repeat;
 }
 
 .seo_text{

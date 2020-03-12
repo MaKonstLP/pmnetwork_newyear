@@ -90,23 +90,17 @@
     </div>
 
     <div class="map">
-        {#<div id="map" data-mapDotX="{{item.latitude}}" data-mapDotY="{{item.longitude}}" data-balloon="" data-hint="">
-
-        </div>#}
-    </div>
-
-    <div class="content_block">
-        <div class="object_description">
-
+        <div id="map" data-mapDotX="{{item.latitude}}" data-mapDotY="{{item.longitude}}" data-name="{{item.name}}" data-address="{{item.address}}" data-balloon="" data-hint="">
         </div>
-
-        {{ this.render('//components/generic/form_booking.twig') | raw }}
-
     </div>
 
     {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.name}) | raw }}
 
-    {{similar_rooms | raw }}
+    <div class="content_block form_booking_wrapper">
+
+        {{ this.render('//components/generic/form_booking.twig') | raw }}
+
+    </div>
 
 </div>
 

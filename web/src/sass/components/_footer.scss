@@ -5,43 +5,6 @@ footer{
     z-index: auto;
     margin: 0px 35px;
     background: white;
-    
-    &:before{
-        content: "";
-        position: absolute;
-        top: -250px;
-        left: -35px;
-        width: 366px;
-        height: 263px;
-        background: url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        z-index: -1;
-    }
-
-    &:after{
-        content: "";
-        position: absolute;
-        top: -250px;
-        right: -35px;
-        width: 366px;
-        height: 263px;
-        background: url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
-        background-position: bottom right;
-        background-repeat: no-repeat;
-        background-size: contain;
-        z-index: -1;
-    }
-
-    @include for-notdesc{
-        &:before{
-            content: none;
-        }
-
-        &:after{
-            content: none;
-        }
-    }
 
     @include for-pad{
         margin: 0px 30px;

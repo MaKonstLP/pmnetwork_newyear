@@ -1,22 +1,47 @@
 {% if items|length > 0 %}
 
 <div data-widget-wrapper>
-
-    <div class="listing_widget_header">
-        <h3 class="listing_widget_title">Другие залы в {{restaurant_name}}</h3>
-    </div>
-
     <div class="items_list_listing swiper-container" data-listing-wrapper>
-        <div class="items_list swiper-wrapper" data-listing-list>
-            {{ this.render('//components/generic/listing_rooms.twig', {'items':items, 'type':'other'}) | raw }}
-        </div>
-        <div class="listing_widget_controll">
-            <div class="listing_widget_arrow _prev"></div>
-            <div class="listing_widget_pagination"></div>
-            <div class="listing_widget_arrow _next"></div>
-        </div>                  
-    </div>
 
+        {% for item in items %}
+
+            <div class="room_card_wrapper">
+
+                <div class="room_card" data-listing-list>
+
+                    <h2>{{item.name}}</h2>
+
+                    <div class="room_card_content">
+                        <p>Вместимость&nbsp;на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
+                        <p>на&nbsp;фуршет:<br>до&nbsp;<span>{{item.capacity_reception}}&nbsp;персон</span></p>
+                        <p>Стоимость&nbsp;на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
+                        <p>аренды&nbsp;зала:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
+                    </div>
+
+                    <a class="_link" href="#">Свободные даты</a>
+
+                </div>    
+
+                <div class="object_gallery _room">
+
+                    <div class="object_gallery_main _room">
+                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+                    </div>
+
+                    <div class="object_gallery_other _room">
+                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+                    </div>
+
+                </div>  
+
+            </div>        
+            
+        {% endfor %}
+    </div>
 </div>
 
 {% endif %}

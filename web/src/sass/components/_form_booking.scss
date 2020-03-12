@@ -1,4 +1,6 @@
 .form_wrapper.booking{
+  width: 1196px;
+  margin: auto;
   background: linear-gradient(139.76deg,
                             #FEDA5A 0.69%,
                             #FFBA35 112.92%);
@@ -36,7 +38,7 @@
     display: flex;
     flex-flow: row nowrap;
     order: 3;
-    margin-top: -80px;
+    margin-top: -50px;
   }
 
   .form_submit_booking{
@@ -49,6 +51,7 @@
 
       .checkbox_pseudo{
         font-size: 12px;
+        line-height: 15px;
       }
     }
     

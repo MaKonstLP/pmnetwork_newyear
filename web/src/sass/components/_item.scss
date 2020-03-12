@@ -264,3 +264,120 @@
 .object_description{
 
 }
+
+.object_gallery._room{
+    position: static;
+}
+
+.room_card_wrapper{
+    display: flex;
+    position: relative;
+    flex-flow: row nowrap;
+    justify-content: center;
+    padding: 60px 0 30px;
+    background: url("/img/index_page_form_star_bg.png");
+
+    &:nth-child(odd){
+        .room_card{
+            order: 2;
+        }
+
+        .room_card:before{
+            content: "";
+            position: absolute;
+            top: 60px;
+            right: 510px;
+            width: 144px;
+            height: 144px;
+            background: url("/img/hall_Ball.png");
+        }
+    }
+
+    &:nth-child(even){
+        .room_card:before{
+            content: "";
+            position: absolute;
+            top: 52px;
+            left: 510px;
+            width: 144px;
+            height: 144px;
+            background: url("/img/hall_star.png");
+            background-repeat: no-repeat;
+        }
+    }
+
+    .room_card{
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        width: 448px;
+        height: 408px;
+        border: 1px solid #FFC839;
+        box-sizing: border-box;
+        border-radius: 5px;
+        margin: 36px 60px 0;
+        padding: 100px 50px 0;
+        box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+        background: white;
+
+        h2{
+            padding-bottom: 20px;
+        }
+
+        .room_card_content{
+            display: flex;
+            flex-flow: row wrap;
+
+            p{
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 22px;
+                color: #333333;
+                padding-bottom: 30px;
+    
+                span{
+                    font-size: 20px;
+                    color: black;
+                }
+
+                &:nth-child(odd){
+                    padding-right: 25px;
+                }
+            }
+        }
+
+        a{
+            position: relative;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            border-bottom: 1px dashed #D83603;
+
+            &:before{
+                content: "";
+                position: absolute;
+                top: 0px;
+                left: -30px;
+                width: 20px;
+                height: 20px;
+                background: url("/img/calendar_icon.svg");
+            }
+
+        }
+        
+    }
+}
+
+.content_block.form_booking_wrapper{
+    margin: 0;
+    width: 100%;
+    background:
+     url("/img/index_page_form_star_bg.png"),
+     url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png"),
+     url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
+    background-position: content, bottom left, bottom right;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+
+}

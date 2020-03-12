@@ -5,8 +5,6 @@ import 'slick-carousel';
 export default class Item{
 	constructor($item){
 		var self = this;
-		this.bigIMG = document.querySelector(".object_gallery_main");
-		this.listOfIMG = document.querySelector(".object_gallery_other");
 		
 		$('[data-action="show_phone"]').on("click", function(){
 			$(".object_book_hidden").addClass("_active");
@@ -17,28 +15,27 @@ export default class Item{
 
 	getIMGFromGallery(e) {
 		let targetIMG = e.target;
+		let targetIMGSrc = targetIMG.getAttribute("src");
 
-		console.log(`${targetIMG.getAttribute("src")}`);
-		document.querySelector(".object_gallery_other").querySelector("._active").classList.toggle("_active");
+		$(".object_gallery_other").find("._active").toggleClass("_active");
 
 		if(targetIMG.nodeName == "IMG"){
 			targetIMG.classList.toggle("_active");
 		}
-		let targetIMGSrc = targetIMG.getAttribute("src");
-		document.querySelector(".object_gallery_main").querySelector("img").setAttribute("src", targetIMGSrc);
+
+		$(targetIMG).parent().parent()
+		.children().find("img").first().attr("src", targetIMGSrc);
 	}
 
 	initGallery(){
-		let firstIMG = this.listOfIMG.querySelector("img");
+		let $firstIMG = $(".object_gallery_other").find("img").first();
+		let firstIMGSrc = $firstIMG.attr("src");
 
-		if( !firstIMG.classList.contains("_active") ){
-			firstIMG.classList.add("_active");
+		if( !$firstIMG.hasClass("_active") ){
+			$firstIMG.addClass("_active");
 		}
 
-		let firstIMGSrc = firstIMG.getAttribute("src");
-
-		document.querySelector(".object_gallery_main").querySelector("img").setAttribute("src", firstIMGSrc);
-
+		$(".object_gallery_main").find("img").attr("src", firstIMGSrc);
 		$(".object_gallery_other").on("click", this.getIMGFromGallery);
 	}
 }
