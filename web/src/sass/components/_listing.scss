@@ -19,8 +19,7 @@
     .item{
         width: calc((100% / 4) - 30px);
         margin: 15px;
-        background-color: $clrCardBg;
-        box-shadow: $shadowCard;
+        background-color: white;
         height: auto;
         display: flex;
         flex-direction: column;
@@ -52,10 +51,6 @@
             width: calc((100% / 1) - 30px);
         }
 
-        &:hover{
-            box-shadow: $shadowCardHover;
-        }
-
         .item_img{
             width: 100%;
             height: 302px;
@@ -64,6 +59,11 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+
+            &:hover{
+                box-shadow: 0px 10px 30px rgba(47, 61, 2, 0.25);
+            }
 
             img{
                 width: 100%;
@@ -75,7 +75,7 @@
                 position: absolute;
                 top: 10px;
                 left: 0;
-                padding: 1px 12px 3px 10px;
+                padding: 2px 12px 5px 10px;
                 border-radius: 0 3px 3px 0;
                 background: linear-gradient(135.63deg,
                                             #FEDA5A 0.69%, 
@@ -114,6 +114,7 @@
                     line-height: 24px;
                     font-size: 20px;
                     text-align: center;
+                    padding-bottom: 2px;
 
                     @include for-mobile{
                         font-size: 16px;
@@ -126,7 +127,6 @@
                     font-size: 12px;
                     line-height: 15px;
                     color: #5BA641;
-                    margin-top: 3px;
                     text-align: center;
                 }
 
@@ -135,7 +135,6 @@
                     font-size: 12px;
                     line-height: 15px;
                     color: $clrTextInactive;
-                    margin-top: 6px;
                     text-align: center;
                 }
 
@@ -143,17 +142,15 @@
                     border: 0;
                     border-bottom: 1px solid #D83603;
                     width: 60px;
-                    margin: 12px 0 -5px 0;
+                    padding-top: 12px;
                 }
 
                 .item_meta{
                     display: flex;
                     flex-wrap: wrap;
-                    margin-top: 5px;
+                    padding-top: 10px;
 
                     .item_meta_item{
-                        padding: 0px 30px 0px 0px;
-                        margin: 10px 0px 0px;
                         width: 50%;
                         font-weight: 500;
                         font-size: 14px;
@@ -162,7 +159,6 @@
 
                         @include for-mobile{
                             text-align: center;
-                            padding: 0px;
                             width: 100%;
                         }
 
@@ -189,54 +185,46 @@
 
         .item_additional-info{
             display: flex;
-            justify-content: space-evenly;
+            flex-flow: column nowrap;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+
+            @include for-mobile{
+                position: static;
+                flex-flow: row nowrap;
+            }
 
             .item_gift-for-early-reservation{
-                width: 188px;
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 3px 3px 3px 3px;
-                background: #FFFFFF;
 
-                @include for-mobile{
-                    position: static;
-                }
+                width: 188px;
+                height: auto;
+                border-radius: 3px 3px 3px 3px;
+                background: url("/img/gift.svg"), #FFFFFF;
+                background-repeat: no-repeat;
+                background-position: 6px center;
+                margin-bottom: 6px;
+                padding: 6.5px 0 6.5px 24px;
             }
     
             .item_fireworks-availability{
                 width: 188px;
-                position: absolute;
-                top: 43px;
-                right: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 border-radius: 3px 3px 3px 3px;
-                background: #FFFFFF;
-
-                @include for-mobile{
-                    position: static;
-                }
-            }
-
-            img{
-                width: 13px;
-                height: 17px;
-                margin: 3px 5px 3px 0;
+                background: url("/img/firework.svg"), #FFFFFF;
+                background-repeat: no-repeat;
+                background-position: 5px center;
+                margin-bottom: 6px;
+                padding: 6.5px 0 6.5px 24px;
             }
 
             span{
+                display: block;
                 font-family: "Montserrat";
                 font-size: 11px;
                 line-height: 13px;
                 font-weight: 500;
                 color: #333333;
             }
-        }
-        
+        }        
     }
 }

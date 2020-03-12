@@ -17,7 +17,7 @@ body{
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
     box-sizing: border-box;
-    background-color: $clrBg;
+    background-color: white;
 }
 
 body, html {
@@ -45,7 +45,7 @@ body._overflow .main_wrap{
 
 .main_wrap{
     min-height:100%;
-    background-color: $clrBg;
+    background-color: white;
     display:flex;
     flex-direction:column;
 }
@@ -67,51 +67,186 @@ body._overflow .main_wrap{
 }
 
 .content_block.submenu {
-    margin: 100px 0 0;
+    margin: 100px 0 76px;
     width: 100%;
     background: transparent;
 
     .submenu_wrapper{
         display: flex;
         flex-flow: row nowrap;
-        height: 500px;
-    
-        .submenu_restaurants{
-            width: 50%;
-            background: url("/img/restaurant_image.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-    
-        .submenu_cottages{
-            width: 50%;
-            background: url("/img/cottage_image.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
+        height: auto;
 
+        .submenu{
+            position: relative;
+            width: 50%;
+        }
+    
         h2{
+            position: absolute;
+            top: 20px;
+            left: 30px;
             color: white;
             text-align: start;
-            margin: 30px 0 0 38px;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .submenu_restaurants_bg_filter{
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #624600;
+            opacity: 0.6;
+        }
+
+        .slices{
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 30px;
+
+            a{
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 26px;
+                color: #ffffff;
+                white-space: nowrap;
+                z-index: 10;
+                margin-right: 30px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            a:hover{
+                color: #FFC839;
+                border-bottom: 1px solid #FFC839;
+            }
+
+        }
+
+        .submenu_cottages_bg_filter{
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #624600;
+            opacity: 0.6;
+        }
+
+        img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .submenu_restaurants:hover{
+            .submenu_restaurants_bg_filter{
+                display: block;
+            }
+
+            .slices{
+                display: block;
+            }
+        }
+
+        .submenu_cottages:hover{
+            .submenu_cottages_bg_filter{
+                display: block;
+            }
+
+            .slices{
+                display: block;
+            }
+        } 
+
+        @include for-notdesc{
+            .submenu_restaurants_bg_filter{
+                display: block;
+            }
+            .submenu_cottages_bg_filter{
+                display: block;
+            }
+
+            .slices{
+                display: block;
+            }
         }
     }
 
     @include for-pad{
         margin: 0;
+    }
+
+    @include for-mobile{
+        margin: 0;
 
         .submenu_wrapper{
-            height: 300px;
+            display: flex;
+            flex-flow: column nowrap;
+
+            .submenu{
+                width: 100%;
+                margin-top: -4px;
+                padding: 0;
+            }
+
+            h2{
+                font-size: 28px;
+                line-height: 32px;
+            }
         }
     }
 }
 
 .content_block.filter_wrapper{
+    position: relative;
     background: url("/img/index_page_form_star_bg.png");
     background-size: contain;
     width: 100%;
     height: 500px;
     margin: 0;
+    z-index: 0;
+
+    .filter{
+        position: relative;
+
+        &:before{
+            content: "";
+            position: absolute;
+            top: -100px;
+            left: -195px;
+            width: 270px;
+            height: 277px;
+            background: url("/img/filter_pad_bg/form_Left_branch.png");
+            background-repeat: no-repeat;
+            z-index: -1;
+          }
+      
+          &:after{
+            content: "";
+            position: absolute;
+            top: -55px;
+            right: -195px;
+            width: 270px;
+            height: 277px;
+            background: url("/img/filter_pad_bg/form_Right_branch.png");
+            background-repeat: no-repeat;
+            z-index: -1;
+          }
+
+        @include for-mobile{
+            &:before{
+                content: none;
+            }
+
+            &:after{
+                content: none;
+            }
+        }
+    }
+    @include for-notdesc{
+        z-index: 0;
+    }
+
 }
 
 .content_wrap{
@@ -124,6 +259,10 @@ body._overflow .main_wrap{
     
     @include for-pad{
         margin-top: 89px;
+    }
+
+    @include for-mobile{
+        margin-top: 0;
     }
 }
 
@@ -147,6 +286,45 @@ body._overflow .main_wrap{
 
     margin-top: 30px;
 }
+
+.content_block.map{
+    width: 100%;
+    height: 500px;
+    margin: -80px 0 60px;
+
+    @include for-pad{
+        & > * {
+            width: 100%;
+        }
+        margin: -50px 0 60px;
+    }
+
+    @include for-mobile{
+        margin: 50px 0 60px;
+    }
+}
+
+.map_title{
+    padding: 60px 0 20px;
+}
+
+.content_block.map.listing{
+    width: 100%;
+    height: 500px;
+    margin: 0 0 60px;
+
+    @include for-pad{
+        & > * {
+            width: 100%;
+        }
+        margin: -50px 0 60px;
+    }
+
+    @include for-mobile{
+        margin: 50px 0 60px;
+    }
+}
+
 [data-page-type]{
     .content_loading{
         display: none;
@@ -155,7 +333,7 @@ body._overflow .main_wrap{
         left: 0;
         width: 100%;
         height: 100%;
-        background: $clrBg;
+        background: white;
         opacity: 0.6;
         z-index: 10;
         overflow: hidden;
@@ -227,8 +405,6 @@ body._overflow .main_wrap{
     @include for-mobile{
         &[data-page-type="index"]{
             background: $clrBg;
-            margin-top: 55px;
-            padding-bottom: 40px;
         }
 
         &[data-page-type="listing"]:before{
@@ -244,8 +420,9 @@ body._overflow .main_wrap{
 .slices {
     display: flex;
     justify-content: space-between;
+    flex-flow: row wrap;
     
-    .slice._link._active{
+    .slice._link:hover{
         color: #D83603;
         border-bottom: 1px solid #D83603;
     }
@@ -259,16 +436,21 @@ body._overflow .main_wrap{
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: #333333;
-        border-bottom: none;
+        white-space: nowrap;
+        border-bottom: 1px solid rgba(0, 0, 0, 0);;
+        margin-right: 10px;
 
         &:last-child{
             color: #D83603;
             border-bottom: none;
             box-shadow: 0 1px 0 0 rgba(216, 54, 3, 0.3);
+
+            @include for-mobile{
+                margin-right: 50%;
+            }
         }
     }
 }
-   
 
 .form_callback_wrapper{
     display: flex;
@@ -291,6 +473,19 @@ body._overflow .main_wrap{
     @include for-mobile{
         height: 736px;
         background: white;
+    }
+}
+
+.content_block.seo_text_wrapper.last{
+    width: 100%;
+}
+
+.seo_text{
+    width: 1200px;
+    margin: auto;
+
+    @include for-notdesc{
+        width: 100%;
     }
 }
 

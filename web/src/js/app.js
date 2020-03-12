@@ -30,7 +30,7 @@ window.$ = $;
 	    }
 
 	    if ($('.map').length > 0) {
-	    	var yaMap = new YaMap();
+				var yaMap = new YaMap();
 	    }
 
 	    var main = new Main();
