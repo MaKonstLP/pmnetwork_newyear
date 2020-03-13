@@ -310,6 +310,7 @@
         display: flex;
         flex-flow: column nowrap;
         align-items: center;
+        position: relative;
         width: 448px;
         height: 408px;
         border: 1px solid #FFC839;
@@ -320,7 +321,7 @@
         box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
         background: white;
 
-        h2{
+        & > h2{
             padding-bottom: 20px;
         }
 
@@ -364,20 +365,82 @@
                 height: 20px;
                 background: url("/img/calendar_icon.svg");
             }
-
         }
-        
+
+        .calendar{
+            position: absolute;
+            top: 350px;
+            left: 150px;
+            width: 353px;
+            height: 359px;
+            padding: 20px 30px 25px;
+            background: white;
+            box-shadow: 0px 2px 23px #EDEDED;
+            z-index: 100;
+
+            td, th{
+                border: none;
+            }
+
+            .fc-dayGrid-view .fc-body .fc-row {
+                min-height: 10px;
+            }
+
+            .fc-row.fc-week.fc-widget-content{
+                height: 10px;
+            }
+
+            .fc-content-skeleton{
+                .fc-day-top{
+                    float: none;
+                }
+
+                table{
+                    thead{
+                        td{
+                            text-align: center;
+                            vertical-align: middle;
+
+                            .fc-day-number{
+                                float: none;
+                                //padding-right: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+
     }
 }
 
 .content_block.form_booking_wrapper{
+    position: relative;
     margin: 0;
     width: 100%;
-    background:
-     url("/img/index_page_form_star_bg.png"),
-     url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png"),
-     url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
-    background-position: content, bottom left, bottom right;
-    background-repeat: no-repeat, no-repeat, no-repeat;
+    background: url("/img/index_page_form_star_bg.png");
+    z-index: 0;
+
+    &:before{
+        content: "";
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 246px;
+        height: 370px;
+        background: url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png");
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 246px;
+        height: 370px;
+        background: url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
+    }
 
 }

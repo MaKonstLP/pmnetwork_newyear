@@ -1,6 +1,8 @@
 @import '_mixins';
 @import '_colors';
 @import 'components/*';
+@import '../../node_modules/@fullcalendar/core/main.css';
+@import '../../node_modules/@fullcalendar/daygrid/main.css';
 
 body{
 	font-family: 'Montserrat', sans-serif;

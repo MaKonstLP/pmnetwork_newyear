@@ -1,10 +1,35 @@
 .form_wrapper.booking{
+  position: relative;
   width: 1196px;
   margin: auto;
   background: linear-gradient(139.76deg,
                             #FEDA5A 0.69%,
                             #FFBA35 112.92%);
   box-shadow: 0px 5px 20px rgba(253, 172, 77, 0.3);
+
+  &:before{
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -200px;
+    width: 270px;
+    height: 277px;
+    background: url("/img/filter_pad_bg/form_Left_branch.png");
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  &:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -210px;
+    width: 270px;
+    height: 277px;
+    background: url("/img/filter_pad_bg/form_Right_branch.png");
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
 
   .form_block{
     display: flex;
@@ -58,6 +83,14 @@
 
     button{
       height: 50px;
+    }
+
+    .form_policy.checkbox_item{
+      .checkbox_pseudo{
+        &:before{
+          top:2px;
+        }
+      }
     }
 
   }
