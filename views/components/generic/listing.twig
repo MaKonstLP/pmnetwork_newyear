@@ -1,7 +1,7 @@
 {% for item in items %}
 	<a href="/catalog/{{item.id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
-            <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
+            <img src="{{item.restaurant_cover_url}}" alt="{{img_alt | replace({"{название}" : item.restaurant_name})}}"/>
 
             <div class="item_date-availability">
                 <span>Свободно 12 декабря</span>
@@ -10,27 +10,33 @@
         </div>
         <div class="item_info">
             <div class="item_info_top">
-                <p class="item_name">{{item.name}}</p>
+                <p class="item_name">{{item.restaurant_name}}</p>
 
                 {% if type != 'other' %}
-                    <p class="item_address">{{item.address}}</p>
+                    <p class="item_address">{{item.restaurant_address}}</p>
                 {% endif %}
 
                 <hr class="item_horizontal_raw">
                     
                 <div class="item_meta">
 
-                    {% if item.min_capacity != item.max_capacity %}
+                    {% if item.restaurant_min_capacity != item.restaurant_max_capacity %}
                         <div class="item_meta_item">
-                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.min_capacity}} - {{item.max_capacity}} чел.</span>
+                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.restaurant_min_capacity}} - {{item.restaurant_max_capacity}} чел.</span>
                         </div>
                     {% else %}
                         <div class="item_meta_item">
+<<<<<<< HEAD
+                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.restaurant_min_capacity}} чел.</span>
+                        </div>
+                    {% endif %}
+=======
                             <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.min_capacity}} чел.</span>
                         </div>
                     {% endif %}
 
                     
+>>>>>>> 24d9035e07363b6efcd27bd89fd30952f0b48bb6
 
                 </div>
             </div>
