@@ -64,24 +64,26 @@ AppAsset::register($this);
         </div>
 
         <footer>
-            <div class="footer_wrap">
-                <div class="footer_row">
-                    <div class="footer_block _left">
-                        <a href="/" class="footer_logo">
-                            <div class="footer_logo_img"></div>
-                        </a>
-                        <div class="footer_info">
-                            <p class="footer_copy">© <?php echo date("Y");?> Новогодний корпоратив</p>
-                            <a href="#" class="footer_pc _link">Политика конфиденциальности</a>
-                        </div>                        
-                    </div>
-                    <div class="footer_block _right">
-                        <div class="footer_phone">
-                            <p>Тел.: (846) 205-78-45</p>
+            <div class="footer_container">
+                <div class="footer_wrap">
+                    <div class="footer_row">
+                        <div class="footer_block _left">
+                            <a href="/" class="footer_logo">
+                                <div class="footer_logo_img"></div>
+                            </a>
+                            <div class="footer_info">
+                                <p class="footer_copy">© <?php echo date("Y");?> Новогодний корпоратив</p>
+                                <a href="#" class="footer_pc _link">Политика конфиденциальности</a>
+                            </div>                        
                         </div>
-                        <div class="footer_phone_button">
-                        <div class="footer_phone_button_img"></div>
-                            <p class="_link">Подберите мне зал</p>
+                        <div class="footer_block _right">
+                            <div class="footer_phone">
+                                <p>Тел.: (846) 205-78-45</p>
+                            </div>
+                            <div class="footer_phone_button">
+                            <div class="footer_phone_button_img"></div>
+                                <p class="_link">Подберите мне зал</p>
+                            </div>
                         </div>
                     </div>
                 </div>

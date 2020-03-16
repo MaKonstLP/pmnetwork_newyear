@@ -1,3 +1,41 @@
+.item_page_wrapper{
+    position: relative;
+
+    &:before{
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: 0px;
+        width: 398px;
+        height: 952px;
+        background: url("/img/card_page_top_Left_decorations.png");
+        background-repeat: no-repeat;
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        top: -30px;
+        right: 0px;
+        width: 496px;
+        height: 952px;
+        background: url("/img/card_page_top_Big_Right_Decorations.png");
+        background-repeat: no-repeat;
+    }
+
+    .map{
+        height: 500px;
+        padding-top: 50px;
+        position: relative;
+        z-index: 10;
+    }
+}
+
+.content_block[data-page-type="item"]{
+    position: relative;
+    z-index: 10;
+}
+
 .object_head{
     display: flex;
     flex-direction: column;
@@ -9,10 +47,48 @@
 }
 
 .object_gallery{
+    display: flex;
+    flex-flow: column nowrap;
     width: 710px;
     position: absolute;
-    left: 0px;
-    top: 0px;
+    top: 0;
+    left: 0;
+    font-size: 0;
+}
+
+.object_gallery_main{
+    width: 710px;
+    height: auto;
+
+
+    img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+.object_gallery_other{
+    display: flex;
+    flex-flow: row wrap;
+
+    img{
+        cursor: pointer;
+        width: 138px;
+        height: auto;
+        border: 1px solid transparent;
+        margin-right: 5px;
+        margin-top: 5px;
+
+        &:nth-child(5n){
+            margin-right: 0;
+        }
+    }
+    
+    // для подсветки в галерее выбранного фото
+    img._active{
+        border: 1px solid #D83603;
+    }
+
 }
 
 .object_meta{
@@ -50,8 +126,21 @@
     }
 }
 
+.object_tags{
+    padding-bottom: 20px;
+
+    a{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        margin-right: 25px;
+    }
+}
+
 .object_book{
-    background: white;
+    background: linear-gradient(114.43deg, #FEDA5A 0.69%, #FFBA35 112.92%);
+    border-radius: 5px;
     padding: 15px 20px 25px;
 
     .object_book_text{
@@ -90,6 +179,10 @@
                 font-weight: bold;
                 font-size: 26px;
                 line-height: 30px;
+                
+                .object_fake_phone_snowflakes{
+                    font-size: 0.85em;
+                }
             }
 
             .object_real_phone{
@@ -104,8 +197,8 @@
             font-weight: 500;
             font-size: 16px;
             line-height: 18px;
-            color: #5BA641;
-            border-bottom: 1px dashed rgba(91,166,65,0.5);
+            color: #D83603;
+            border-bottom: 1px dashed rgba(216, 54, 3, 0.5);
             margin: 0px 0px 2px;
             cursor: pointer;
         }
@@ -117,7 +210,7 @@
         font-size: 14px;
         line-height: 22px;
         padding-left: 43px;
-        background-image: url(/img/gift_icon.svg);
+        background-image: url("/img/gift.svg");
         background-position: 0px 50%;
         background-size: 30px;
         background-repeat: no-repeat;
@@ -146,15 +239,208 @@
             
             .object_parameters_item{
                 padding-left: 20px;
-                background-image: url(/img/list_pin.svg);
+                background-image: url("/img/checkbox_pin.svg");
                 background-position: 0px 6px;
                 background-size: 12px;
                 background-repeat: no-repeat;
             }
         }
+
+        &._big_list{
+
+            .object_parameters_items{
+                display: flex;
+                flex-flow: column wrap;
+                height: 100px;
+
+                .object_parameters_item{
+                    width: 130px;
+                }
+            } 
+        }
     }
 }
 
 .object_description{
+
+}
+
+.object_gallery._room{
+    position: static;
+}
+
+.room_card_wrapper{
+    display: flex;
+    position: relative;
+    flex-flow: row nowrap;
+    justify-content: center;
+    padding: 60px 0 30px;
+    background: url("/img/index_page_form_star_bg.png");
+
+    &:nth-child(odd){
+        .room_card{
+            order: 2;
+        }
+
+        .room_card:before{
+            content: "";
+            position: absolute;
+            top: 60px;
+            right: 510px;
+            width: 144px;
+            height: 144px;
+            background: url("/img/hall_Ball.png");
+        }
+    }
+
+    &:nth-child(even){
+        .room_card:before{
+            content: "";
+            position: absolute;
+            top: 52px;
+            left: 510px;
+            width: 144px;
+            height: 144px;
+            background: url("/img/hall_star.png");
+            background-repeat: no-repeat;
+        }
+    }
+
+    .room_card{
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        position: relative;
+        width: 448px;
+        height: 408px;
+        border: 1px solid #FFC839;
+        box-sizing: border-box;
+        border-radius: 5px;
+        margin: 36px 60px 0;
+        padding: 100px 50px 0;
+        box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+        background: white;
+
+        & > h2{
+            padding-bottom: 20px;
+        }
+
+        .room_card_content{
+            display: flex;
+            flex-flow: row wrap;
+
+            p{
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 22px;
+                color: #333333;
+                padding-bottom: 30px;
+    
+                span{
+                    font-size: 20px;
+                    color: black;
+                }
+
+                &:nth-child(odd){
+                    padding-right: 25px;
+                }
+            }
+        }
+
+        a{
+            position: relative;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            border-bottom: 1px dashed #D83603;
+
+            &:before{
+                content: "";
+                position: absolute;
+                top: 0px;
+                left: -30px;
+                width: 20px;
+                height: 20px;
+                background: url("/img/calendar_icon.svg");
+            }
+        }
+
+        .calendar{
+            position: absolute;
+            top: 350px;
+            left: 150px;
+            width: 353px;
+            height: 359px;
+            padding: 20px 30px 25px;
+            background: white;
+            box-shadow: 0px 2px 23px #EDEDED;
+            z-index: 100;
+
+            td, th{
+                border: none;
+            }
+
+            .fc-dayGrid-view .fc-body .fc-row {
+                min-height: 10px;
+            }
+
+            .fc-row.fc-week.fc-widget-content{
+                height: 10px;
+            }
+
+            .fc-content-skeleton{
+                .fc-day-top{
+                    float: none;
+                }
+
+                table{
+                    thead{
+                        td{
+                            text-align: center;
+                            vertical-align: middle;
+
+                            .fc-day-number{
+                                float: none;
+                                //padding-right: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+
+    }
+}
+
+.content_block.form_booking_wrapper{
+    position: relative;
+    margin: 0;
+    width: 100%;
+    background: url("/img/index_page_form_star_bg.png");
+    z-index: 0;
+
+    &:before{
+        content: "";
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 246px;
+        height: 370px;
+        background: url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png");
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 246px;
+        height: 370px;
+        background: url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
+    }
 
 }

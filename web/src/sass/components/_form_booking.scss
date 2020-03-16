@@ -1,0 +1,97 @@
+.form_wrapper.booking{
+  position: relative;
+  width: 1196px;
+  margin: auto;
+  background: linear-gradient(139.76deg,
+                            #FEDA5A 0.69%,
+                            #FFBA35 112.92%);
+  box-shadow: 0px 5px 20px rgba(253, 172, 77, 0.3);
+
+  &:before{
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -200px;
+    width: 270px;
+    height: 277px;
+    background: url("/img/filter_pad_bg/form_Left_branch.png");
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  &:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -210px;
+    width: 270px;
+    height: 277px;
+    background: url("/img/filter_pad_bg/form_Right_branch.png");
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  .form_block{
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .form_inputs{
+    display: flex;
+    flex-flow: row nowrap;
+    order: 1;
+    margin-right: 20px;
+
+    .input_wrapper{
+      width: 200px;
+  
+      &:first-child{
+        width: 250px;
+      }
+  
+      &:last-child{
+        width: 135px;
+      }
+
+      input{
+        background: white;
+      }
+    }
+  }
+
+  .form_checkboxes{
+    display: flex;
+    flex-flow: row nowrap;
+    order: 3;
+    margin-top: -50px;
+  }
+
+  .form_submit_booking{
+    width: 233px;
+    order: 2;
+    padding-top: 22px;
+
+    .checkbox_item{
+      padding-top: 10px;
+
+      .checkbox_pseudo{
+        font-size: 12px;
+        line-height: 15px;
+      }
+    }
+    
+
+    button{
+      height: 50px;
+    }
+
+    .form_policy.checkbox_item{
+      .checkbox_pseudo{
+        &:before{
+          top:2px;
+        }
+      }
+    }
+
+  }
+}

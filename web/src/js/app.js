@@ -6,7 +6,11 @@ import Main from './components/main';
 import Index from './components/index';
 import Widget from './components/widget';
 import Form from './components/form';
-import YaMap from './components/map';
+import YaMapSingleObject from './components/mapSingleObject';
+import YaMapAll from './components/map';
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import ruLocale from '@fullcalendar/core/locales/ru';
 
 window.$ = $;
 
@@ -18,7 +22,7 @@ window.$ = $;
 	    }
 
 	    if ($('[data-page-type="item"]').length > 0) {
-	    	var item = new Item($('[data-page-type="item"]'));
+				var item = new Item($('[data-page-type="item"]'));
 	    }
 
 	    if ($('[data-page-type="index"]').length > 0) {
@@ -30,8 +34,43 @@ window.$ = $;
 	    }
 
 	    if ($('.map').length > 0) {
-				var yaMap = new YaMap();
-	    }
+				if($('[data-page-type="item"]').length > 0) {
+					var yaMap = new YaMapSingleObject();
+				} else {
+					var yaMap = new YaMapAll();
+	    	}
+			}
+
+			if ($('.calendar').length > 0) {
+					var calendarEl = document.querySelector(".calendar");
+					var calendar = new Calendar(calendarEl, {
+						firstDay: 1,
+						locale: ruLocale,
+						//height: 359,
+						aspectRatio: 1.35,
+
+						customButtons: {
+							booking: {
+								text: "Забронировать",
+								click: function() {
+									alert("Забронировано");
+								}
+							}
+						},
+
+						header: {
+							left: "title",
+							right: "prev,next"
+						},
+
+						footer: {
+							center: "booking"
+						},
+
+						plugins: [ dayGridPlugin	]
+					});
+					calendar.render();
+			}
 
 	    var main = new Main();
 	    var form = [];

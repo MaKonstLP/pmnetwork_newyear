@@ -1,4 +1,4 @@
-<div data-page-type="item">
+<div class="item_page_wrapper" data-page-type="item">
 
     <div class="content_block" data-listing-title>
         {{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
@@ -11,59 +11,78 @@
                 <div class="object_gallery_main" data-bigimg-wrapper>
                     <img src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
                 </div>
+
+                <div class="object_gallery_other">
+                    <img name="1" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="2" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="3" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="4" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="5" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="6" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="7" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="8" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="9" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                </div>
+            </div>
+
+            <div class="object_tags">
+                <a class="_link" href="#">Рестораны</a>
+                <a class="_link" href="#">Кафе</a>
+                <a class="_link" href="#">Банкетные залы</a>
+                <a class="_link" href="#">За городом</a>
             </div>
 
             <div class="object_book">
                 <p class="object_book_text">Узнать об актуальных акциях и забронировать можно по телефону:</p>
                 <div class="object_book_hidden">
                     <p class="object_book_phone">
-                        <span class="object_fake_phone">+7 xxx xxx-xx-xx</span>
+                        <span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">❆❆❆ ❆❆❆ ❆❆ ❆❆</span></span>
                         <a href="tel:{{item.phone}}" class="object_real_phone">{{item.phone}}</a>
                     </p>
                     <div class="object_book_hidden_button" data-action="show_phone">Показать номер</div>
                 </div>
-                {#<p class="object_book_action">Забронируй Зал «Екатерининский» до 1 сентября 2019 и получи приятный подарок!</p>#}
+                <p class="object_book_action">Забронируй зал в ресторане {{item.name}} до 01.12.2020 и получи новогодний подарок!</p>
             </div>
 
             <div class="object_parameters">
 
-                {% if item.own_alcohol != 'Нельзя свой алкоголь' or item.firework %}
-                    <div class="object_parameters_list _marked">
-                        <p class="object_parameters_title">Разрешены</p>
-
-                        {% if item.own_alcohol != 'Нельзя свой алкоголь' %}
-                            <p class="object_parameters_item">{{item.own_alcohol}}</p>
-                        {% endif %}
-
-                        {% if item.firework %}
-                            <p class="object_parameters_item">Запуск фейерверка</p>
-                        {% endif %}
-                    </div>
-                {% endif %}
-
                 <div class="object_parameters_list _marked">
-                    <p class="object_parameters_title">Что на территории</p>
-
-                    {% if item.cuisine %}
-                        <p class="object_parameters_item">{{item.cuisine}} кухня</p>
-                    {% endif %}
-                    {% if item.parking %}
-                        <p class="object_parameters_item">{{item.parking}}</p>
-                    {% endif %}
-                    {% if item.special %}
-                        {% set specials = item.special|split(',') %}
-                        {% for special in specials %}
-                            <p class="object_parameters_item">{{special}}</p>
-                        {% endfor %}
-                    {% endif %}
+                    <p class="object_parameters_title">О площадке</p>
+                    <p class="object_parameters_item">Ресторан</p>
+                    <p class="object_parameters_item">Расположение за городом</p>
+                    <p class="object_parameters_item">Русская, европейская кухня</p>
+                    <p class="object_parameters_item">Алкоголь в наличии</p>
                 </div>
 
-                {% if item.payment %}
-                    <div class="object_parameters_list">
-                        <p class="object_parameters_title">Оплата</p>
-                        <p class="object_parameters_item">{{item.payment}}</p>
+                <div class="object_parameters_list">
+                    <p class="object_parameters_title">Залы</p>
+                    <p class="object_parameters_item">4 помещения: 8, 40, 60, 70 человек</p>
+                </div>
+
+                <div class="object_parameters_list _marked">
+                    <p class="object_parameters_title">Разрешены</p>
+                    <p class="object_parameters_item">Свой алкоголь</p>
+                    <p class="object_parameters_item">Запуск фейерверка</p>
+                </div>
+
+                <div class="object_parameters_list _marked _big_list">
+                    <p class="object_parameters_title">За дополнительную плату</p>
+                    <div class="object_parameters_items">
+                        <p class="object_parameters_item">Фотограф</p>
+                        <p class="object_parameters_item">Видеограф</p>
+                        <p class="object_parameters_item">Торт</p>
+                        <p class="object_parameters_item">DJ</p>
+                        <p class="object_parameters_item">Фейерверк</p>
+                        <p class="object_parameters_item">Живая музыка</p>
+                        <p class="object_parameters_item">Ведущий</p>
+                        <p class="object_parameters_item">Оформление</p>
                     </div>
-                {% endif %}
+                </div>
+
+                <div class="object_parameters_list">
+                    <p class="object_parameters_title">Оплата</p>
+                    <p class="object_parameters_item">Наличными, банковской картой или безналичным способом</p>
+                </div>
                 
             </div>
 
@@ -71,23 +90,17 @@
     </div>
 
     <div class="map">
-        <div id="map" data-mapDotX="{{item.latitude}}" data-mapDotY="{{item.longitude}}" data-balloon="" data-hint="">
-
+        <div id="map" data-mapDotX="{{item.latitude}}" data-mapDotY="{{item.longitude}}" data-name="{{item.name}}" data-address="{{item.address}}" data-balloon="" data-hint="">
         </div>
-    </div>
-
-    <div class="content_block">
-        <div class="object_description">
-
-        </div>
-
-        {{ this.render('//components/generic/form.twig') | raw }}
-
     </div>
 
     {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.name}) | raw }}
 
-    {{similar_rooms | raw }}
+    <div class="content_block form_booking_wrapper">
+
+        {{ this.render('//components/generic/form_booking.twig') | raw }}
+
+    </div>
 
 </div>
 

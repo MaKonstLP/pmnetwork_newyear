@@ -1,47 +1,8 @@
 footer{
     font-size: 14px;
-    border-top: 1px solid rgba(176,176,176, .25);
     position: relative;
     z-index: auto;
-    margin: 0px 35px;
     background: white;
-    
-    &:before{
-        content: "";
-        position: absolute;
-        top: -250px;
-        left: -35px;
-        width: 366px;
-        height: 263px;
-        background: url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        z-index: -1;
-    }
-
-    &:after{
-        content: "";
-        position: absolute;
-        top: -250px;
-        right: -35px;
-        width: 366px;
-        height: 263px;
-        background: url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
-        background-position: bottom right;
-        background-repeat: no-repeat;
-        background-size: contain;
-        z-index: -1;
-    }
-
-    @include for-notdesc{
-        &:before{
-            content: none;
-        }
-
-        &:after{
-            content: none;
-        }
-    }
 
     @include for-pad{
         margin: 0px 30px;
@@ -49,6 +10,11 @@ footer{
 
     @include for-mobile{
         margin: 0px 15px;
+    }
+
+    .footer_container{
+        margin: 0 35px;
+        border-top: 1px solid rgba(176,176,176, 0.25);
     }
 
     .footer_wrap{
