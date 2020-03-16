@@ -7,21 +7,21 @@
     <div class="content_block" data-page-type="item">
         <div class="object_head">
 
-            <div class="object_gallery" data-gallery data-id="{{item.id}}">
+            <div class="object_gallery" data-gallery data-id="{{item.restaurant_id}}">
                 <div class="object_gallery_main" data-bigimg-wrapper>
-                    <img src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
                 </div>
 
                 <div class="object_gallery_other">
-                    <img name="1" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="2" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="3" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="4" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="5" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="6" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="7" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="8" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
-                    <img name="9" src="{{ item.cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="1" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="2" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="3" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="4" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="5" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="6" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="7" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="8" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                    <img name="9" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
                 </div>
             </div>
 
@@ -37,11 +37,11 @@
                 <div class="object_book_hidden">
                     <p class="object_book_phone">
                         <span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">❆❆❆ ❆❆❆ ❆❆ ❆❆</span></span>
-                        <a href="tel:{{item.phone}}" class="object_real_phone">{{item.phone}}</a>
+                        <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
                     </p>
                     <div class="object_book_hidden_button" data-action="show_phone">Показать номер</div>
                 </div>
-                <p class="object_book_action">Забронируй зал в ресторане {{item.name}} до 01.12.2020 и получи новогодний подарок!</p>
+                <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.2020 и получи новогодний подарок!</p>
             </div>
 
             <div class="object_parameters">
@@ -90,11 +90,11 @@
     </div>
 
     <div class="map">
-        <div id="map" data-mapDotX="{{item.latitude}}" data-mapDotY="{{item.longitude}}" data-name="{{item.name}}" data-address="{{item.address}}" data-balloon="" data-hint="">
+        <div id="map" data-mapDotX="{{item.restaurant_latitude}}" data-mapDotY="{{item.restaurant_longitude}}" data-name="{{item.restaurant_name}}" data-address="{{item.restaurant_address}}" data-balloon="" data-hint="">
         </div>
     </div>
 
-    {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.name}) | raw }}
+    {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.restaurant_name}) | raw }}
 
     <div class="content_block form_booking_wrapper">
 
