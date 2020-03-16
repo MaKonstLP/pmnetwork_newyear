@@ -14,10 +14,10 @@ use frontend\components\QueryFromSlice;
 use frontend\components\Breadcrumbs;
 use backend\models\Pages;
 use frontend\components\RoomsFilter;
-use common\models\ItemsFilter;
 use backend\models\Filter;
 use backend\models\Slices;
 use common\models\GorkoApi;
+use common\models\elastic\ItemsFilterElastic;
 
 class ListingController extends Controller
 {
@@ -86,7 +86,7 @@ class ListingController extends Controller
 
 	public function actionListing($page, $per_page, $params_filter, $seo)
 	{
-		$items = new ItemsFilter($params_filter, $per_page, $page, false, 'restaurants');
+		$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'restaurants');
 
 		$filter = FilterWidget::widget([
 			'filter_active' => $params_filter,
@@ -110,7 +110,7 @@ class ListingController extends Controller
 	public function actionAjaxFilter(){
 		$params = $this->parseGetQuery(json_decode($_GET['filter'], true), $this->filter_model, $this->slices_model);
 
-		$items = new ItemsFilter($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants');
+		$items = new ItemsFilterElastic($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants');
 
 		$pagination = PaginationWidget::widget([
 			'total' => $items->pages,
