@@ -8,9 +8,7 @@ import Widget from './components/widget';
 import Form from './components/form';
 import YaMapSingleObject from './components/mapSingleObject';
 import YaMapAll from './components/map';
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import ruLocale from '@fullcalendar/core/locales/ru';
+import CalendarCustom from './components/calendarCustom';
 
 window.$ = $;
 
@@ -42,34 +40,9 @@ window.$ = $;
 			}
 
 			if ($('.calendar').length > 0) {
-					var calendarEl = document.querySelector(".calendar");
-					var calendar = new Calendar(calendarEl, {
-						firstDay: 1,
-						locale: ruLocale,
-						//height: 359,
-						aspectRatio: 1.35,
-
-						customButtons: {
-							booking: {
-								text: "Забронировать",
-								click: function() {
-									alert("Забронировано");
-								}
-							}
-						},
-
-						header: {
-							left: "title",
-							right: "prev,next"
-						},
-
-						footer: {
-							center: "booking"
-						},
-
-						plugins: [ dayGridPlugin	]
-					});
-					calendar.render();
+				for(let cal of ($('.calendar'))){
+					var calendar = new CalendarCustom(cal);
+				}
 			}
 
 	    var main = new Main();

@@ -10,6 +10,8 @@ export default class Item{
 			$(".object_book_hidden").addClass("_active");
 		});
 
+		this.initCalendarButtons();
+
 		this.initGallery();
 	}
 
@@ -37,5 +39,26 @@ export default class Item{
 
 		$(".object_gallery_main").find("img").attr("src", firstIMGSrc);
 		$(".object_gallery_other").on("click", this.getIMGFromGallery);
+	}
+
+	initCalendarButtons(){
+		let $buttons = $(".open_calendar_button");
+
+		for( let button of $buttons){
+			$(button).on("click", function(){
+				$(button).next().toggleClass("_hide");
+			});
+		}
+
+		$(document).mouseup(function (e){
+			let div = $(".calendar_wrapper");
+
+			for( let cal of div){
+				if (!$(cal).is(e.target) 
+					&& $(cal).has(e.target).length === 0) {
+					$(cal).children(".calendar").addClass("_hide");
+				}
+			}
+		});
 	}
 }
