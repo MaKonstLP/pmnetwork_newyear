@@ -94,18 +94,18 @@ export default class Form {
 					var custom_error = 'Неверный формат телефона';
 				}
 
-		        if (name === 'email' && !(pattern_email.test($field.val()))) {
+		    if (name === 'email' && !(pattern_email.test($field.val()))) {
 					valid = false;
 					var custom_error = 'Неверный формат электронной почты';
 				}
 
-		        if (name === 'policy' && $field.prop('checked'))
-		          valid = true;
+		    if (name === 'policy' && $field.prop('checked'))
+		      valid = true;
 			}
 			if (valid) {
 				$field.removeClass('_invalid');
 
-        		if ($field.parent().find('.form_input_error').length > 0)
+        if ($field.parent().find('.form_input_error').length > 0)
 					$field.parent().find('.form_input_error').html('');
 
 			} else {

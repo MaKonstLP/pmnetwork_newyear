@@ -29,6 +29,7 @@
         position: relative;
         z-index: 10;
     }
+
 }
 
 .content_block[data-page-type="item"]{
@@ -344,10 +345,6 @@
             }
         }
 
-        .calendar_wrapper{
-            position: relative;
-        }
-
         a{
             position: relative;
             font-style: normal;
@@ -367,183 +364,200 @@
             }
         }
 
-        ._hide{
-            display: none;
+        .calendar_wrapper{
+            position: relative;
+        }
+    }
+}
+
+._hide{
+    display: none;
+}
+
+.calendar{
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    width: 353px;
+    height: 359px;
+    padding: 20px 30px 25px;
+    background: white;
+    box-shadow: 0px 2px 23px #EDEDED;
+    border-radius: 5px;
+    z-index: 10;
+
+    &:before{
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 30px;
+        width: 16px;
+        height: 16px;
+        transform: rotate(45deg);
+        background: white;
+    }
+
+    .fc-toolbar.fc-header-toolbar{
+        padding-bottom: 20px;
+    }
+
+    .fc-day-header{
+        font-size: 11px;
+    }
+
+    .fc-button-group{
+        padding-right: 8px;
+    }
+
+    .fc-button.fc-button-primary{
+        padding: 0;
+
+        &:hover{
+
+            .fc-icon{
+
+                &:before{
+                    background: url("/img/arrow-right-hover.svg");
+                }
+            }
+        }
+    }
+
+    .fc-booking-button.fc-button.fc-button-primary{
+        border: 1px solid #D83603;
+        border-radius: 5px;
+        width: 155px;
+        height: 36px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+    
+        &:active{
+            color: black;
+        }
+    
+    }
+
+    .fc-footer-toolbar{
+        margin-top: 19px;
+    }
+
+    .fc-icon{
+        position: relative;
+
+        &:before{
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 2px;
+            width: 22px;
+            height: 16px;
+            background: url("/img/arrow-right.svg");
+            background-size: contain;
+        }
+    }
+
+    .fc-icon.fc-icon-chevron-left{
+
+        &:before{
+            transform: rotate(180deg);
+            left: 0;
+        }
+    }
+
+    td.fc-today{
+        border: none;
+    }
+
+    td, th{
+        border: none;
+    }
+
+    .fc-dayGrid-view .fc-body .fc-row {
+        min-height: 10px;
+    }
+
+    .fc-row.fc-week.fc-widget-content{
+        height: 10px;
+    }
+
+    .fc-content-skeleton{
+       height: 100%;
+       padding-bottom: 0;
+
+        .fc-day-top{
+            cursor: pointer;
+            position: relative;
+            height: 33px;
         }
 
-        .calendar{
-            position: absolute;
-            top: 30px;
-            left: 0px;
-            width: 353px;
-            height: 359px;
-            padding: 20px 30px 25px;
-            background: white;
-            box-shadow: 0px 2px 23px #EDEDED;
-            border-radius: 5px;
-            z-index: 100;
+        .fc-other-month{
+
+            .fc-day-number{
+                text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            }
+            
+        }
+
+        .fc-free-day{
+            color: #5BA641;
 
             &:before{
                 content: "";
                 position: absolute;
-                top: -8px;
-                left: 30px;
-                width: 16px;
-                height: 16px;
-                transform: rotate(45deg);
-                background: white;
+                top: -1px;
+                left: 3px;
+                width: 33px;
+                height: 33px;
+                border: 1px solid #5BA641;
+                border-radius: 17px;
+                z-index: -1;
             }
+        }
 
-            .fc-toolbar.fc-header-toolbar{
-                padding-bottom: 20px;
-            }
+        .fc-selected-date{
+            color: white;
 
-            .fc-day-header{
-                font-size: 11px;
-            }
-
-            .fc-button-group{
-                padding-right: 8px;
-            }
-
-            .fc-button.fc-button-primary{
-                padding: 0;
-
-                &:hover{
-
-                    .fc-icon{
-        
-                        &:before{
-                            background: url("/img/arrow-right-hover.svg");
-                        }
-                    }
-                }
-            }
-
-            .fc-booking-button.fc-button.fc-button-primary{
+            &:before{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 4.5px;
+                width: 30px;
+                height: 30px;
                 border: 1px solid #D83603;
-                border-radius: 5px;
-                width: 155px;
-                height: 36px;
-                font-weight: 500;
-                font-size: 14px;
-                line-height: 22px;
-            
-                &:active{
-                    color: black;
-                }
-            
+                border-radius: 17px;
+                background: #D83603;
+                z-index: -1;
             }
+        }
 
-            .fc-footer-toolbar{
-                margin-top: 19px;
-            }
-
-            .fc-icon{
-                position: relative;
-
-                &:before{
-                    content: "";
-                    position: absolute;
-                    top: 5px;
-                    left: 2px;
-                    width: 22px;
-                    height: 16px;
-                    background: url("/img/arrow-right.svg");
-                    background-size: contain;
-                }
-            }
-
-            .fc-icon.fc-icon-chevron-left{
-
-                &:before{
-                    transform: rotate(180deg);
-                    left: 0;
-                }
-            }
-
-            .fc-today{
-                background: transparent;
-            }
-
-            td, th{
-                border: none;
-            }
-
-            .fc-dayGrid-view .fc-body .fc-row {
-                min-height: 10px;
-            }
-
-            .fc-row.fc-week.fc-widget-content{
-                height: 10px;
-            }
-
-            .fc-content-skeleton{
-               height: 100%;
-               padding-bottom: 0;
-
-                .fc-day-top{
-                    cursor: pointer;
-                    position: relative;
-                    height: 33px;
-                }
-
-                .fc-other-month{
+        table{
+            thead{
+                td.fc-day-top{
+                    text-align: center;
+                    vertical-align: middle;
 
                     .fc-day-number{
-                        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                    }
-                    
-                }
-
-                .fc-free-day{
-                    color: #5BA641;
-
-                    &:before{
-                        content: "";
-                        position: absolute;
-                        top: -1px;
-                        left: 3px;
-                        width: 33px;
-                        height: 33px;
-                        border: 1px solid #5BA641;
-                        border-radius: 17px;
-                        z-index: -1;
-                    }
-                }
-
-                .fc-selected-date{
-                    color: white;
- 
-                    &:before{
-                        content: "";
-                        position: absolute;
-                        top: 0;
-                        left: 4.5px;
-                        width: 30px;
-                        height: 30px;
-                        border: 1px solid #D83603;
-                        border-radius: 17px;
-                        background: #D83603;
-                        z-index: -1;
-                    }
-                }
-
-                table{
-                    thead{
-                        td{
-                            text-align: center;
-                            vertical-align: middle;
-
-                            .fc-day-number{
-                                float: none;
-                            }
-                        }
+                        float: none;
                     }
                 }
             }
-            
         }
+    }
+
+    &.fc-unthemed{
+        td.fc-today{
+            background-color: transparent;
+        }
+    }
+}
+
+.form_wrapper{
+    
+    .calendar{
+        top: 82px;
+        left: 0;
     }
 }
 
