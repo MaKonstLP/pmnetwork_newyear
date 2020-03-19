@@ -16,7 +16,13 @@
 		font-weight: 600;
 		font-size: 36px;
 		line-height: 44px;
-		margin-right: 9px;	
+		margin-right: 9px;
+		text-align: center;	
+
+		@include for-mobile{
+			font-size: 28px;
+			line-height: 32px;
+		}
 	}
 
 	.form_title_desc{
