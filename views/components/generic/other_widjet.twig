@@ -1,7 +1,7 @@
 {% if items|length > 0 %}
 
 <div data-widget-wrapper>
-    <div class="items_list_listing swiper-container" data-listing-wrapper>
+    <div class="items_list_listing" data-listing-wrapper>
 
         {% for item in items %}
 
@@ -12,9 +12,11 @@
                     <h2>{{item.name}}</h2>
 
                     <div class="room_card_content">
-                        <p>Вместимость&nbsp;на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
+                        <span class="_subheader _mobile">Вместимость</span>
+                        <p><span class="_subheader">Вместимость</span> на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
                         <p>на&nbsp;фуршет:<br>до&nbsp;<span>{{item.capacity_reception}}&nbsp;персон</span></p>
-                        <p>Стоимость&nbsp;на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
+                        <span class="_subheader _mobile">Стоимость</span>
+                        <p><span class="_subheader">Стоимость</span> на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
                         <p>аренды&nbsp;зала:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
                     </div>
 
@@ -22,7 +24,11 @@
 
                         <a class="open_calendar_button _link" href="" onclick="return false">Свободные даты</a>
 
-                        <div class="calendar _hide"></div>
+                        <div class="calendar_container _room _hide">
+
+                            <div class="calendar"></div>
+
+                        </div>
 
                     </div>
 
@@ -30,24 +36,38 @@
 
                 <div class="object_gallery _room">
 
-                    <div class="object_gallery_main _room">
-                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
-                    </div>
+                        <div class="swiper-container gallery-top-room">
 
-                    <div class="object_gallery_other _room">
-                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
-                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
-                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
-                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
-                        <img src="{{item.cover_url}}" alt="{{img_alt | replace({"{название}" : item.name})}}"/>
-                    </div>
+                            <div class="swiper-wrapper">
+
+                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-container gallery-thumbs-room">
+
+                            <div class="swiper-wrapper">
+
+                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+
+                            </div>
+
+                        </div>
 
                 </div>  
 
             </div>        
             
         {% endfor %}
+
     </div>
+    
 </div>
 
 {% endif %}

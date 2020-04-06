@@ -105,8 +105,37 @@ header{
         .header_menu{
             display: flex;
 
-            @include for-notdesc{
-                display: none;
+            @include for-pad{
+                position: absolute;
+                left: 0px;
+                background: white;
+                width: calc(100%);
+                justify-content: space-between;
+                padding: 11px 15px;
+                bottom: -54px;  
+                border-bottom: 1px solid #DEDEDE;
+                transform: translateY(10px);
+                opacity: 0;
+                box-shadow: 0px 3px 6px rgba(3, 49, 52, 0.06); 
+                transition: transform 0.3s ease, opacity 0.3s ease; 
+                pointer-events: none;
+            }
+
+            @include for-mobile{
+                flex-direction: column;
+                position: absolute;
+                left: 0px;
+                background: white;
+                width: calc(100%);
+                justify-content: space-between;
+                padding: 11px 10px;
+                top: calc(100% + 1px);  
+                border-bottom: 1px solid #DEDEDE;
+                transform: translateY(10px);
+                opacity: 0;
+                box-shadow: 0px 3px 6px rgba(3, 49, 52, 0.06); 
+                transition: transform 0.3s ease, opacity 0.3s ease; 
+                pointer-events: none;
             }
 
             .header_menu_item{
@@ -210,7 +239,7 @@ header{
 
             @include for-mobile{
                 width: 26px;
-                height: 20px;
+                height: 27px;
                 top: 18px;
                 right: 12px;
             }
@@ -255,6 +284,45 @@ header{
                 }
             }
         }
+
+        .header_form_popup{
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+
+            &._hide{
+                display: none;
+            }
+
+            .header_form_popup_content{
+                position: relative;
+                border-radius: 5px;
+
+                .close_button{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    cursor: pointer;
+                    width: 30px;
+                    height: 30px;
+                    background: url("/img/close_icon_popup.svg");
+                }
+
+                @include for-mobile{
+                    .close_button{
+                        top: 60px;
+                    }
+                }
+            }
+        }
+
     }
 
     &._active{
@@ -272,6 +340,13 @@ header{
             div:nth-child(3){
                 transform: translate(0px,50px);
             }
+        }
+
+        .header_menu{
+            display: flex;
+            transform: translateY(0px);
+            opacity: 1;
+            pointer-events: initial;
         }
     }
 }

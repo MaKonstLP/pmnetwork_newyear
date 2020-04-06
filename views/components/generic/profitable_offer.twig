@@ -1,0 +1,59 @@
+<div class="swiper-container">
+
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+
+  <div class="swiper-wrapper items-list">
+    {% for item in items %}
+      <a href="/catalog/{{item.id}}/" class="item swiper-slide {{type}}">
+        <div class="item_img">
+            <img src="{{item.restaurant_cover_url}}" alt="{{img_alt | replace({"{название}" : item.restaurant_name})}}"/>
+
+            <div class="item_date-availability">
+                <span>Свободно 12 декабря</span>
+            </div>
+
+        </div>
+        <div class="item_info">
+            <div class="item_info_top">
+                <p class="item_name">{{item.restaurant_name}}</p>
+
+                {% if type != 'other' %}
+                    <p class="item_address">{{item.restaurant_address}}</p>
+                {% endif %}
+
+                <hr class="item_horizontal_raw">
+                    
+                <div class="item_meta">
+
+                    {% if item.restaurant_min_capacity != item.restaurant_max_capacity %}
+                        <div class="item_meta_item">
+                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.restaurant_min_capacity}} - {{item.restaurant_max_capacity}} чел.</span>
+                        </div>
+                    {% else %}
+                        <div class="item_meta_item">
+                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.restaurant_min_capacity}} чел.</span>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="item_additional-info">
+
+            <div class="item_gift-for-early-reservation">
+                <span>Подарок за бронирование</span>
+            </div>
+
+            <div class="item_fireworks-availability">
+                <span>Возможность фейерверка</span>
+            </div>
+
+        </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="swiper-pagination"></div>
+    
+</div>

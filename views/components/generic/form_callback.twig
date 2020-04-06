@@ -32,6 +32,12 @@
       <div class="input_wrapper">
         <div class="input_label">Дата</div>
         <input type="text" name="date" data-required/>
+        <div class="calendar_wrapper">
+          <div class="open_calendar_button"></div>
+          <div class="calendar_container _hide">
+            <div class="calendar"></div>
+          </div>
+        </div>
       </div>
       <div class="input_wrapper">
         <div class="input_label">Число гостей</div>
@@ -42,7 +48,7 @@
 
     <div class="form_submit_callback">
 			<button class="_button" type="submit">Отправить</button>
-			<div class="form_policy checkbox_item" data-action="form_checkbox">
+			<div class="form_policy checkbox_item" data-action="form_checkbox" data-required>
 				<input type="checkbox" name="policy" class="personalData" checked="">
 				<p class="checkbox_pseudo">Я согласен с <a class="_link">политикой обработки персональных данных</a></p>
 			</div>

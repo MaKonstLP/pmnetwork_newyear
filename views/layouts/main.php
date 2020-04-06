@@ -44,6 +44,7 @@ AppAsset::register($this);
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'y-vody')echo '_active';?>" href="/catalog/y-vody/">У воды</a>
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'na-verande')echo '_active';?>" href="/catalog/na-verande/">На веранде</a>
                 </div>
+
                 <div class="header_phone">
                     <p>(846) 205-78-45</p>
                     <div class="header_phone_button">
@@ -51,11 +52,22 @@ AppAsset::register($this);
                         <p class="_link">Подберите мне зал</p>
                     </div>
                 </div>
+
                 <div class="header_burger">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
+
+                <div class="header_form_popup _hide">
+                    <div class="header_form_popup_content">
+                    
+                        <?= $this->render('../components/generic/form_callback.twig') ?>
+                        <div class="close_button"></div>
+
+                    </div>
+                </div>
+
             </div>
         </header>
 

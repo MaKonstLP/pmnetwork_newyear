@@ -8,7 +8,32 @@ export default class YaMapSingleObject{
 	init() {
 		ymaps.ready(function(){
 			let map = document.querySelector(".map");
-      let myMap = new ymaps.Map(map, {center: [55.76, 37.64], zoom: 15});
+      let myMap = new ymaps.Map(map, {center: [55.76, 37.64], zoom: 15, controls: []},
+                  {suppressMapOpenBlock: true});
+
+      let zoomControl = new ymaps.control.ZoomControl({
+        options: {
+            size: "small",
+            position: {
+              top: 10,
+              right: 10
+            }
+
+        }
+      });
+
+      let geolocationControl = new ymaps.control.GeolocationControl({
+        options: {
+          noPlacemark: true,
+          position: {
+            top: 10,
+            left: 10
+          }
+        }
+    });
+
+      myMap.controls.add(zoomControl);
+      myMap.controls.add(geolocationControl);
 
       let objectCoordinates = [$("#map").attr("data-mapDotX"), $("#map").attr("data-mapDotY")];
       let myBalloonHeader = $("#map").attr("data-name");

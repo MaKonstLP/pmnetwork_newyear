@@ -1,0 +1,152 @@
+.header_form_popup_content{
+
+  .form_wrapper.callback{
+    width: 606px;
+    padding: 25px 50px 40px;
+
+    .form_title{
+      width: auto;
+    }
+
+    .form_block{
+
+      .form_inputs{
+        width: auto;
+        flex-flow: row wrap;
+
+        .input_wrapper:nth-child(n){
+          display: block;
+        }
+
+        .input_wrapper:first-child{
+          order: 0;
+          width: 320px;
+        }
+
+        .input_wrapper:nth-child(2){
+          order: 1;
+          width: 165px;
+          margin-right: 0;
+        }
+        .input_wrapper:nth-child(2),
+        .input_wrapper:nth-child(4),
+        .input_wrapper:nth-child(7){
+          width: 165px;
+        }
+
+        .input_wrapper:nth-child(4){
+          order: 5;
+        }
+
+        .input_wrapper:nth-child(6){
+          position: relative;
+          order: 6;
+          width: 135px;
+          margin-right: 0;
+
+          .open_calendar_button{
+            position: absolute;
+            top: 26px;
+            width: 135px;
+            height: 40px;
+
+            &:before{
+              content: "";
+              cursor: pointer;
+              position: absolute;
+              top: 11px;
+              right: 10px;
+              width: 20px;
+              height: 20px;
+              background: url("/img/calendar_icon.svg");
+            }
+
+            &:hover:before{
+              background: url("/img/calendar_icon_active.svg");
+            }
+          }
+
+          .open_calendar_button._active{
+
+            &:before{
+              background: url("/img/calendar_icon_active.svg");
+            }   
+          }	
+        }
+
+        .input_wrapper:nth-child(7){
+          order: 4;
+        }
+
+        .input_wrapper{
+
+          .calendar_container{
+            top: 78px;
+            left: 0;
+          }
+
+          &._hide{
+            display: none;
+          }
+        }
+      }  
+    }
+
+    .form_policy.checkbox_item{
+      width: 250px;
+    }
+  }
+
+  @include for-mobile{
+    .form_wrapper.callback{
+      width: 290px;
+      padding: 25px 20px 30px;
+
+
+      .form_block{
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        width: 100%;
+        margin-top: 5px;
+
+        .form_inputs{
+          height: auto;
+
+          .input_wrapper{
+
+            .calendar_container{
+              top: 66px;
+              left: -20px;
+            }
+          }
+
+          .input_wrapper:nth-child(n){
+            width: 100%;
+
+            .open_calendar_button{
+              width: 100%;
+            }
+          }
+        }
+
+        .form_submit_callback{
+
+          ._button{
+            width: 100%;
+            margin: 0;
+          }
+
+          .form_policy{
+            margin: 10px 0 0 0;
+          }
+        }
+      }
+      
+    }
+  }
+
+  .close_button{
+    top: 60px;
+  }
+}

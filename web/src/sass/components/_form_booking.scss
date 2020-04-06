@@ -42,7 +42,7 @@
 
     &:after{
       top: 130px;
-      right: -140px;
+      right: -120px;
     }
   }
 
@@ -140,10 +140,21 @@
             background: url("/img/calendar_icon.svg");
           }
 
+          &:hover:before{
+            background: url("/img/calendar_icon_active.svg");
+          }
+
           @include for-mobile{
             width: 100%;
           }
         }
+
+        .open_calendar_button._active{
+
+          &:before{
+            background: url("/img/calendar_icon_active.svg");
+          }   
+        }	
 
         @include for-mobile{
           width: 100%;

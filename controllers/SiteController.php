@@ -10,6 +10,7 @@ use common\models\ItemsWidget;
 use common\models\Pages;
 use common\models\Filter;
 use common\models\Slices;
+use common\models\elastic\ItemsFilterElastic;
 
 class SiteController extends Controller
 {
@@ -23,8 +24,8 @@ class SiteController extends Controller
         $filter_model = Filter::find()->with('items')->all();
         $slices_model = Slices::find()->all();
 
-        $itemsWidget = new ItemsWidget;
-        $apiMain = $itemsWidget->getMain($filter_model, $slices_model, 'restaurants');
+        //$itemsWidget = new ItemsWidget;
+        //$apiMain = $itemsWidget->getMain($filter_model, $slices_model, 'restaurants');
 
         $seo = Pages::find()->where(['name' => 'index'])->one();
         $this->setSeo($seo);
@@ -34,10 +35,16 @@ class SiteController extends Controller
             'filter_model' => $filter_model
         ]);
 
+        $items = new ItemsFilterElastic([], 10, 1, false, 'restaurants');
+        $mainWidget = $this->renderPartial('//components/generic/profitable_offer.twig', [
+            'items' => $items->items
+        ]);
+
         return $this->render('index.twig', [
             'filter' => $filter,
-            'widgets' => $apiMain['widgets'],
+            //'widgets' => $apiMain['widgets'],
             'count' => $apiMain['total'],
+            'mainWidget' => $mainWidget,
             'seo' => $seo,
         ]);
     }

@@ -70,6 +70,7 @@ export default class Form {
 
 			$el.toggleClass("_active");
 			$input.prop("checked", !$input.prop("checked"));
+			e.stopImmediatePropagation();
 		});
 
 	}

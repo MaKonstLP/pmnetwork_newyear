@@ -10,23 +10,23 @@ export default class Item{
 			$(".object_book_hidden").addClass("_active");
 		});
 
-		this.initCalendarButtons();
-
 		this.initGallery();
+		$(".swiper-container.gallery-thumbs").on("click", this.setActiveNail);
+		$(".swiper-container.gallery-thumbs-room").on("click", this.setActiveNail);
 	}
 
 	getIMGFromGallery(e) {
 		let targetIMG = e.target;
 		let targetIMGSrc = targetIMG.getAttribute("src");
 
-		$(".object_gallery_other").find("._active").toggleClass("_active");
-
 		if(targetIMG.nodeName == "IMG"){
-			targetIMG.classList.toggle("_active");
-		}
+			$(".object_gallery_other").find("._active").toggleClass("_active");
 
-		$(targetIMG).parent().parent()
-		.children().find("img").first().attr("src", targetIMGSrc);
+			targetIMG.classList.toggle("_active");
+
+			$(targetIMG).parent().parent()
+			.children().find("img").first().attr("src", targetIMGSrc);
+		}
 	}
 
 	initGallery(){
@@ -41,24 +41,10 @@ export default class Item{
 		$(".object_gallery_other").on("click", this.getIMGFromGallery);
 	}
 
-	initCalendarButtons(){
-		let $buttons = $(".open_calendar_button");
-
-		for( let button of $buttons){
-			$(button).on("click", function(){
-				$(button).next().toggleClass("_hide");
-			});
+	setActiveNail(e){
+		if ( $(e.target).hasClass("swiper-slide") ){
+			$(".swiper-slide-thumb-active").removeClass("swiper-slide-thumb-active");
+			$(e.target).addClass("swiper-slide-thumb-active");
 		}
-
-		$(document).mouseup(function (e){
-			let div = $(".calendar_wrapper");
-
-			for( let cal of div){
-				if (!$(cal).is(e.target) 
-					&& $(cal).has(e.target).length === 0) {
-					$(cal).children(".calendar").addClass("_hide");
-				}
-			}
-		});
 	}
 }

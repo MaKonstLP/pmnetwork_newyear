@@ -384,7 +384,7 @@ body._overflow .main_wrap{
 
     @include for-mobile{
         &[data-page-type="index"]{
-            background: $clrBg;
+            background: white;
         }
 
         &[data-page-type="listing"]:before{
@@ -690,6 +690,14 @@ h3{
     }
 }
 
+.form_policy.checkbox_item{
+
+    .checkbox_pseudo{
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
 .checkbox_item{
     margin-right: 20px;
 
@@ -736,4 +744,5 @@ h3{
     input{
         display: none;
     }
+    
 }

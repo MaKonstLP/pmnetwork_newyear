@@ -9,6 +9,7 @@ import Form from './components/form';
 import YaMapSingleObject from './components/mapSingleObject';
 import YaMapAll from './components/map';
 import CalendarCustom from './components/calendarCustom';
+import WidgetMain from './components/widgetMain'
 
 window.$ = $;
 
@@ -29,7 +30,11 @@ window.$ = $;
 
 	    if ($('[data-widget-wrapper]').length > 0) {
 	    	var widget = new Widget();
-	    }
+			}
+			
+			if ($('[data-widget-main-wrapper]').length > 0) {
+	    	var widgetMain = new WidgetMain();
+			}
 
 	    if ($('.map').length > 0) {
 				if($('[data-page-type="item"]').length > 0) {

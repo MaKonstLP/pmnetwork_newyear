@@ -8,7 +8,7 @@
         <div class="object_head">
 
             <div class="object_gallery" data-gallery data-id="{{item.restaurant_id}}">
-                <div class="object_gallery_main" data-bigimg-wrapper>
+                {#<div class="object_gallery_main" data-bigimg-wrapper>
                     <img src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
                 </div>
 
@@ -22,7 +22,45 @@
                     <img name="7" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
                     <img name="8" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
                     <img name="9" src="{{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }}"/>
+                </div>#}
+
+                <div class="swiper-container gallery-top">
+
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+
+                    </div>
+
                 </div>
+
+                <div class="swiper-container gallery-thumbs">
+
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+                        <div class="swiper-slide" style="background-image:url({{ item.restaurant_cover_url|replace({'w445-h302-n-l95': 'w710-h472-n-l95'}) }})"></div>
+
+                    </div>
+
+                </div>
+
+
             </div>
 
             <div class="object_tags">
@@ -105,3 +143,55 @@
 </div>
 
 <script defer src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+<script src="../../node_modules/swiper/dist/js/swiper.min.js"></script>
+
+<script>
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+      spaceBetween: 10,
+      slidesPerView: 5,
+      slidesPerColumn: 2,
+      freeMode: true,
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true,
+
+      breakpoints: {
+          767: {
+            slidesPerView: 3,
+            slidesPerColumn: 1
+          }
+      }
+    });
+    var galleryTop = new Swiper('.gallery-top', {
+      spaceBetween: 10,
+      thumbs: {
+        swiper: galleryThumbs
+      }
+    }); 
+</script>
+
+
+<script>
+        var galleryRoomThumbs = new Swiper('.gallery-thumbs-room', {
+            el: ".gallery-thumbs-room",
+            spaceBetween: 10,
+            slidesPerView: 5,
+            slidesPerColumn: 1,
+            freeMode: true,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+
+            breakpoints: {
+                767: {
+                    slidesPerView: 3,
+                    slidesPerColumn: 1
+                }
+            }
+        });
+        var galleryRoomTop = new Swiper('.gallery-top-room', {
+            spaceBetween: 10,
+            thumbs: {
+                swiper: galleryRoomThumbs
+            }
+        });
+</script>
