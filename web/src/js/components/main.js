@@ -14,6 +14,8 @@ export default class Main{
 		$(".header_phone_button").on("click", this.helpWhithBookingButtonHandler);
 		$(".header_form_popup").on("click", this.closePopUpHandler);
 		$('.header_burger').on('click', this.burgerHandler);
+		$(".header_city_select").on("click", this.citySelectHandler);
+		$(document).mouseup(this.closeCitySelectHandler);
 	
 		/* Настройка формы в окне popup */
 		let $inputs = $(".header_form_popup .input_wrapper");
@@ -28,6 +30,7 @@ export default class Main{
 		$(".header_form_popup .form_title_main").text("Помочь с выбором зала?");
 		$(".header_form_popup .form_title_desc").addClass("_hide");
 	}
+
 	helpWhithBookingButtonHandler() {
 		let $popup = $(".header_form_popup");
 		if ($popup.hasClass("_hide")) {
@@ -53,6 +56,40 @@ export default class Main{
 		}
 		else{
 			$('header').addClass('_active');
+		}
+	}
+
+	citySelectHandler(e){
+		let $target = $(e.target);
+		let $button = $(".header_city_select");
+		let $cityList = $(".city_select_search_wrapper");
+
+		if( $button.is($target)
+		 || $button.has($target)) {
+			 if ( $cityList.hasClass("_hide") ){
+				$cityList.removeClass("_hide");
+			 }
+		 }
+
+		 if( $button.is($target) ){
+			if ( !$cityList.hasClass("_hide") ){
+				$cityList.addClass("_hide");
+			 }
+		 }
+
+		 
+	}
+
+	closeCitySelectHandler(e){
+		let $target = $(e.target);
+		let $button = $(".header_city_select");
+		let $cityList = $(".city_select_search_wrapper");
+
+		if( !$button.is($target)
+		&& $button.has($target).length === 0){
+			if ( !$cityList.hasClass("_hide") ){
+				$cityList.addClass("_hide");
+			 }
 		}
 	}
 }

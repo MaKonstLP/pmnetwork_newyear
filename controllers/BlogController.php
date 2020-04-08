@@ -9,7 +9,15 @@ class BlogController extends Controller
 {
 
   public function actionIndex(){
-    return $this->render('index.twig');
+
+    $pagination = PaginationWidget::widget([
+			'total' => 5,
+			'current' => 1,
+		]);
+
+    return $this->render('index.twig', array(
+			'pagination' => $pagination
+		));
   }
 
 }

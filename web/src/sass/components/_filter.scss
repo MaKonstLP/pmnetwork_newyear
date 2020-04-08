@@ -233,6 +233,59 @@
             }
         }
 
+        .input_wrapper{
+
+            input{
+                width: 135px;
+                padding: 0 20px 0 16px;
+                line-height: 40px;
+                background-color: white;
+                box-shadow: inset 0px 1px 2px rgba(140, 140, 140, 0.5);
+                border-radius: 2px;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .calendar_wrapper{
+                position: relative;
+            }
+
+            .open_calendar_button{
+                position: absolute;
+                top: -40px;
+                left: 0;
+                width: 135px;
+                height: 40px;
+
+                &:before{
+                    content: "";
+                    cursor: pointer;
+                    position: absolute;
+                    top: 9px;
+                    right: 10px;
+                    width: 20px;
+                    height: 20px;
+                    background: url("/img/calendar_icon.svg");
+                }
+
+                &:hover:before{
+                    background: url("/img/calendar_icon_active.svg");
+                  }
+            }
+
+            .open_calendar_button._active{
+
+                &:before{
+                  background: url("/img/calendar_icon_active.svg");
+                }   
+              }	
+
+            .calendar_container{
+                top: -2px;
+                left: 77px;
+            }
+        }
+
     }  
 
     .filter_submit{

@@ -4,14 +4,6 @@ footer{
     z-index: auto;
     background: white;
 
-    @include for-pad{
-        margin: 0px 30px;
-    }
-
-    @include for-mobile{
-        margin: 0px 15px;
-    }
-
     .footer_container{
         margin: 0 35px;
         border-top: 1px solid rgba(176,176,176, 0.25);
@@ -150,5 +142,17 @@ footer{
                 }
             }
         }
+    }
+
+    @include for-pad{
+        margin: 0px 30px;
+
+        .footer_container{
+            margin: 0;
+        }
+    }
+
+    @include for-mobile{
+        margin: 0px 15px;
     }
 }

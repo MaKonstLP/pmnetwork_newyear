@@ -34,11 +34,14 @@ export default class CalendarCustom{
 				let updateDateFieldIfInForm = function(target, date) {
 					let $input = $(target).closest(".calendar_wrapper").siblings("input[name='date']");
 
-					if ( $(target).closest(".form_wrapper").length !== 0 ) {
+					if ( $(target).closest("form").length !== 0 
+						|| $(target).closest("[data-filter-wrapper]").length !== 0) {
+
 						if (date !== ""){
 							let tmp = date.split("-");
 							let correctDate = tmp[2] + "." + tmp[1] + "." + tmp[0];
 							$input.attr("value", correctDate);
+							
 						} else {
 							$input.attr("value", "");
 						}

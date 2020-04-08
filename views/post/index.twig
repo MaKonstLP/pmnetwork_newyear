@@ -192,6 +192,116 @@
   </div>
 
   <div class="restaurant_adv_wrapper">
+
+    {{this.render('//components/generic/restaurant_adv_test.twig') | raw }}
+
+  </div>
+
+  <div class="icon_wrapper">
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+      
+  </div>
+
+  <div class="icon_wrapper">
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+    
+  </div>
+
+  <div class="icon_wrapper">
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
+
+    <figure>
+
+        <img src="/img/blogTestImg.jpg" alt="">
+
+        <figcaption>Подпись к иконке в две строки</figcaption>
+        
+    </figure>
     
   </div>
 
@@ -201,5 +311,33 @@
     
   </div>
 
+  <script src="../../node_modules/swiper/dist/js/swiper.min.js"></script>
+
+  <script>
+      var galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 5,
+        slidesPerView: 4,
+        slidesPerColumn: 1,
+        freeMode: true,
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+
+        breakpoints: {
+            1440: {
+              slidesPerView: 3,
+            },
+
+            767: {
+              slidesPerView: 3,
+            }
+        }
+      });
+      var galleryTop = new Swiper('.gallery-top', {
+        spaceBetween: 0,
+        thumbs: {
+          swiper: galleryThumbs
+        }
+      }); 
+  </script>
 
 </div>

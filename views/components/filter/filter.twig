@@ -16,6 +16,18 @@
 				}) | raw }}
 			{% endif %}
 		{% endfor %}
+
+		<div class="filter_select input_wrapper">
+      <div class="filter_label input_label">Дата</div>
+      <input type="text" name="date" data-filter-select-current/>
+      <div class="calendar_wrapper">
+        <div class="open_calendar_button"></div>
+        <div class="calendar_container _hide">
+          <div class="calendar"></div>
+        </div>
+      </div>
+    </div>
+
 	</div>
 
 	<div class="filter_submit">

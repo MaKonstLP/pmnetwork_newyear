@@ -13,3 +13,10 @@
 @mixin for-lowdesc {
  	@media (max-width: 1650px) { @content; }
 }
+
+@mixin text-underline($color-text) {
+  background-image: linear-gradient($color-text, $color-text);
+  background-size: 1px 1px;
+  background-repeat: repeat-x;
+  background-position: 0% 95%;
+}

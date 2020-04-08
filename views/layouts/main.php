@@ -34,11 +34,67 @@ AppAsset::register($this);
                     <div class="header_logo_img"></div>
                 </a>
 
-                <div class="header_city_select">
-                    <span>Москва</span>
-                </div>
-
                 <div class="header_menu">
+
+                    <div class="header_city_select">
+                        <span>Москва</span>
+
+                        <div class="city_select_search_wrapper _hide">
+
+                            <h4>Выберите город</h4>
+
+                            <div class="input_search_wrapper">
+
+                                <input type="search" placeholder="Название города">
+
+                            </div>
+
+                            <div class="city_select_list">
+
+                                <?php
+                                    $citiesList = explode(",", 
+                                    "Алушта,Артем,Архангельск,Астрахань,Барнаул,Белгород,Бийск,Брянск,Великий Новгород,Владивосток,Владимир,Волгоград,Волжский,Воронеж,Гатчина,Дзержинск,Екатеринбург,Иваново,Ижевск,Иркутск,Казань,Калининград,Калуга,Кемерово,Киров,Кострома,Краснодар,Красноярск,Курск,Липецк,Магнитогорск,Москва,Мурманск,Мытищи,Набережные Челны,Нижний Новгород,Нижний Тагил,Новокузнецк,Новороссийск,Новосибирск,Омск,Орел,Оренбург,Пенза,Пермь,Ростов-на-Дону,Рязань,Самара,Санкт-Петербург,Саранск,Саратов,Севастополь (Крым),Симферополь,Смоленск,Сочи,Ставрополь,Стерлитамак,Сургут,Таганрог,Тамбов,Тверь,Тольятти,Томск,Тула,Тюмень,Улан-Удэ,Ульяновск,Уфа,Хабаровск,Чебоксары,Челябинск,Череповец,Чита,Энгельс,Ярославль");
+
+                                    function createCityNameLine($city){
+                                        $newLine = "<p>$city</p>";
+                                        return $newLine;
+                                    }
+
+                                    function createLetterBlock($letter){
+                                        $newBlock = "<div class='city_select_letter_block' data-first-letter=$letter>";
+                                        return $newBlock;
+                                    }
+
+                                    function createCityList($citiesList){
+                                        $citiesListResult = "";
+                                        $currentLetterBlock = "";
+
+                                        for ($i = 0; $i < count($citiesList); $i++) {
+                                            $currentFirstLetter = substr($citiesList[$i], 0, 2);
+                                            if ($currentFirstLetter !== $currentLetterBlock){
+                                                $currentLetterBlock = $currentFirstLetter;
+                                                $citiesListResult .= "</div>";
+                                                $citiesListResult .= createLetterBlock($currentLetterBlock);
+                                                $citiesListResult .= createCityNameLine($citiesList[$i]);
+                                            } else {
+                                                $citiesListResult .= createCityNameLine($citiesList[$i]);
+                                            }
+                                        }
+                                        
+                                        $citiesListResult .= "</div>";
+                                        echo substr($citiesListResult, 6);
+
+                                    }
+
+                                    createCityList($citiesList);
+                                ?>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-podmoskovie')echo '_active';?>" href="/catalog/v-podmoskovie/">За городом</a>
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-sharte')echo '_active';?>" href="/catalog/v-sharte/">В шатре</a>
                     <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'y-vody')echo '_active';?>" href="/catalog/y-vody/">У воды</a>

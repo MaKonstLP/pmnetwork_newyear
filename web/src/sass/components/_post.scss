@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  padding: 0 calc((100% - 953px) / 2);
 
   * {
     line-height: 26px;
@@ -18,7 +19,6 @@
   }
 
   .post_wrapper{
-    width: 953px;
 
     figure{
       padding: 30px 0;
@@ -69,6 +69,8 @@
 
     h2{
       padding: 30px 0 10px;
+      font-size: 36px;
+      font-weight: 600;
       line-height: 44px;
       text-align: start;
     }
@@ -96,8 +98,61 @@
     }
   }
 
+  .restaurant_adv_wrapper{
+
+    .item_page_wrapper:before,
+    .item_page_wrapper:after{
+      content: none;
+    }
+
+    .content_block{
+      width: 100%;
+      margin-top: 20px;
+
+      .title{
+        justify-content: flex-start;
+
+        .title_address{
+          justify-content: flex-start;
+          padding-left: 21px;
+        }
+      }
+
+      .object_gallery{
+        width: 496px;
+        padding: 0 15px 0 0;
+
+        .swiper-container.gallery-top{
+          height: 330px;
+        }
+
+        .swiper-container.gallery-thumbs{
+          height: 102px;
+          padding: 5px 0;
+        }
+      }
+
+      .object_main_info{
+        padding: 0 0 15px 0;
+
+        span{
+          font-weight: 600;
+          font-size: 20px;
+        }
+      }
+
+      .object_more_info{
+        padding: 25px 0 0 0;
+
+        button{
+          padding: 0 33px;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+
   .similar_posts{
-    width: 953px;
     padding-top: 55px;
 
     .similar_posts_item_wrapper:nth-child(even){
@@ -120,6 +175,268 @@
       width: 589px;
       height: auto;
       padding: 0 30px 30px 0;
+    }
+  }
+
+  .icon_wrapper{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    width: 100%;
+    padding: 40px 0 0 0;
+
+    figure{
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      width: 154px;
+    }
+
+    img{
+      width: 100px;
+      height: 100px;
+    }
+
+    figcaption{
+      padding-top: 10px;
+      text-align: center;
+      line-height: 22px;
+    }
+  }
+
+  @include for-notdesc{
+
+    .object_book{
+
+      .object_book_hidden{
+        align-items: flex-start;
+        flex-flow: column nowrap;
+        height: 53px;
+      }
+    }
+
+  }
+
+  @include for-pad{
+    padding: 0 calc((100% - 748px) / 2);
+
+    .post_wrapper{
+
+      .text_with_borders{
+        padding: 25px 25px 30px;
+      }
+    }
+
+    .restaurant_adv_wrapper{
+
+      .content_block{
+
+        .object_head{
+          display: grid;
+          grid-template-columns: repeat(6, 1fr) 15px repeat(6, 1fr);
+          min-height: auto;
+        }
+
+        .object_gallery{
+          grid-column-start: 1;
+          grid-column-end: 7;
+          grid-row-start: 1;
+          grid-row-end: 4;
+          width: 366px;
+          padding: 0;
+  
+          .swiper-container.gallery-top{
+            height: 257px;
+          }
+  
+          .swiper-container.gallery-thumbs{
+            height: 102px;
+            padding: 5px 0;
+          }
+        }
+
+        .object_main_info{
+          grid-column-start: 8;
+          grid-column-end: 14;
+          grid-row-start: 1;
+          grid-row-end: 2;
+        }
+
+        .object_book{
+          grid-column-start: 8;
+          grid-column-end: 14;
+          grid-row-start: 2;
+          grid-row-end: 3;
+          width: 366px;
+        }
+
+        .object_more_info{
+          grid-column-start: 8;
+          grid-column-end: 14;
+          grid-row-start: 3;
+          grid-row-end: 4;
+          padding: 15px 0 0 0;
+        }
+      }
+    }
+
+    .similar_posts{
+  
+      .similar_posts_item_img{
+        width: 386px;
+        height: auto;
+        padding: 0 30px 30px 0;
+      }
+    }
+  }
+
+  @include for-mobile{
+    padding: 0 calc((100% - 290px) / 2);
+
+    .post_wrapper{
+
+      h1{
+        font-size: 32px;
+        line-height: 36px;
+      }
+  
+      h2{
+        font-size: 28px;
+        line-height: 32px;
+      }
+  
+      h3{
+        font-size: 24px;
+        line-height: 25px;
+        font-weight: 600;
+      }
+
+      .text_with_borders{
+        padding: 20px 20px 20px;
+      }
+    }
+
+    .icon_wrapper{
+      flex-flow: column nowrap;
+  
+      figure{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        width: 100%;
+        padding: 0 0 20px 0;
+      }
+  
+      img{
+        width: 40px;
+        height: 40px;
+      }
+  
+      figcaption{
+        padding: 0 0 0 15px;
+        font-size: 14px;
+      }
+    }
+
+    .restaurant_adv_wrapper{
+
+      .content_block{
+
+        .title{
+          padding: 0;
+          
+          h2{
+            text-align: start;
+            font-weight: 600;
+            font-size: 22px;
+            line-height: 24px;
+          }
+
+          .title_address{
+
+            p{
+              text-align: start;
+              border: none;
+              background-image: linear-gradient(rgba(216, 54, 3, 0.3), (rgba(216, 54, 3, 0.3))), 
+                                linear-gradient(rgba(216, 54, 3, 0.3), (rgba(216, 54, 3, 0.3)));
+              background-size: 188px 1px, 222px 1px;
+              background-repeat: no-repeat;
+              background-position: 0% 95%, 0% 45%;
+            }
+          }
+          
+        }
+
+        .object_head{
+          display: flex;
+          align-items: flex-start;
+          width: 290px;
+          margin: 0;
+        }
+
+        .object_gallery{
+          width: 100%;
+          padding: 0;
+          order: 1;
+  
+          .swiper-container.gallery-top{
+            height: 200px;
+          }
+  
+          .swiper-container.gallery-thumbs{
+            height: 60px;
+            padding: 5px 0;
+          }
+        }
+
+        .object_main_info{
+          order: 0;
+        }
+
+        .object_book{
+          order: 2;
+          padding: 15px 15px 25px 20px;
+
+          .object_book_action{
+            background-position: 0 0;
+          }
+        }
+
+        .object_more_info{
+          order: 3;
+          padding: 15px 0 0 0;
+        }
+      }
+    }
+
+    .similar_posts{
+
+      .similar_posts_item_wrapper:nth-child(even){
+
+        .similar_posts_item{
+          flex-flow: column nowrap;
+  
+          .similar_posts_item_img{
+            padding: 30px 0 30px 0;
+          }
+        }
+      }
+  
+      .similar_posts_item{
+        display: flex;
+        flex-flow: column nowrap;
+      }
+  
+      .similar_posts_item_img{
+        width: 290px;
+        height: auto;
+        padding: 0 0 30px 0;
+      }
+    }
+
+    * {
+      font-size: 14px;
+      line-height: 22px;
     }
   }
 }
