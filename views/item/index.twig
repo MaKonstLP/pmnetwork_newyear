@@ -63,6 +63,16 @@
                         <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
                     </p>
                     <div class="object_book_hidden_button" data-action="show_phone">Показать номер</div>
+                    <div class="object_book_send_mail _hide">Отправить инфо о зале себе на эл. почту</div>
+                    <form class="_hide">
+                        <input type="email" placeholder="Эл. почта">
+                        <button class="_button">Отправить</button>
+                    </form>
+                    <div class="object_book_mail_sent _hide">
+                        <span>Мы отправили информацию на почту</span><br>
+                        <span>Отправить еще раз</span>
+                    </div>
+                    
                 </div>
                 <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.2020 и получи новогодний подарок!</p>
             </div>

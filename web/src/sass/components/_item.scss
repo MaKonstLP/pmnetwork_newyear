@@ -536,7 +536,8 @@
                 background: url("/img/calendar_icon.svg");
             }
 
-            &:hover:before{
+            &:hover:before,
+            &._active:before{
                 background: url("/img/calendar_icon_active.svg");
               }
         }
@@ -651,7 +652,7 @@
     margin: 0;
     padding-bottom: 160px;
     width: 100%;
-    background: url("/img/index_page_form_star_bg.png");
+    //background: url("/img/index_page_form_star_bg.png");
 
     &:before{
         content: "";

@@ -584,7 +584,7 @@ h3{
     justify-content: center;
     align-items: baseline;
     flex-wrap: wrap;
-    padding-top: 20px;
+    padding-top: 40px;
 
     @include for-notdesc{
         flex-direction: column;
@@ -695,6 +695,10 @@ h3{
     .checkbox_pseudo{
         font-size: 12px;
         line-height: 15px;
+
+        &:before{
+            top: 0;
+        }
     }
 }
 

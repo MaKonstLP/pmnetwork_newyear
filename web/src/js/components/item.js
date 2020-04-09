@@ -8,6 +8,7 @@ export default class Item{
 		
 		$('[data-action="show_phone"]').on("click", function(){
 			$(".object_book_hidden").addClass("_active");
+			$(".object_book_send_mail").removeClass("_hide");
 		});
 
 		this.initGallery();

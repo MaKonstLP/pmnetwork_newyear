@@ -1,6 +1,6 @@
 [data-page-type="blog"]{
   position: relative;
-  padding: 0 362px;
+  padding: 0 calc((100% - 1196px) / 2);
   
   &:before{
     content: "";
@@ -131,7 +131,7 @@
   }
 
   @include for-mobile{
-    padding: 0 calc((100% - 2900px) / 2);
+    padding: 40px calc((100% - 2900px) / 2) 0;
 
     .items_list{
       justify-content: space-evenly;

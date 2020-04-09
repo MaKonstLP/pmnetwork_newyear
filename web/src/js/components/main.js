@@ -65,18 +65,10 @@ export default class Main{
 		let $cityList = $(".city_select_search_wrapper");
 
 		if( $button.is($target)
-		 || $button.has($target)) {
-			 if ( $cityList.hasClass("_hide") ){
-				$cityList.removeClass("_hide");
-			 }
-		 }
-
-		 if( $button.is($target) ){
-			if ( !$cityList.hasClass("_hide") ){
-				$cityList.addClass("_hide");
-			 }
-		 }
-
+		 || $button.has($target).length !== 0) {
+			$cityList.toggleClass("_hide");
+			$button.toggleClass("_active");
+		}
 		 
 	}
 
@@ -84,12 +76,21 @@ export default class Main{
 		let $target = $(e.target);
 		let $button = $(".header_city_select");
 		let $cityList = $(".city_select_search_wrapper");
+		let $backButton = $(".back_to_header_menu");
 
 		if( !$button.is($target)
-		&& $button.has($target).length === 0){
+		&& $button.has($target).length === 0
+		&& !$cityList.is($target)
+		&& $cityList.has($target).length === 0){
 			if ( !$cityList.hasClass("_hide") ){
 				$cityList.addClass("_hide");
-			 }
+				$button.removeClass("_active");
+			}
+		}
+
+		if ( $backButton.is($target)){
+			$cityList.addClass("_hide");
+			$button.removeClass("_active");
 		}
 	}
 }

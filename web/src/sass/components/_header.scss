@@ -18,6 +18,7 @@ header{
     }
 
     .header_wrap{
+        position: relative;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -34,7 +35,9 @@ header{
             }
 
             @include for-mobile{
-                left: 15px;
+                top: 0;
+                left: auto;
+                right: 140px;
             }
 
             .header_logo_img{
@@ -43,11 +46,17 @@ header{
                 background: url("/img/ny_logo.svg");
                 background-size: contain;
                 transition: filter 0.2s ease;
+
                 @include for-pad{
-                    
+                    position: absolute;
+                    top: -40px;
+                    left: 41px;
                 }
 
                 @include for-mobile{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                     width: 57px;
                     height: 57px;
                     background-image: url("/img/ny_logo_mobile.svg");
@@ -59,50 +68,59 @@ header{
             }
         }
 
-        .header_city_select{
-            position: absolute;
-            left: 420px;
-            cursor: pointer;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 26px;
-            border-bottom: 1px dashed #333333;
+        .header_menu{
+            display: flex;
 
-            &:before{
-                content: "";
+            .header_city_select{
                 position: absolute;
-                top: -1px;
-                left: -18px;
-                background: url("/img/location_icon.svg");
-                background-size: contain;
-                width: 20px;
-                height: 20px;
-            }
+                top: 40px;
+                left: 400px;
+                cursor: pointer;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 26px;
+                border-bottom: 1px dashed #333333;
 
-            &:after{
-                content: "";
-                position: absolute;
-                top: 5px;
-                right: -16px;
-                width: 8px;
-                height: 8px;
-                border-right: 2px solid $clrLightGrey;
-                border-bottom: 2px solid $clrLightGrey;
-                border-radius: 2px;
-                transform: rotate(45deg);
-                z-index: 2;
-            }
+                &:before{
+                    content: "";
+                    position: absolute;
+                    top: -1px;
+                    left: -18px;
+                    background: url("/img/location_icon.svg");
+                    background-size: contain;
+                    width: 20px;
+                    height: 20px;
+                }
 
-            span{
-                display: block;
-            }
+                &:after{
+                    content: "";
+                    position: absolute;
+                    top: 5px;
+                    right: -16px;
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid $clrLightGrey;
+                    border-bottom: 2px solid $clrLightGrey;
+                    border-radius: 2px;
+                    transform: rotate(45deg);
+                    z-index: 2;
+                }
 
-            @include for-notdesc{
-                display: none;
+                &._active:after{
+                    top: 9px;
+                    transform: rotate(225deg);
+                }
+
+                span{
+                    display: block;
+                }
             }
 
             .city_select_search_wrapper{
+                position: absolute;
+                top: 75px;
+                left: 390px;
                 width: 787px;
                 height: 743px;
                 padding: 20px 25px 20px 25px;
@@ -110,12 +128,27 @@ header{
                 border-radius: 4px;
                 box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
 
+                &:before{
+                    content: "";
+                    position: absolute;
+                    top: -8px;
+                    left: 30px;
+                    width: 16px;
+                    height: 16px;
+                    transform: rotate(45deg);
+                    background: white;
+                }
+
+                .back_to_header_menu{
+                    display: none;
+                }
+
                 h4{
                     padding-bottom: 13px;
                     font-weight: bold;
                     font-size: 20px;
                     line-height: 24px;
-                    
+                        
                 }
 
                 .input_search_wrapper{
@@ -132,7 +165,6 @@ header{
                         font-size: 14px;
                         line-height: 22px;
                         color: #666666;
-
                     }
 
                     &:before{
@@ -177,46 +209,9 @@ header{
                             left: -18px;
                             font-size: 14px;
                         }
-                        
+                            
                     }
                 }
-            }
-        }
-
-        .header_menu{
-            display: flex;
-
-            @include for-pad{
-                position: absolute;
-                left: 0px;
-                background: white;
-                width: calc(100%);
-                justify-content: space-between;
-                padding: 11px 15px;
-                bottom: -54px;  
-                border-bottom: 1px solid #DEDEDE;
-                transform: translateY(10px);
-                opacity: 0;
-                box-shadow: 0px 3px 6px rgba(3, 49, 52, 0.06); 
-                transition: transform 0.3s ease, opacity 0.3s ease; 
-                pointer-events: none;
-            }
-
-            @include for-mobile{
-                flex-direction: column;
-                position: absolute;
-                left: 0px;
-                background: white;
-                width: calc(100%);
-                justify-content: space-between;
-                padding: 11px 10px;
-                top: calc(100% + 1px);  
-                border-bottom: 1px solid #DEDEDE;
-                transform: translateY(10px);
-                opacity: 0;
-                box-shadow: 0px 3px 6px rgba(3, 49, 52, 0.06); 
-                transition: transform 0.3s ease, opacity 0.3s ease; 
-                pointer-events: none;
             }
 
             .header_menu_item{
@@ -235,7 +230,101 @@ header{
                     color: #D83603;
                 }
             }
+
+            @include for-notdesc{
+                position: absolute;
+                left: 0px;
+                background: white;
+                justify-content: flex-start;
+                width: 320px;
+                height: 100vh;
+                border-bottom: 1px solid #DEDEDE;
+                transform: translateY(10px);
+                opacity: 0;
+                box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1); 
+                transition: transform 0.3s ease, opacity 0.3s ease; 
+                pointer-events: none;
+
+                .header_menu_item{
+                    margin: 0px;
+                    padding: 0px 10px;
+
+                    &:hover{
+                        color: #333333;
+                        background: rgba(240, 68, 13, 0.1);
+                    }
+    
+                    &._active{
+                        color: #333333;
+                        background: rgba(216, 54, 3, 0.1);
+                    }
+                }
+
+                .header_city_select{
+                    top: 20px;
+                    left: 25px;
+
+                    &._active{
+                        display: none;
+                    }
+
+                }
+
+                .city_select_search_wrapper{
+                    top: 0;
+                    left: 0;
+                    width: 320px;
+                    height: 90vh;
+                    padding: 22px 17px 22px 16px;
+
+                    &:before{
+                        content: none;
+                    }
+
+                    .back_to_header_menu{
+                        display: block;
+                        width: 116px;
+                        margin: 0 0 0 23px;
+                        border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
+
+                        &:before{
+                            content: "←";
+                            position: absolute;
+                            top: 20px;
+                            left: 17px;
+                        }
+                    }
+
+                    h4{
+                        padding: 15px 0 13px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 23px;
+                    }
+
+                    .city_select_list{
+                        flex-flow: column nowrap;
+                        overflow-y: scroll;
+                    }
+                }
+            }
+
+            @include for-pad{
+                top: 90px;
+                padding: 50px 0 11px; 
+            }
+
+            @include for-mobile{
+                width: 100%;
+                padding: 50px 0 11px;
+                top: calc(100% + 1px);  
+
+                .city_select_search_wrapper{
+                    width: 100%;
+                }
+            }
         }
+
 
         .header_phone{
             position: absolute;
@@ -245,11 +334,11 @@ header{
             right: 35px;
 
             @include for-pad{
-                right: 90px;
+                right: 10px;
             }
 
             @include for-mobile{
-                right: 50px;
+                right: 16px;
             }
 
 
@@ -315,7 +404,7 @@ header{
 
             @include for-notdesc{
                 display: block;
-                right: 40px;
+                left: 10px;
             }
 
             @include for-mobile{
@@ -425,6 +514,7 @@ header{
 
         .header_menu{
             display: flex;
+            flex-flow: column nowrap;
             transform: translateY(0px);
             opacity: 1;
             pointer-events: initial;
