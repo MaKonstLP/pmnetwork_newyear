@@ -36,7 +36,7 @@ AppAsset::register($this);
 
                 <div class="header_menu">
 
-                    <div class="header_city_select">
+                    <div class="header_city_select _grey_link">
 
                         <span>Москва</span>
 
@@ -110,7 +110,7 @@ AppAsset::register($this);
                     <p>(846) 205-78-45</p>
                     <div class="header_phone_button">
                         <div class="header_phone_button_img"></div>
-                        <p class="_link">Подберите мне зал</p>
+                        <p class="_grey_link">Подберите мне зал</p>
                     </div>
                 </div>
 
@@ -125,6 +125,15 @@ AppAsset::register($this);
                     
                         <?= $this->render('../components/generic/form_callback.twig') ?>
                         <div class="close_button"></div>
+
+                        <div class="header_form_popup_message_sent _hide">
+
+                            <h2>Заявка отправлена</h2>
+                            <p class="header_form_popup_message">Константин, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами<br>в течение дня и помогут подобрать зал для корпоратива.</p>
+                            <p class="header_form_popup_message_close _link">Понятно, закрыть</p>
+                            <div class="close_button"></div>
+
+                        </div>
 
                     </div>
                 </div>

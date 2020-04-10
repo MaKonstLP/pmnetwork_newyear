@@ -119,6 +119,9 @@
       }
 
       .object_gallery{
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 496px;
         padding: 0 15px 0 0;
 
@@ -148,6 +151,20 @@
           padding: 0 33px;
           line-height: 40px;
         }
+      }
+
+      .object_head{
+
+        .object_book{
+
+          .object_book_hidden{
+
+            .object_book_hidden_button{
+              position: static;
+            
+            }
+          }  
+        }     
       }
     }
   }
@@ -211,9 +228,39 @@
       .object_book_hidden{
         align-items: flex-start;
         flex-flow: column nowrap;
-        height: 53px;
+
+        .object_book_interactive_part{
+
+          .object_book_send_mail{
+            border: none;
+            background-image: linear-gradient(90deg, white 50%, white 100%),
+                            linear-gradient(90deg, rgba(216, 54, 3, 0.5) 50%, white 100%),
+                            linear-gradient(90deg, white 50%, white 100%),
+                            linear-gradient(90deg, rgba(216, 54, 3, 0.5) 50%, white 100%);
+            background-size: 300px 1px, 5px 1px, 320px 1px, 5px 1px;
+            background-repeat: no-repeat, repeat-x, no-repeat, repeat-x;
+            background-position: 240px 60%, 0% 60%, 100px 100%, 0% 100%;
+
+            .show_form_message_mobile{
+              display: inline;
+            }
+          }
+
+          .send_restaurant_info{
+
+            ._button{
+              margin: 15px 0 0 0;
+            }
+          }
+
+          .object_book_mail_sent{
+            padding: 20px 0;
+          }
+        }
       }
     }
+
+      
 
   }
 
@@ -393,6 +440,7 @@
         }
 
         .object_gallery{
+          position: static;
           width: 100%;
           padding: 0;
           order: 1;
@@ -416,13 +464,18 @@
           padding: 15px 15px 25px 20px;
 
           .object_book_action{
-            background-position: 0 0;
+            background-position: 0 20px;
           }
         }
 
         .object_more_info{
           order: 3;
           padding: 15px 0 0 0;
+          width: 100%;
+
+          button{
+            width: 100%;
+          }
         }
       }
     }

@@ -62,17 +62,25 @@
                         <span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">❆❆❆ ❆❆❆ ❆❆ ❆❆</span></span>
                         <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
                     </p>
-                    <div class="object_book_hidden_button" data-action="show_phone">Показать номер</div>
-                    <div class="object_book_send_mail _hide">Отправить инфо о зале себе на эл. почту</div>
-                    <form class="_hide">
-                        <input type="email" placeholder="Эл. почта">
-                        <button class="_button">Отправить</button>
-                    </form>
-                    <div class="object_book_mail_sent _hide">
-                        <span>Мы отправили информацию на почту</span><br>
-                        <span>Отправить еще раз</span>
+
+                    <div class="object_book_hidden_button _link" data-action="show_phone">Показать номер</div>
+
+                    <div class="object_book_interactive_part _hide">
+
+                        <div class="object_book_send_mail _hide _link" data-action="show_form">Отправить инфо о зале себе <span class="show_form_message_mobile"><br></span> на эл. почту</div>
+
+                        <form class="send_restaurant_info _hide">
+                            <input type="email" placeholder="Эл. почта">
+                            <button class="_button" data-action="show_mail_sent">Отправить</button>
+                        </form>
+
+                        <div class="object_book_mail_sent _hide">
+                            <span class="object_book_message">Мы отправили информацию на почту</span><br>
+                            <span class="_link" data-action="show_form_again">Отправить еще раз</span>
+                        </div>
+
                     </div>
-                    
+                          
                 </div>
                 <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.2020 и получи новогодний подарок!</p>
             </div>

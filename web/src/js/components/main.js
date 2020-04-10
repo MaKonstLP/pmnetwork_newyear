@@ -12,6 +12,7 @@ export default class Main{
 
 	init() {
 		$(".header_phone_button").on("click", this.helpWhithBookingButtonHandler);
+		$(".footer_phone_button").on("click", this.helpWhithBookingButtonHandler);
 		$(".header_form_popup").on("click", this.closePopUpHandler);
 		$('.header_burger').on('click', this.burgerHandler);
 		$(".header_city_select").on("click", this.citySelectHandler);
@@ -44,7 +45,8 @@ export default class Main{
 		let $inputs = $(".header_form_popup input");
 
 		if( $target.hasClass("close_button")
-		 || $target.hasClass("header_form_popup") )  {
+		 || $target.hasClass("header_form_popup") 
+		 || $target.hasClass("header_form_popup_message_close") ) {
 			$inputs.prop("value", "");
 			$popupWrap.addClass("_hide");
 		}	

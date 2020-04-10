@@ -1,5 +1,34 @@
 .header_form_popup_content{
 
+  .header_form_popup_message_sent{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 606px;
+    height: 253px;
+    padding: 25px 50px 0;
+    background: linear-gradient(112.95deg, #FEDA5A 0.69%, #FFBA35 112.92%);
+    box-shadow: 0px 5px 20px rgba(253, 172, 77, 0.3);
+    border-radius: 5px;
+
+    .header_form_popup_message{
+      padding: 20px 0;
+      font-weight: 500;
+      line-height: 26px;
+    }
+
+    .header_form_popup_message_close{
+      cursor: pointer;
+    }
+
+    &._hide{
+      display: none;
+    }
+  }
+
   .form_wrapper.callback{
     width: 606px;
     padding: 25px 50px 40px;

@@ -235,6 +235,7 @@
         font-size: 12px;
         line-height: 15px;
         margin-right: 25px;
+        border-bottom: 1px solid rgba(216, 54, 3, 0.5);
     }
 
     @include for-notdesc{
@@ -245,7 +246,13 @@
 .object_book{
     background: linear-gradient(114.43deg, #FEDA5A 0.69%, #FFBA35 112.92%);
     border-radius: 5px;
+    box-shadow: 0px 5px 20px rgba(253, 172, 77, 0.3);
     padding: 15px 20px 25px;
+
+    &._active{
+        background: white;
+        box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+    }
 
     .object_book_text{
         font-weight: 500;
@@ -254,9 +261,10 @@
     }
 
     .object_book_hidden{
+        position: relative;
         margin-top: 6px;
         display: flex;
-        align-items: flex-end;
+        flex-flow: column wrap;
 
         &._active{
 
@@ -276,7 +284,7 @@
             }
 
             @include for-mobile{
-                height: 51px;
+                //height: 51px;
             }
         }
 
@@ -305,14 +313,105 @@
             }
         }
 
+        .object_book_interactive_part{
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+
+            &._hide{
+                display: none;
+            }
+        }
+
         .object_book_hidden_button{
+            cursor: pointer;
+            position: absolute;
+            top: 7px;
+            right: 8px;
+            width: 137px;
             font-weight: 500;
             font-size: 16px;
             line-height: 18px;
-            color: #D83603;
-            border-bottom: 1px dashed rgba(216, 54, 3, 0.5);
             margin: 0px 0px 2px;
+
+            @include for-mobile{
+                position: static;
+            }
+        }
+
+        .object_book_send_mail{
             cursor: pointer;
+            padding: 8px 0 0 0;
+            line-height: 18px;
+
+            .show_form_message_mobile{
+                display: none;
+            }
+
+            @include for-mobile{
+                width: auto;
+
+                .show_form_message_mobile{
+                    display: inline;
+                }
+
+                    border: none;
+                    background-image: linear-gradient(90deg, white 50%, white 100%),
+                                    linear-gradient(90deg, rgba(216, 54, 3, 0.5) 50%, white 100%),
+                                    linear-gradient(90deg, white 50%, white 100%),
+                                    linear-gradient(90deg, rgba(216, 54, 3, 0.5) 50%, white 100%);
+                    background-size: 300px 1px, 5px 1px, 320px 1px, 5px 1px;
+                    background-repeat: no-repeat, repeat-x, no-repeat, repeat-x;
+                    background-position: 240px 60%, 0% 60%, 100px 100%, 0% 100%;
+            }
+        }
+
+        .send_restaurant_info{
+            padding: 18px 0 0 0;
+
+            input{
+                padding: 7px 16px;
+                background: white;
+                box-shadow: inset 0px 1px 2px rgba(140, 140, 140, 0.5);
+                border-radius: 2px;
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+            ._button{
+                margin-left: 15px;
+                padding: 8px 20px 10px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 22px;
+            }
+
+            @include for-mobile{
+
+                input{
+                    width: 100%;
+                }
+
+                ._button{
+                    width: 100%;
+                    margin: 15px 0 0 0;
+                }
+            }
+        }
+
+        .object_book_mail_sent{
+            padding: 7px 0 3px 0;
+
+            ._link{
+                cursor: pointer;
+                line-height: 26px;
+            }
+        }
+
+        .object_book_message{
+            padding: 0 0 3px 0;
+            font-weight: bold;
+            line-height: 23px;
         }
 
         @include for-mobile{
@@ -322,13 +421,12 @@
     }
 
     .object_book_action{
-        margin-top: 14px;
         font-weight: 500;
         font-size: 14px;
         line-height: 22px;
-        padding-left: 43px;
+        padding: 10px 0 0 43px;
         background-image: url("/img/gift.svg");
-        background-position: 0px 50%;
+        background-position: 0px 65%;
         background-size: 30px;
         background-repeat: no-repeat;
         min-height: 37px;

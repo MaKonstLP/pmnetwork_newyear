@@ -64,7 +64,23 @@
 
           </p>
 
-          <div class="object_book_hidden_button" data-action="show_phone">Показать номер</div>
+          <div class="object_book_hidden_button _link" data-action="show_phone">Показать номер</div>
+
+          <div class="object_book_interactive_part _hide">
+
+            <div class="object_book_send_mail _hide _link" data-action="show_form">Отправить инфо о зале себе <span class="show_form_message_mobile"><br></span> на эл. почту</div>
+
+            <form class="send_restaurant_info _hide">
+              <input type="email" placeholder="Эл. почта">
+              <button class="_button" data-action="show_mail_sent">Отправить</button>
+            </form>
+
+            <div class="object_book_mail_sent _hide">
+                <span class="object_book_message">Мы отправили информацию на почту</span><br>
+                <span class="_link" data-action="show_form_again">Отправить еще раз</span>
+            </div>
+
+          </div>
 
         </div>
 

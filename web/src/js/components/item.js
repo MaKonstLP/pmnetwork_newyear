@@ -7,10 +7,27 @@ export default class Item{
 		var self = this;
 		
 		$('[data-action="show_phone"]').on("click", function(){
+			$(".object_book").addClass("_active");
 			$(".object_book_hidden").addClass("_active");
+			$(".object_book_interactive_part").removeClass("_hide");
 			$(".object_book_send_mail").removeClass("_hide");
 		});
 
+		$('[data-action="show_form"]').on("click", function(){
+			$(".object_book_send_mail").addClass("_hide");
+			$(".send_restaurant_info").removeClass("_hide");
+		});
+
+		$('[data-action="show_mail_sent"]').on("click", function(){
+			$(".send_restaurant_info").addClass("_hide");
+			$(".object_book_mail_sent").removeClass("_hide");
+		});
+
+		$('[data-action="show_form_again"]').on("click", function(){
+			$(".object_book_mail_sent").addClass("_hide");
+			$(".send_restaurant_info").removeClass("_hide");
+		});
+		
 		this.initGallery();
 		$(".swiper-container.gallery-thumbs").on("click", this.setActiveNail);
 		$(".swiper-container.gallery-thumbs-room").on("click", this.setActiveNail);

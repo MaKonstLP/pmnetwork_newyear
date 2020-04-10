@@ -534,6 +534,10 @@ a {
     cursor: initial;
 }
 
+._button.disabled{
+    cursor: not-allowed;
+}
+
 ._pagination {
     display: none;
 }
@@ -571,11 +575,20 @@ h3{
 
 ._link{
     color: #D83603;
-    border-bottom: 1px solid #D83603;
+    border-bottom: 1px dashed rgba(216, 54, 3, 0.5);
 
     &:hover{
         color: #F0440D;
-        border-bottom: 1px solid #F0440D;
+    }
+}
+
+._grey_link{
+    color: #333333;
+    border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
+
+    &:hover{
+        color: #666666;
+        border-bottom: 1px dashed rgba(102, 102, 102, 0.5);
     }
 }
 
@@ -696,8 +709,16 @@ h3{
         font-size: 12px;
         line-height: 15px;
 
+        ._link{
+            border-bottom: 1px solid rgba(216, 54, 3, 0.5);
+        }
+
         &:before{
             top: 0;
+        }
+
+        &:after{
+            top: 4px;
         }
     }
 }
