@@ -126,6 +126,38 @@
     }
   }
 
+  @include for-pad{
+
+    .form_wrapper.callback{
+
+      &:before{
+        content: none;
+      }
+
+      &:after{
+        content: none;
+      }
+
+      .form_block{
+
+        .form_inputs{
+          height: auto;
+  
+          .input_wrapper{
+    
+            .calendar_container{
+              left: -150px;
+      
+              .calendar:before{
+                left: 257px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   @include for-mobile{
     .form_wrapper.callback{
       width: 290px;

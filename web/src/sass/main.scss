@@ -20,6 +20,7 @@ body{
 	-webkit-text-size-adjust: 100%;
     box-sizing: border-box;
     background-color: white;
+
 }
 
 body, html {
@@ -182,9 +183,8 @@ body._overflow .main_wrap{
     background: url("/img/index_page_form_star_bg.png");
     background-size: contain;
     width: 100%;
-    height: 500px;
     margin: 0;
-    z-index: 0;
+    z-index: 1;
 
     .filter{
         position: relative;
@@ -213,6 +213,18 @@ body._overflow .main_wrap{
             z-index: -1;
           }
 
+        @include for-pad{
+            
+
+            &:before{
+                left: -152px;
+            }
+
+            &:after{
+                right: -145px;
+            }
+        }
+
         @include for-mobile{
             &:before{
                 content: none;
@@ -223,10 +235,12 @@ body._overflow .main_wrap{
             }
         }
     }
-    @include for-notdesc{
-        z-index: 0;
+    @include for-pad{
     }
 
+    @include for-mobile{
+        padding: 0 15px;
+    }
 }
 
 .content_wrap{
@@ -270,22 +284,24 @@ body._overflow .main_wrap{
 .content_block.map{
     width: 100%;
     height: 500px;
-    margin: -80px 0 60px;
 
     @include for-pad{
         & > * {
             width: 100%;
         }
-        margin: -50px 0 60px;
     }
 
     @include for-mobile{
-        margin: 50px 0 60px;
+
     }
 }
 
 .map_title{
     padding: 60px 0 20px;
+
+    @include for-mobile{
+        padding: 0;
+    }
 }
 
 .content_block.map.listing{
@@ -301,7 +317,7 @@ body._overflow .main_wrap{
     }
 
     @include for-mobile{
-        margin: 50px 0 60px;
+        margin: 20px 0;
     }
 }
 
@@ -451,8 +467,13 @@ body._overflow .main_wrap{
     }
 
     @include for-mobile{
-        height: 736px;
+        height: auto;
+        padding: 0 15px;
         background: white;
+
+        .form_wrapper.callback{
+            margin: 0;
+        }
     }
 }
 

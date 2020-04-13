@@ -87,43 +87,7 @@
 
             <div class="object_parameters">
 
-                <div class="object_parameters_list _marked">
-                    <p class="object_parameters_title">О площадке</p>
-                    <p class="object_parameters_item">Ресторан</p>
-                    <p class="object_parameters_item">Расположение за городом</p>
-                    <p class="object_parameters_item">Русская, европейская кухня</p>
-                    <p class="object_parameters_item">Алкоголь в наличии</p>
-                </div>
-
-                <div class="object_parameters_list">
-                    <p class="object_parameters_title">Залы</p>
-                    <p class="object_parameters_item">4 помещения: 8, 40, 60, 70 человек</p>
-                </div>
-
-                <div class="object_parameters_list _marked">
-                    <p class="object_parameters_title">Разрешены</p>
-                    <p class="object_parameters_item">Свой алкоголь</p>
-                    <p class="object_parameters_item">Запуск фейерверка</p>
-                </div>
-
-                <div class="object_parameters_list _marked _big_list">
-                    <p class="object_parameters_title">За дополнительную плату</p>
-                    <div class="object_parameters_items">
-                        <p class="object_parameters_item">Фотограф</p>
-                        <p class="object_parameters_item">Видеограф</p>
-                        <p class="object_parameters_item">Торт</p>
-                        <p class="object_parameters_item">DJ</p>
-                        <p class="object_parameters_item">Фейерверк</p>
-                        <p class="object_parameters_item">Живая музыка</p>
-                        <p class="object_parameters_item">Ведущий</p>
-                        <p class="object_parameters_item">Оформление</p>
-                    </div>
-                </div>
-
-                <div class="object_parameters_list">
-                    <p class="object_parameters_title">Оплата</p>
-                    <p class="object_parameters_item">Наличными, банковской картой или безналичным способом</p>
-                </div>
+                {{ this.render('//components/generic/item_parameter_list.twig', {'item':item}) | raw }}
                 
             </div>
 

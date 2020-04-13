@@ -283,6 +283,22 @@
             .calendar_container{
                 top: -2px;
                 left: 77px;
+
+                @include for-pad{
+                    left: 0px;
+
+                    .calendar:before{
+                        left: 106px;
+                    }
+                }
+
+                @include for-mobile{
+                    left: -20px;
+
+                    .calendar:before{
+                        left: 127px;
+                    }
+                }
             }
         }
 

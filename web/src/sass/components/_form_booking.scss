@@ -223,18 +223,6 @@
         padding: 0 20px;
       }
 
-      .form_policy.checkbox_item{
-        .checkbox_pseudo{
-          &:before{
-            top:2px;
-          }
-
-          &:after{
-            top:6px;
-          }
-        }
-      }
-
       @include for-notdesc{
         display: flex;
         flex-flow: column nowrap;

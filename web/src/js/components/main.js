@@ -19,9 +19,9 @@ export default class Main{
 		$(document).mouseup(this.closeCitySelectHandler);
 	
 		/* Настройка формы в окне popup */
-		let $inputs = $(".header_form_popup .input_wrapper");
+		var $inputs = $(".header_form_popup .input_wrapper");
 
-		for (let input of $inputs){
+		for (var input of $inputs){
 			if( $(input).find("[name='email']").length !== 0
 			||  $(input).find("[name='question']").length !== 0 ) {
 				$(input).addClass("_hide");
@@ -33,16 +33,16 @@ export default class Main{
 	}
 
 	helpWhithBookingButtonHandler() {
-		let $popup = $(".header_form_popup");
+		var $popup = $(".header_form_popup");
 		if ($popup.hasClass("_hide")) {
 			$popup.removeClass("_hide");
 		}
 	}
 
 	closePopUpHandler(e) {
-		let $popupWrap = $(".header_form_popup");
-		let $target = $(e.target);
-		let $inputs = $(".header_form_popup input");
+		var $popupWrap = $(".header_form_popup");
+		var $target = $(e.target);
+		var $inputs = $(".header_form_popup input");
 
 		if( $target.hasClass("close_button")
 		 || $target.hasClass("header_form_popup") 
@@ -62,9 +62,9 @@ export default class Main{
 	}
 
 	citySelectHandler(e){
-		let $target = $(e.target);
-		let $button = $(".header_city_select");
-		let $cityList = $(".city_select_search_wrapper");
+		var $target = $(e.target);
+		var $button = $(".header_city_select");
+		var $cityList = $(".city_select_search_wrapper");
 
 		if( $button.is($target)
 		 || $button.has($target).length !== 0) {
@@ -75,10 +75,10 @@ export default class Main{
 	}
 
 	closeCitySelectHandler(e){
-		let $target = $(e.target);
-		let $button = $(".header_city_select");
-		let $cityList = $(".city_select_search_wrapper");
-		let $backButton = $(".back_to_header_menu");
+		var $target = $(e.target);
+		var $button = $(".header_city_select");
+		var $cityList = $(".city_select_search_wrapper");
+		var $backButton = $(".back_to_header_menu");
 
 		if( !$button.is($target)
 		&& $button.has($target).length === 0

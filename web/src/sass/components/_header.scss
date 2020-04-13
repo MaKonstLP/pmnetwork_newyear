@@ -281,8 +281,9 @@ header{
                     }
 
                     .back_to_header_menu{
+                        cursor: pointer;
                         display: block;
-                        width: 116px;
+                        width: 120px;
                         margin: 0 0 0 23px;
                         border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
 
@@ -462,9 +463,9 @@ header{
             position: fixed;
             top: 0;
             left: 0;
+            padding: 50px 0 0 0;
             display: flex;
             justify-content: center;
-            align-items: center;
             width: 100%;
             min-height: 100%;
             background: rgba(0, 0, 0, 0.8);
