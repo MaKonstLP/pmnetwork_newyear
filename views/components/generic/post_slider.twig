@@ -1,0 +1,54 @@
+<div class="swiper-container post-gallery-top">
+
+  <div class="swiper-wrapper">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+  </div>
+
+</div>    
+
+<div class="swiper-container post-gallery-thumbs">
+
+  <div class="swiper-wrapper">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+    <img class="swiper-slide" src="/img/blogTestImg.jpg" alt="">
+  </div>
+
+</div>  
+
+<script src="../../node_modules/swiper/dist/js/swiper.min.js"></script>
+
+<script>
+      var postGalleryThumbs = new Swiper('.post-gallery-thumbs', {
+        spaceBetween: 5,
+        slidesPerView: 7,
+        slidesPerColumn: 1,
+        freeMode: true,
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+
+        breakpoints: {
+            1440: {
+              slidesPerView: 5,
+            },
+
+            767: {
+              slidesPerView: 4,
+            }
+        }
+      });
+      var postGalleryTop = new Swiper('.post-gallery-top', {
+        spaceBetween: 0,
+        thumbs: {
+          swiper: postGalleryThumbs
+        }
+      }); 
+  </script>

@@ -31,6 +31,7 @@ export default class Item{
 		this.initGallery();
 		$(".swiper-container.gallery-thumbs").on("click", this.setActiveNail);
 		$(".swiper-container.gallery-thumbs-room").on("click", this.setActiveNail);
+		$(".swiper-container.post-gallery-thumbs").on("click", this.setActiveNail);
 	}
 
 	getIMGFromGallery(e) {

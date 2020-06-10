@@ -173,7 +173,7 @@ export default class CalendarCustom{
 				if (!$(cal).is(e.target) 
 					&& $(cal).has(e.target).length === 0
 					&& !$(cal).children(".calendar_container").hasClass("_hide")) {
-					$(cal).children(".calendar_container").addClass("_hide");
+					$(cal).children(".calendar_container").addClass ("_hide");
 					$(cal).children(".open_calendar_button").removeClass("_active");
 				}
 			}

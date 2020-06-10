@@ -1,11 +1,15 @@
 .best_offer_slider{
 
-        .swiper-container{
+    .swiper-container{
         overflow: hidden;
-        padding-top: 50px;
+        
+        > p{
+            padding: 10px 0 20px 0;
+             text-align: center;
+         }
 
         .swiper-button-next{
-        top: 25px;
+        top: 72px;
         right: 35px;
         width: 47px;
         height: 32px;
@@ -14,7 +18,7 @@
         }
 
         .swiper-button-prev{
-        top: 25px;
+        top: 72px;
         left: auto;
         right: 100px;
         width: 47px;
@@ -240,11 +244,11 @@
         }
         }
 
-        @include for-mobile{
+        @include for-notdesc{
+            position: relative;
             padding-top: 0;
 
             .swiper-pagination.swiper-pagination-bullets{
-                top: 475px;
 
                 .swiper-pagination-bullet-active{
                     background: #FFC839;
@@ -257,9 +261,25 @@
             display: none;
             }    
         }
+
+        @include for-pad{
+
+            .swiper-pagination.swiper-pagination-bullets{
+                top: auto;
+                bottom: 10px;
+            }
+        }
+
+        @include for-mobile{
+
+            .swiper-pagination.swiper-pagination-bullets{
+                top: auto;
+                bottom: -4px;
+            }
+        }
     }
 
     @include for-mobile{
-        padding: 50px 0 0 0;
+        padding: 30px 0 30px 0;
     }
 }

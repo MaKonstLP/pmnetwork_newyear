@@ -43,7 +43,7 @@ class SiteController extends Controller
         return $this->render('index.twig', [
             'filter' => $filter,
             //'widgets' => $apiMain['widgets'],
-            'count' => $apiMain['total'],
+            'count' => $items->total,
             'mainWidget' => $mainWidget,
             'seo' => $seo,
         ]);

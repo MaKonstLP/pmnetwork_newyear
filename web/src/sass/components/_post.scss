@@ -1,7 +1,6 @@
 [data-page-type="post"]{
   display: flex;
   flex-flow: column nowrap;
-  //align-items: center;
   padding: 0 calc((100% - 953px) / 2);
 
   * {
@@ -11,7 +10,7 @@
 
   .back_to_blog_list{
     align-self: center;
-    padding: 15px 0 0;
+    padding: 20px 0 0;
     border-bottom: 1px solid rgba(51, 51, 51, 0.3);
     font-weight: 500;
     font-size: 14px;
@@ -22,7 +21,7 @@
   .post_wrapper{
 
     figure{
-      padding: 30px 0;
+      padding: 25px 0;
 
       figcaption{
         padding-top: 10px;
@@ -35,6 +34,7 @@
     }
 
     img{
+      display: block;
       width: 100%;
       height: auto;
     }
@@ -60,7 +60,7 @@
     }
 
     h1{
-      padding: 30px 0 0;
+      padding: 20px 0 5px;
       text-align: center;
       font-weight: bold;
       font-size: 38px;
@@ -69,11 +69,11 @@
     }
 
     h2{
-      padding: 30px 0 10px;
+      padding: 30px 0 15px;
       font-size: 36px;
       font-weight: 600;
       line-height: 44px;
-      text-align: start;
+      text-align: left;
     }
 
     h3{
@@ -84,7 +84,7 @@
     }
 
     h4{
-      padding: 25px 0 10px;
+      padding: 0 0 10px;
       font-weight: bold;
       font-size: 20px;
       line-height: 24px;
@@ -112,6 +112,7 @@
 
       .title{
         justify-content: flex-start;
+        padding: 10px 0 0 0;
 
         .title_address{
           justify-content: flex-start;
@@ -167,6 +168,48 @@
           }  
         }     
       }
+    }
+  }
+
+  .post_slider{
+    padding: 30px 0 30px 0;
+
+    .post-gallery-top{
+      padding: 0 0 5px 0;
+    }
+
+    .post-gallery-thumbs{
+
+      .swiper-slide{
+        height: 92px; 
+        border: 3px solid transparent;
+
+        &.swiper-slide-thumb-active{
+          border: 3px solid #F0440D;
+        }
+      }
+
+      
+    }
+  }
+  
+  .post_subtitle_whith_img{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 30px 0 40px 0;
+
+    .post_subtitle_img{
+      width: 310px;
+      height: 80px;
+      background: url("/img/quote_img.svg");
+    }
+  
+    .post_subtitle_text{
+      text-align: center;
+      font-style: italic;
+      font-size: 26px;
+      line-height: 40px;
     }
   }
 
@@ -277,8 +320,16 @@
     }
 
     .restaurant_adv_wrapper{
+      padding: 30px 0 30px 0;
 
       .content_block{
+
+        .title{
+
+          .title_address{
+            justify-content: center;
+          }
+        }
 
         .object_head{
           display: -ms-grid;
@@ -358,7 +409,7 @@
   }
 
   @include for-mobile{
-    padding: 60px calc((100% - 290px) / 2) 0;
+    padding: 0 calc((100% - 290px) / 2) 0;
 
     .post_wrapper{
 
@@ -379,7 +430,12 @@
       }
 
       .text_with_borders{
+        margin: 25px 0 25px 0;
         padding: 20px 20px 20px;
+      }
+
+      .post_subtitle_whith_img{
+        padding: 30px 0 20px 0;
       }
     }
 
@@ -406,6 +462,7 @@
     }
 
     .restaurant_adv_wrapper{
+      padding: 0 0 30px 0;
 
       .content_block{
 
@@ -413,7 +470,7 @@
           padding: 0;
           
           h2{
-            text-align: start;
+            text-align: left;
             font-weight: 600;
             font-size: 22px;
             line-height: 24px;
@@ -422,7 +479,7 @@
           .title_address{
 
             p{
-              text-align: start;
+              text-align: left;
               border: none;
               background-image: linear-gradient(rgba(216, 54, 3, 0.3), (rgba(216, 54, 3, 0.3))), 
                                 linear-gradient(rgba(216, 54, 3, 0.3), (rgba(216, 54, 3, 0.3)));
@@ -482,7 +539,25 @@
       }
     }
 
+    .post_slider{
+  
+      .post-gallery-thumbs{
+  
+        .swiper-slide{
+          height: 50px; 
+          border: 3px solid transparent;
+  
+          &.swiper-slide-thumb-active{
+            border: 3px solid #F0440D;
+          }
+        }
+  
+        
+      }
+    }
+
     .similar_posts{
+      padding-top: 30px;
 
       .similar_posts_item_wrapper:nth-child(even){
 

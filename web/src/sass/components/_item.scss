@@ -470,7 +470,7 @@
             .object_parameters_items{
                 display: flex;
                 flex-flow: column wrap;
-                height: 100px;
+                //height: 100px;
 
                 .object_parameters_item{
                     width: 130px;
@@ -600,6 +600,9 @@
                 p{
                  width: 50%;
 
+                 span{
+                     font-size: 16px;
+                 }
                 }
 
                 ._subheader._mobile{
@@ -611,6 +614,7 @@
                 ._subheader{
                     display: none;
                 }
+
 
 
             }
@@ -659,7 +663,6 @@
         .room_card{
             width: 100%;
             height: auto;
-            margin: 0 0 20px;
         }
 
         .object_gallery._room{
@@ -677,6 +680,7 @@
 
         .room_card{
             padding: 100px 30px 25px;
+            margin: 0 0 20px;
         }
         .object_gallery._room{
             width: 710px;
@@ -693,6 +697,7 @@
 
         .room_card{
             padding: 20px 15px 20px 15px;
+            margin: 0 0 30px;
             height: auto;
 
             & > h2{

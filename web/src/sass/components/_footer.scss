@@ -139,6 +139,10 @@ footer{
                         color: #333333;
                         border-bottom:1px dashed #333333;
                     }
+
+                    @include for-mobile{
+                        padding: 0;
+                    }
                 }
             }
         }
@@ -154,5 +158,9 @@ footer{
 
     @include for-mobile{
         margin: 0px 15px;
+
+        .footer_container{
+            margin: 0 15px;
+        }
     }
 }

@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
 
     @include for-mobile{
         margin-bottom: 30px;
@@ -104,4 +103,8 @@
             }
         }
     }
+}
+
+[data-pagination-wrapper]{
+    padding: 30px 0 0 0;
 }

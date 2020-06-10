@@ -15,7 +15,15 @@
   }
 
   .content_block{
-    padding: 0 0 60px 0;
+    padding: 60px 0 60px 0;
+
+    &.pagination{
+      padding: 45px 0 45px 0;
+
+      [data-pagination-wrapper]{
+        padding: 0;
+    }
+    }
 
     h1{
       text-align: center;
@@ -93,17 +101,17 @@
       content: none;
     }
 
-    [data-pagination-wrapper]{
-
-      &:before,
-      &:after{
-        content: none;
-      }
+    .content_block.pagination{
+      display: none;
     }
   }
 
   @include for-pad{
     padding: 0 calc((100% - 748px) / 2);
+
+    .content_block{
+      padding: 35px 0 50px 0;
+    }
 
     .items_list{
       justify-content: flex-start;
@@ -131,10 +139,15 @@
   }
 
   @include for-mobile{
-    padding: 40px calc((100% - 2900px) / 2) 0;
+    padding: 0 calc((100% - 2900px) / 2) 0;
+
+    .content_block{
+      padding: 15px 0 35px 0;
+    }
 
     .items_list{
-      justify-content: space-evenly;
+      flex-flow: column nowrap;
+      align-items: center;
 
       .blog_item_wrapper:nth-child(3n + 2){
         padding: 0 0 20px 0;

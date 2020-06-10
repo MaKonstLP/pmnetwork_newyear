@@ -466,6 +466,7 @@ header{
             padding: 50px 0 0 0;
             display: flex;
             justify-content: center;
+            overflow-y: scroll;
             width: 100%;
             min-height: 100%;
             background: rgba(0, 0, 0, 0.8);
@@ -491,8 +492,16 @@ header{
 
                 @include for-mobile{
                     .close_button{
-                        top: 60px;
+                        //top: 60px;
                     }
+                }
+            }
+
+            @include for-mobile{
+                padding: 15px 0 0 0;
+
+                .form_wrapper.callback{
+                    margin: 0;
                 }
             }
         }
