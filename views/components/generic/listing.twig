@@ -1,7 +1,7 @@
 {% for item in items %}
 	<a href="/catalog/{{item.id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
-            <img src="{{item.restaurant_cover_url}}" alt="{{img_alt | replace({"{название}" : item.restaurant_name})}}"/>
+            <img src="{{item.restaurant_images[0].subpath}}" alt="{{img_alt | replace({"**restaurant**" : item.restaurant_name})}}"/>
 
             <div class="item_date-availability">
                 <span>Свободно 12 декабря</span>

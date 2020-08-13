@@ -96,6 +96,23 @@
                 }
             }
         }
+
+        .filter_input_block{
+            position: relative;
+    
+            input{
+                height: 39px;
+                line-height: 39px; 
+                white-space: nowrap;
+                box-shadow: inset 0 1px 2px rgba(140,140,140,.5);
+                border-radius: 2px;
+                padding: 0 16px 0 16px;
+                background: #fff;
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+            }
+        }
     
         .filter_select_current{
             height: 39px;

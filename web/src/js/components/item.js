@@ -5,6 +5,7 @@ import 'slick-carousel';
 export default class Item{
 	constructor($item){
 		var self = this;
+		this.sliders = new Array();
 		
 		$('[data-action="show_phone"]').on("click", function(){
 			$(".object_book").addClass("_active");
@@ -27,43 +28,60 @@ export default class Item{
 			$(".object_book_mail_sent").addClass("_hide");
 			$(".send_restaurant_info").removeClass("_hide");
 		});
-		
-		this.initGallery();
-		$(".swiper-container.gallery-thumbs").on("click", this.setActiveNail);
-		$(".swiper-container.gallery-thumbs-room").on("click", this.setActiveNail);
-		$(".swiper-container.post-gallery-thumbs").on("click", this.setActiveNail);
+
+
+		var galleryThumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 10,
+			slidesPerView: 5,
+			slidesPerColumn: 2,
+			freeMode: true,
+			watchSlidesVisibility: true,
+			watchSlidesProgress: true,
+
+			breakpoints: {
+				767: {
+					slidesPerView: 3,
+					slidesPerColumn: 1
+				}
+			}
+		});
+		var galleryTop = new Swiper('.gallery-top', {
+			spaceBetween: 10,
+			thumbs: {
+				swiper: galleryThumbs
+			}
+		});
+
+		$('.object_gallery._room').each((t,e) => {
+			let galleryRoomThumbs = new Swiper($(e).find('.gallery-thumbs-room'), {
+	            //el: ".gallery-thumbs-room",
+	            spaceBetween: 10,
+	            slidesPerView: 5,
+	            slidesPerColumn: 1,
+	            freeMode: true,
+	            watchSlidesVisibility: true,
+	            watchSlidesProgress: true,
+
+	            breakpoints: {
+	                767: {
+	                    slidesPerView: 3,
+	                    slidesPerColumn: 1
+	                }
+	            }
+	        });
+	        let galleryRoomTop = new Swiper($(e).find('.gallery-top-room'), {
+	            spaceBetween: 10,
+	            thumbs: {
+	                swiper: galleryRoomThumbs
+	            }
+	        });
+
+	        this.sliders.push(galleryRoomThumbs);
+	        this.sliders.push(galleryRoomTop)
+		});
+
+		console.log(this.sliders);
+			
 	}
 
-	getIMGFromGallery(e) {
-		let targetIMG = e.target;
-		let targetIMGSrc = targetIMG.getAttribute("src");
-
-		if(targetIMG.nodeName == "IMG"){
-			$(".object_gallery_other").find("._active").toggleClass("_active");
-
-			targetIMG.classList.toggle("_active");
-
-			$(targetIMG).parent().parent()
-			.children().find("img").first().attr("src", targetIMGSrc);
-		}
-	}
-
-	initGallery(){
-		let $firstIMG = $(".object_gallery_other").find("img").first();
-		let firstIMGSrc = $firstIMG.attr("src");
-
-		if( !$firstIMG.hasClass("_active") ){
-			$firstIMG.addClass("_active");
-		}
-
-		$(".object_gallery_main").find("img").attr("src", firstIMGSrc);
-		$(".object_gallery_other").on("click", this.getIMGFromGallery);
-	}
-
-	setActiveNail(e){
-		if ( $(e.target).hasClass("swiper-slide") ){
-			$(".swiper-slide-thumb-active").removeClass("swiper-slide-thumb-active");
-			$(e.target).addClass("swiper-slide-thumb-active");
-		}
-	}
 }

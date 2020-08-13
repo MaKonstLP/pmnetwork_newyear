@@ -51,7 +51,7 @@
 
 	<script defer="" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
-	<div class="content_block map"></div>
+	<div class="content_block map" data-map-api-subid="{{ subid }}"></div>
 
 	<div class="content_block form_callback_wrapper">
 		{{ this.render('//components/generic/form_callback.twig') | raw }}

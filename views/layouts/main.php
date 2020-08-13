@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use frontend\modules\gorko_ny\assets\AppAsset;
+use common\models\Subdomen;
 
 AppAsset::register($this);
 ?>
@@ -58,11 +59,12 @@ AppAsset::register($this);
                         <div class="city_select_list">
 
                             <?php
-                                $citiesList = explode(",", 
-                                "Алушта,Артем,Архангельск,Астрахань,Барнаул,Белгород,Бийск,Брянск,Великий Новгород,Владивосток,Владимир,Волгоград,Волжский,Воронеж,Гатчина,Дзержинск,Екатеринбург,Иваново,Ижевск,Иркутск,Казань,Калининград,Калуга,Кемерово,Киров,Кострома,Краснодар,Красноярск,Курск,Липецк,Магнитогорск,Москва,Мурманск,Мытищи,Набережные Челны,Нижний Новгород,Нижний Тагил,Новокузнецк,Новороссийск,Новосибирск,Омск,Орел,Оренбург,Пенза,Пермь,Ростов-на-Дону,Рязань,Самара,Санкт-Петербург,Саранск,Саратов,Севастополь (Крым),Симферополь,Смоленск,Сочи,Ставрополь,Стерлитамак,Сургут,Таганрог,Тамбов,Тверь,Тольятти,Томск,Тула,Тюмень,Улан-Удэ,Ульяновск,Уфа,Хабаровск,Чебоксары,Челябинск,Череповец,Чита,Энгельс,Ярославль");
+                                $subdomen_list = Subdomen::find()
+                                    ->where(['active' => 1])
+                                    ->all();
 
                                 function createCityNameLine($city){
-                                    $newLine = "<p>$city</p>";
+                                    $newLine = "<a href='http://$city->alias.newyearpmn.ru'>$city->name</a>";
                                     return $newLine;
                                 }
 
@@ -71,19 +73,19 @@ AppAsset::register($this);
                                     return $newBlock;
                                 }
 
-                                function createCityList($citiesList){
+                                function createCityList($subdomen_list){
                                     $citiesListResult = "";
                                     $currentLetterBlock = "";
 
-                                    for ($i = 0; $i < count($citiesList); $i++) {
-                                        $currentFirstLetter = substr($citiesList[$i], 0, 2);
+                                    foreach ($subdomen_list as $key => $subdomen){
+                                        $currentFirstLetter = substr($subdomen->name, 0, 1);
                                         if ($currentFirstLetter !== $currentLetterBlock){
                                             $currentLetterBlock = $currentFirstLetter;
                                             $citiesListResult .= "</div>";
                                             $citiesListResult .= createLetterBlock($currentLetterBlock);
-                                            $citiesListResult .= createCityNameLine($citiesList[$i]);
+                                            $citiesListResult .= createCityNameLine($subdomen);
                                         } else {
-                                            $citiesListResult .= createCityNameLine($citiesList[$i]);
+                                            $citiesListResult .= createCityNameLine($subdomen);
                                         }
                                     }
                                         
@@ -92,7 +94,7 @@ AppAsset::register($this);
 
                                 }
 
-                                createCityList($citiesList);
+                                createCityList($subdomen_list);
                             ?>
 
                         </div>

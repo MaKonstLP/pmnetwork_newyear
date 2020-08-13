@@ -10,14 +10,20 @@ use yii\filters\AccessControl;
 use common\models\elastic\RestaurantElastic;
 use common\components\Breadcrumbs;
 use common\models\elastic\ItemsWidgetElastic;
+use frontend\modules\gorko_ny\models\ElasticItems;
+use common\models\Seo;
 
 class ItemController extends Controller
 {
 
 	public function actionIndex($id)
 	{
+		$elastic_model = new ElasticItems;
+		$item = $elastic_model::get($id);
 
-		$item = RestaurantElastic::get($id);
+		$seo = new Seo('item', 1, 0, $item, 'rest');
+		$seo = $seo->seo;
+        $this->setSeo($seo);
 
 		//$item = ApiItem::getData($item->restaurants->gorko_id);
 
@@ -35,5 +41,11 @@ class ItemController extends Controller
 			'other_rooms' => $other_rooms
 		));
 	}
+
+	private function setSeo($seo){
+        $this->view->title = $seo['title'];
+        $this->view->params['desc'] = $seo['description'];
+        $this->view->params['kw'] = $seo['keywords'];
+    }
 
 }

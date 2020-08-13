@@ -8,6 +8,12 @@
 					'label':label,
 					'filter_active': filter_active
 				}) | raw }}
+			{% elseif filter_item.type == 'input' %}
+				{{ this.render('filter_input.twig', {
+					'filter_item':filter_item,
+					'label':label,
+					'filter_active': filter_active
+				}) | raw }}
 			{% else %}
 				{{ this.render('filter_checkbox.twig', {
 					'filter_item':filter_item,

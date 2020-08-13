@@ -1,5 +1,7 @@
 'use strict';
 
+import Inputmask from 'inputmask';
+
 export default class Filter{
 	constructor($filter){
 		let self = this;
@@ -17,7 +19,6 @@ export default class Filter{
 		//КЛИК ПО СТРОКЕ В СЕЛЕКТЕ
 		this.$filter.find('[data-filter-select-item]').on('click', function(){
 			$(this).toggleClass('_active');
-			self
 			self.selectStateRefresh($(this).closest('[data-filter-select-block]'));
 		});
 
@@ -33,6 +34,26 @@ export default class Filter{
 		    	self.selectBlockActiveClose();
 		    }
 		});
+
+		//ИНПУТ
+		this.$filter.find('[data-filter-input-block] input').on("keyup", function(event) {
+		    var selection = window.getSelection().toString(); 
+		    if (selection !== '') {
+		        return; 
+		    }      
+		    if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
+		        return; 
+		    }       
+		    var $this = $(this);
+		    var input = $this.val();
+		    input = input.replace(/[\D\s\._\-]+/g, ""); 
+		    input = input?parseInt(input, 10):0;
+
+		    self.inputStateRefresh($(this).attr('name'), input);
+		    $this.val(function () {
+		        return (input === 0)?"":input.toLocaleString("ru-RU"); 
+		    }); 
+		}); 
 	}
 
 	init(){
@@ -162,6 +183,15 @@ export default class Filter{
 		}
 		else{
 			delete this.state[blockType];
+		}
+	}
+
+	inputStateRefresh(type, val){
+		if(val > 0){
+			this.state[type] = val;
+		}
+		else{
+			delete this.state[type];
 		}
 	}
 

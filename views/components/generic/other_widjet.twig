@@ -40,7 +40,11 @@
 
                             <div class="swiper-wrapper">
 
-                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+                                {% for image in item.images %}
+                                    <div class="swiper-slide object_thumb">
+                                        <a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}"/></a>
+                                    </div>
+                                {% endfor %}
 
                             </div>
 
@@ -50,11 +54,11 @@
 
                             <div class="swiper-wrapper">
 
-                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
-                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
-                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
-                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
-                                <div class="swiper-slide" style="background-image:url({{item.cover_url}})"></div>
+                                {% for image in item.images %}
+                                    <div class="swiper-slide object_thumb">
+                                        <img src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/>
+                                    </div>
+                                {% endfor %}
 
                             </div>
 

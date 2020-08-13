@@ -105,7 +105,33 @@ export default class YaMapAll{
 			);
 
 			let serverData = null;
-			let serverResponse = fetch("/api/map_all/")
+			let data = {subdomain_id : $('[data-map-api-subid]').data('map-api-subid')};
+			$.ajax({
+	            type: "POST",
+	            url: "/api/map_all/",
+	            data: data,
+	            success: function(response) {
+	            	serverData = response;
+					
+					objectManager.add(serverData);  
+					//console.log(`objectManager length: ${objectManager.objects.getLength()}`);
+					myMap.geoObjects.add(objectManager);
+					//console.log(`objectManager: ${objectManager.getBounds()}`);
+					myMap.setBounds(objectManager.getBounds());
+	            },
+	            error: function(response) {
+
+	            }
+	        });
+			/*let serverResponse = fetch("/api/map_all/", {
+				    method: 'post',
+				    mode:    'cors',
+				    headers: {
+				      'Content-Type': 'application/json',  // sent request
+				      'Accept':       'application/json'   // expected data sent back
+				    },
+				    body: JSON.stringify(data),
+				})
 				.then(function(response) {
 					if (response.ok) { 
 						let json = response.json();
@@ -122,7 +148,7 @@ export default class YaMapAll{
 					myMap.geoObjects.add(objectManager);
 					//console.log(`objectManager: ${objectManager.getBounds()}`);
 					myMap.setBounds(objectManager.getBounds());
-				});				
+				});*/				
 		});
 	}
 }
