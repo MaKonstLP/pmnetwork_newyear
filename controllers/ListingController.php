@@ -11,7 +11,7 @@ use frontend\widgets\FilterWidget;
 use frontend\widgets\PaginationWidget;
 use frontend\components\ParamsFromQuery;
 use frontend\components\QueryFromSlice;
-use frontend\components\Breadcrumbs;
+use frontend\modules\gorko_ny\components\Breadcrumbs;
 use common\models\Pages;
 use frontend\components\RoomsFilter;
 use common\models\Filter;
@@ -31,7 +31,7 @@ class ListingController extends Controller
 
 	public function beforeAction($action)
 	{
-		$this->filter_model = Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all();
+		$this->filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
 		$this->slices_model = Slices::find()->all();
 
 	    return parent::beforeAction($action);
@@ -42,7 +42,7 @@ class ListingController extends Controller
 		$slice_obj = new QueryFromSlice($slice);
 		if($slice_obj->flag){
 			$this->view->params['menu'] = $slice;
-			$params = $this->parseGetQuery($slice_obj->params, $this->filter_model, $this->slices_model);
+			$params = $this->parseGetQuery($slice_obj->params, Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all(), $this->slices_model);
 			isset($_GET['page']) ? $params['page'] = $_GET['page'] : $params['page'];
 
 			$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
@@ -60,7 +60,7 @@ class ListingController extends Controller
 			);
 		}
 		else{
-			return $this->goHome();
+			throw new \yii\web\NotFoundHttpException();
 		}				
 	}
 
@@ -126,12 +126,16 @@ class ListingController extends Controller
 			$seo['text_bottom'] = '';
 		}
 
+		$main_flag = ($seo_type == 'listing' and count($params_filter) == 0);
+
 		return $this->render('index.twig', array(
 			'items' => $items->items,
 			'filter' => $filter,
 			'pagination' => $pagination,
 			'seo' => $seo,
-			'count' => $items->total
+			'count' => $items->total,
+			'menu' => $type,
+			'main_flag' => $main_flag
 		));	
 	}
 

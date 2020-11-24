@@ -6,9 +6,9 @@
 		
 	</div>
 
-	{{ this.render('//components/generic/slice.twig') | raw }}
+	{{ this.render('//components/generic/slice.twig', {menu:menu, main_flag:main_flag}) | raw }}
 
-	<div class="content_block">
+	<div class="content_block filter_listing">
 		{{filter | raw }}
 	</div>
 
@@ -45,9 +45,7 @@
 		<h2>Все площадки на карте</h2>
 	</div>
 
-	<script defer="" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-
-	<div class="content_block map listing"></div>
+	<div class="content_block map listing" data-map-api-subid="{{ subid }}"></div>
 
 
 	<div class="content_block" data-listing-text-bottom>

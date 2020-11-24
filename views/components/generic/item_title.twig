@@ -1,10 +1,63 @@
 <div class="breadcrumbs">
+
 	{% for link,name in seo.breadcrumbs %}
-		<a class="breadcrumbs_item" href="{{link}}">{{name}}</a>
+
+
+		{% if loop.index == 2 %}
+
+			<div class="breadcrumbs_slices_container">
+
+				<div class="breadcrumbs_current_slice">
+
+					<a class="breadcrumbs_item" href="{{link}}">{{name}}</a>
+
+					<div class="arrow"></div>
+
+				</div>
+
+				<div class="breadcrumbs_slices_list _hide">
+
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/banketnye-zaly/">
+						<span class="breadcrumbs_item">Банкетные залы</span>
+					</a>
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/restorany/">
+						<span class="breadcrumbs_item">Рестораны</span>
+					</a>
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/kafe/">
+						<span class="breadcrumbs_item">Кафе</span>
+					</a>
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/kluby/">
+						<span class="breadcrumbs_item">Клубы</span>
+					</a>
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/bary/">
+						<span class="breadcrumbs_item">Бары</span>
+					</a>
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/v-gorode/">
+						<span class="breadcrumbs_item">В городе</span>
+					</a>
+					<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/na-prirode/">
+						<span class="breadcrumbs_item">На природе</span>
+					</a>
+					
+				</div>
+
+			</div>
+
+		{% else %}
+
+			<a class="breadcrumbs_item" href="{{link}}">{{name}}</a>
+
+		{% endif %}
+
 	{% endfor %}
+
 </div>
+
 <div class="title">
+
 	<h1>{{seo.h1}}</h1>
+
 	{#<div class="title_desc"><p>{{seo.desc}}</p></div>#}
-	<div class="title_address"><p>{{seo.address}}</p></div>
+	<div class="title_address"><a data-title-address>{{seo.address}}</a></div>
+
 </div>

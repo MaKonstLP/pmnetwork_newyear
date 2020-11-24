@@ -74,6 +74,7 @@
 
       @include for-notdesc{
         flex-flow: row wrap;
+        justify-content: space-between;
       }
 
       @include for-mobile{
@@ -83,19 +84,22 @@
       .input_wrapper{
         position: relative;
         width: 200px;
+
+        @include for-notdesc{
+          width: calc(50% - 10px);
+          margin-right: 0px;
+        }
     
         &:first-child{
           width: 250px;
+          @include for-notdesc{
+            width: calc(50% - 10px);
+          }
 
           input{
             width: 250px;
-          }
-
-          @include for-pad{
-            width: 200px;
-
-            input{
-              width: 200px;
+            @include for-notdesc{
+              width: 100%;
             }
           }
           
@@ -104,15 +108,14 @@
         &:last-child{
           width: 135px;
 
-          input{
-            width: 135px;
+          @include for-notdesc{
+            width: calc(50% - 10px);
           }
 
-          @include for-pad{
+          input{
             width: 135px;
-
-            input{
-              width: 135px;
+            @include for-notdesc{
+              width: 100%;
             }
           }
         }
@@ -120,6 +123,9 @@
         input{
           background: white;
           width: 200px;
+          @include for-notdesc{
+            width: 100%;
+          }
         }
 
         .open_calendar_button{
@@ -141,10 +147,11 @@
           }
 
           &:hover:before{
+            top: 10px;
             background: url("/img/calendar_icon_active.svg");
           }
 
-          @include for-mobile{
+          @include for-notdesc{
             width: 100%;
           }
         }
@@ -194,10 +201,16 @@
         order: 2;
         margin-top: 0;
         padding-top: 20px;
+        justify-content: space-between;
       }
 
       .checkbox_item{
         padding-bottom: 10px;
+
+        @include for-notdesc{
+          width: calc(50% - 10px);
+          margin-right: 0px;
+        }
       }
     }
 

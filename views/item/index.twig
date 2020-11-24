@@ -37,10 +37,23 @@
             </div>
 
             <div class="object_tags">
-                <a class="_link" href="#">Рестораны</a>
-                <a class="_link" href="#">Кафе</a>
-                <a class="_link" href="#">Банкетные&nbsp;залы</a>
-                <a class="_link" href="#">За&nbsp;городом</a>
+                {% for type in item.restaurant_types %}
+                    {% if type.id == 1 %}
+                        <a class="_link" href="/ploshhadki/restorany/">{{type.name}}</a>
+                    {% endif %}
+                    {% if type.id == 2 %}
+                        <a class="_link" href="/ploshhadki/banketnye-zaly/">{{type.name}}</a>
+                    {% endif %}
+                    {% if type.id == 3 %}
+                        <a class="_link" href="/ploshhadki/kafe/">{{type.name}}</a>
+                    {% endif %}
+                    {% if type.id == 4 %}
+                        <a class="_link" href="/ploshhadki/bary/">{{type.name}}</a>
+                    {% endif %}
+                    {% if type.id == 16 %}
+                        <a class="_link" href="/ploshhadki/kluby/">{{type.name}}</a>
+                    {% endif %}
+                {% endfor %}
             </div>
 
             <div class="object_book">
@@ -51,24 +64,27 @@
                         <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
                     </p>
 
-                    <div class="object_book_hidden_button _link" data-action="show_phone">Показать номер</div>
-
-                    <div class="object_book_interactive_part _hide">
-
-                        <div class="object_book_send_mail _hide _link" data-action="show_form">Отправить инфо о зале себе <span class="show_form_message_mobile"><br></span> на эл. почту</div>
-
-                        <form class="send_restaurant_info _hide">
-                            <input type="email" placeholder="Эл. почта">
-                            <button class="_button" data-action="show_mail_sent">Отправить</button>
-                        </form>
-
-                        <div class="object_book_mail_sent _hide">
-                            <span class="object_book_message">Мы отправили информацию на почту</span><br>
-                            <span class="_link" data-action="show_form_again">Отправить еще раз</span>
-                        </div>
-
+                    <div class="object_book_hidden_button _link" data-action="show_phone">Показать номер</div>                          
+                </div>
+                <div class="object_book_email">
+                    <div class="object_book_email_text" data-book-open>
+                        <p class="_pseudolink">Отправить инфо о ресторане себе на эл. почту</p>
                     </div>
-                          
+                    <div class="object_book_email_form">
+                        <form class="form_block" action="/ajax/sendroom/" data-type="book">
+                            <div class="form_inputs">
+                                <div class="input_wrapper">
+                                    <input type="email" name="book_email" data-book-email-id="{{item.id}}">
+                                    <input type="hidden" name="room_id" value="{{item.id}}">
+                                </div>
+                            </div>
+                            <input type="submit" class="object_book_email_button _button" value="Отправить"/>
+                        </form>
+                    </div>
+                    <div class="object_book_email_success">
+                        <p class="object_book_email_success_text">Мы отправили информацию на почту</p>
+                        <p class="object_book_email_success_reload _pseudolink" data-book-email-reload>Отправить еще раз</p>
+                    </div>
                 </div>
                 <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.2020 и получи новогодний подарок!</p>
             </div>
@@ -96,5 +112,3 @@
     </div>
 
 </div>
-
-<script defer src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>

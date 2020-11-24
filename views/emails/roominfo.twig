@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Новогодний корпоратив</title>
+</head>
+
+<body style="margin:0;padding:0;background:#f6f6f6;">
+    <div style="height:100%;padding-top:20px;background:#f6f6f6;">
+        <div style="text-align:center">
+            <a href="<?= \Yii::$app->params['siteAddress'] ?>">
+                <img style="width:122px;" src="https://svadbanaprirode.com/img/ny_ball.png" width="45" />
+            </a>
+        </div>
+        <!-- body -->
+        <table class="body-wrap" style="padding:0 20px 20px 20px;width: 100%;background:#f6f6f6;margin-top:10px;">
+            <tr>
+                <td></td>
+                <td class="container" style="border:1px solid #f0f0f0;background:#ffffff;width:900px;margin:auto;">
+                    <div class="content">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <h3 style="font-family:Arial;color: #111111;font-weight: 200;line-height: 1.2em;margin: 40px 20px;font-size: 22px;">
+                                        Ссылка на ресторан: <a href="{{url}}">{{url}}</a>
+                                    </h3>
+                                    <div style="font-family: Arial;color: #666666;font-size: 14px;margin: 0 20px 10px;">
+                                        <p style="font-family: Arial;color: #666666;font-size: 14px;margin: 0 20px 10px;">
+                                            Ресторан: {{item.restaurant_name}} <br/>
+                                            Адрес: {{item.restaurant_address}} <br/>
+                                            Банкетное меню: от {{item.restaurant_price}} руб. <br/>
+                                            Вместимость на банкет: до {{item.restaurant_max_capacity}} персон <br/>
+                                            Телефон: {{item.restaurant_phone}} <br/>
+                                            {% if item.restaurant_own_alcohol != 'Нельзя свой алкоголь' or item.restaurant_firework %}
+                                            Разрешены: <br/>
+                                                <ul>
+                                                    {% if item.restaurant_own_alcohol != 'Нельзя свой алкоголь' %}
+                                                        <li>{{item.restaurant_own_alcohol}}</li> 
+                                                    {% endif %}
+
+                                                    {% if item.restaurant_firework %}
+                                                        <li>Запуск фейерверка</li> 
+                                                    {% endif %}
+                                                </ul>
+                                            {% endif %}
+                                        </p>
+                                        <p style="font-family: Arial;color: #666666;font-size: 14px;margin: 0 20px 10px;">
+                                            Что на территории: <br/>
+                                                <ul>
+                                                    {% if item.restaurant_cuisine %}
+                                                        <li>{{item.restaurant_cuisine}} кухня</li> 
+                                                    {% endif %}
+                                                    {% if item.restaurant_parking %}
+                                                        <li>Парковочных мест {{item.restaurant_parking}}</li> 
+                                                    {% endif %}
+                                                    {% if item.restaurant_special %}
+                                                        {% for special in item.restaurant_special %}
+                                                            <li>{{special}}</li> 
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </ul>
+                                        </p>
+
+                                        <p style="font-family: Arial;color: #666666;font-size: 14px;margin: 0 20px 10px;">
+	                                        Это письмо сгенерировано автоматически на сайте <a href="{{link}}">korporativ-ng.ru</a>.  Не отвечайте на него.
+	                                    </p>
+	                                    <p style="font-family: Arial;color: #666666;font-size: 14px;margin: 0 20px 10px;">
+											Если у вас есть вопросы и пожелания, пишите нам на почту callme@korporativ-ng.ru или звоните по телефону +7 (925) 238-22-07.
+										</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- /content -->
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <!-- /body -->
+    </div>
+</body>
+
+</html>

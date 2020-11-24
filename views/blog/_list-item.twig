@@ -1,0 +1,21 @@
+<div class="blog_item_wrapper">
+
+    <a class="blog_item" href="{{ model.getUrl() }}">
+
+      <img class="blog_item_img" src="{{ model.getFileData('image').src }}" alt="blog article image">
+
+      <div class="blog_item_text_wrapper">
+
+        <div class="blog_item_title">
+          {{ model.name }}
+        </div>
+
+        <div class="blog_item_text">
+          {{ model.short_intro }}
+        </div>
+
+      </div>
+
+    </a>
+    
+  </div>

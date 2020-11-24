@@ -4,6 +4,34 @@
 	border-radius: 5px;
 	box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
 	padding: 25px 75px 40px;
+
+	button.button__pending{
+		background: #df6038;
+		pointer-events: none;
+	}
+
+	.header_form_popup_message_sent{
+		display: flex;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: linear-gradient(139.76deg,#feda5a .69%,#ffba35 112.92%);
+	    border-radius: 5px;
+	    padding: 25px 75px 40px;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+
+	    .header_form_popup_message{
+	    	margin: 20px 0px;
+	    }
+
+	    .header_form_popup_message_close{
+	    	cursor: pointer;
+	    }
+	}
 }
 
 .form_title{
@@ -62,6 +90,10 @@
 				width: 100%;
 				height: 40px;
 				padding: 9px 16px 6px;
+
+				&._invalid{
+					border-color: #ea3e3e;
+				}
 			}
 
 			.input_desc{

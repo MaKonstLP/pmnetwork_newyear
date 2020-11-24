@@ -1,29 +1,52 @@
 <div class="object_parameters_list _marked">
     <p class="object_parameters_title">О площадке</p>
-    <p class="object_parameters_item">Ресторан</p>
-    <p class="object_parameters_item">Расположение за городом</p>
+    <p class="object_parameters_item">
+        {% for type in item.restaurant_types %}
+            {% if loop.first %}
+                {{type.name}}
+            {% else %}
+                , {{type.name}}
+            {% endif %}
+        {% endfor %}
+    </p>
     <p class="object_parameters_item">{{item.restaurant_cuisine}} кухня</p>
-    <p class="object_parameters_item">{{item.restaurant_own_alcohol}}</p>
-    <p class="object_parameters_item">{{item.restaurant_parking}}</p>
+    {% if item.restaurant_parking %}
+        <p class="object_parameters_item">Парковочных мест: {{item.restaurant_parking}}</p>
+    {% endif %}
 </div>
 
 <div class="object_parameters_list">
     <p class="object_parameters_title">Залы</p>
-    <p class="object_parameters_item">4 помещения: 8, 40, 60, 70 человек</p>
+    <p class="object_parameters_item">{{item.rooms|length}} зал{{Declension.end_rooms(item.rooms|length)}}: 
+        {% for room in item.rooms %}
+            {% if loop.first %}
+                {{room.capacity}}
+            {% else %}
+                , {{room.capacity}}
+            {% endif %}
+        {% endfor %}
+        человек</p>
 </div>
 
+{% if item.restaurant_alcohol in [1,2] or item.restaurant_firework %}
 <div class="object_parameters_list _marked">
     <p class="object_parameters_title">Разрешены</p>
-    <p class="object_parameters_item">Свой алкоголь</p>
-    <p class="object_parameters_item">Запуск фейерверка</p>
+    {% if item.restaurant_alcohol in [1,2] %}
+        <p class="object_parameters_item">Свой алкоголь</p>
+    {% endif %}
+    {% if item.restaurant_firework %}
+        <p class="object_parameters_item">Запуск фейерверка</p>
+    {% endif %}
 </div>
+{% endif %}
 
 <div class="object_parameters_list _marked _big_list">
     <p class="object_parameters_title">За дополнительную плату</p>
     <div class="object_parameters_items">
-    {{item.restaurant_extra_services}}
-        <p class="object_parameters_item"></p>
-        
+        {% set services = item.restaurant_extra_services|split(',') %}
+        {% for service in services %}
+            <p class="object_parameters_item">{{service}}</p>
+        {% endfor %}
     </div>
 </div>
 

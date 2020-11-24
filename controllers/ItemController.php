@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\elastic\RestaurantElastic;
-use common\components\Breadcrumbs;
+use frontend\modules\gorko_ny\components\Breadcrumbs;
 use common\models\elastic\ItemsWidgetElastic;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use common\models\Seo;
@@ -20,6 +20,9 @@ class ItemController extends Controller
 	{
 		$elastic_model = new ElasticItems;
 		$item = $elastic_model::get($id);
+
+		if(!$item)
+			throw new \yii\web\NotFoundHttpException();
 
 		$seo = new Seo('item', 1, 0, $item, 'rest');
 		$seo = $seo->seo;
@@ -33,6 +36,10 @@ class ItemController extends Controller
 		$seo['address'] = $item->restaurant_address;
 
 		$other_rooms = $item->rooms;
+
+		//echo '<pre>';
+		//print_r($item);
+		//exit;
 
 		return $this->render('index.twig', array(
 			'item' => $item,

@@ -1,0 +1,154 @@
+<div data-page-type="contacts">
+
+  <div class="breadcrumbs">
+
+    <a class="breadcrumbs_item" href="/">
+      Новый год {{year}}
+    </a>
+
+    <p>Контакты</p>
+
+  </div>
+
+  <div class="contacts_container">
+
+    <div class="title_wrapper">
+
+      <h1>{{seo.h1}}</h1>
+
+      <p>
+        Мы открыты для новых проектов и интересных
+        предложений. По вопросам сотрудничества 
+        обращайтесь в редакцию портала.
+      </p>
+
+    </div>
+
+    <div class="mail_wrapper">
+
+      <h4>Электронная почта</h4>
+
+      <a href="mailto:callme@korporativ-ng.ru">callme@korporativ-ng.ru</a>
+
+    </div>
+
+    <div class="phone_wrapper">
+
+      <h4>Телефон банкетной службы</h4>
+
+      <a href="tel:+7 925 238-22-07">+7(925)238-22-07</a>
+
+    </div>
+
+    <div class="bottom_pane_wrapper">
+
+      <p>
+        Наш портал — это поисковик лучших площадок {{city_rod}} и банкетная 
+        служба в одном месте. Вы можете забронировать любое заведение для 
+        новогоднего корпоратива, позвонив по телефону или отправив 
+        онлайн-форму. На странице вы найдете контакты для связи:
+      </p>
+
+      <div class="object_book">
+  
+        <p class="object_book_text">Узнать об актуальных акциях и забронировать можно по телефону:</p>
+  
+        <div class="object_book_hidden">
+  
+            <p class="object_book_phone">
+  
+              <span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">❆❆❆ ❆❆❆ ❆❆ ❆❆</span></span>
+  
+              <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">+7(925)238-22-07</a>
+  
+            </p>
+  
+          <div class="object_book_hidden_button">
+            <p class="object_book_hidden_button _link" data-action="show_phone">Показать номер</p>
+          </div>
+                 
+        </div>
+  
+        <p class="object_book_action">Забронируй зал  до 01.12.2020 и получи новогодний подарок!</p>
+  
+      </div>
+
+      <p>
+        Мы также с удовольствием поможем вам найти место, подходящее под 
+        все требования. Просто оставьте свои данные для обратной связи.
+      </p>
+
+    </div>
+
+
+  </div>
+  
+  <div class="form_wrapper callback">
+
+    <div class="form_title">
+      <p class="form_title_main">Обратная связь</p>
+      <p class="form_title_desc">Заполните форму, мы свяжемся с вами и поможем подобрать лучшую площадку для новогоднего праздника.</p>
+    </div>
+  
+    <form class="form_block" action="/ajax/form/">
+  
+      <div class="form_inputs">
+      
+        <div class="input_wrapper">
+          <div class="input_label">Как Вас зовут</div>
+          <input type="text" name="name" data-required/>
+        </div>
+        <div class="input_wrapper">
+          <div class="input_label">Номер телефона</div>
+          <input type="text" name="phone" data-required/>
+        </div>
+        <div class="input_wrapper">
+          <div class="input_label">Вопрос</div>
+          <textarea name="question"></textarea>
+        </div>
+        <div class="input_wrapper">
+          <div class="input_label">Бюджет</div>
+          <input type="text" name="budget"/>
+        </div>
+        <div class="input_wrapper">
+          <div class="input_label">Эл. почта</div>
+          <input type="text" name="email"/>
+        </div>
+        <div class="input_wrapper">
+          <div class="input_label">Дата</div>
+          <input type="text" name="date"/>
+          <div class="calendar_wrapper">
+            <div class="open_calendar_button"></div>
+            <div class="calendar_container _hide">
+              <div class="calendar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="input_wrapper">
+          <div class="input_label">Число гостей</div>
+          <input type="text" name="guests_number"/>
+        </div>
+  
+      </div>
+  
+      <div class="form_submit_callback">
+        <button class="_button" type="submit">Отправить</button>
+        <div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+          <input type="checkbox" name="policy" class="personalData" checked=""  data-required>
+          <p class="checkbox_pseudo">Я согласен с <a class="_link" href="/privacy/" target="_blank">политикой обработки персональных данных</a></p>
+        </div>
+      </div>
+  
+    </form>
+    <div class="form_success">
+      <div class="header_form_popup_message_sent _hide" data-success>
+
+          <h2>Заявка отправлена</h2>
+          <p class="header_form_popup_message"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами<br>в течение дня и помогут подобрать зал для корпоратива.</p>
+          <p class="header_form_popup_message_close _link" data-success-close>Понятно, закрыть</p>
+          <div class="close_button"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

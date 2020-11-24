@@ -17,7 +17,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="icon" type="image/png" href="/img/ny_ball.png">
     <title><?php echo $this->title ?></title>
     <?php $this->head() ?>
     <?php if (!empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
@@ -26,45 +26,64 @@ AppAsset::register($this);
 
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTTPDSK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <?php $this->beginBody() ?>
 
     <div class="main_wrap">
         
         <header>
             <div class="header_wrap">
-                <a href="/" class="header_logo">
-                    <div class="header_logo_img"></div>
-                </a>
 
                 <div class="header_menu">
 
+                    <a href="/" class="header_logo">
+
+                        <div class="header_logo_img"></div>
+                        <div class="header_logo_text">
+                            <p>
+                                <span>Новогодний корпоратив</span><br>
+                                <span>корпоративы твоего города <?php echo date('Y') + 1 ?></span>
+                            </p>
+                        </div>
+                        
+                    </a>
+
                     <div class="header_city_select _grey_link">
 
-                        <span>Москва</span>
+                        <span><?=Yii::$app->params['subdomen_name']?></span>
 
                     </div>
-
+                    
                     <div class="city_select_search_wrapper _hide">
-
+                        
                         <p class="back_to_header_menu">Назад в меню</p>
 
                         <h4>Выберите город</h4>
 
-                        <div class="input_search_wrapper">
+                        <?php /*<div class="input_search_wrapper">
 
                             <input type="search" placeholder="Название города">
 
-                        </div>
+                        </div> */?>
 
                         <div class="city_select_list">
 
                             <?php
                                 $subdomen_list = Subdomen::find()
                                     ->where(['active' => 1])
+                                    ->orderBy(['name' => SORT_ASC])
                                     ->all();
 
                                 function createCityNameLine($city){
-                                    $newLine = "<a href='http://$city->alias.newyearpmn.ru'>$city->name</a>";
+                                    if($city->alias){
+                                        $newLine = "<p><a href='https://$city->alias.korporativ-ng.ru'>$city->name</a></p>";
+                                    }
+                                    else{
+                                        $newLine = "<p><a href='https://korporativ-ng.ru'>$city->name</a></p>";
+                                    }
                                     return $newLine;
                                 }
 
@@ -91,7 +110,6 @@ AppAsset::register($this);
                                         
                                     $citiesListResult .= "</div>";
                                     echo substr($citiesListResult, 6);
-
                                 }
 
                                 createCityList($subdomen_list);
@@ -101,32 +119,43 @@ AppAsset::register($this);
 
                     </div>
 
-                    
+                    <div class="header_menu_wrapper">
 
-                    <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-podmoskovie')echo '_active';?>" href="/catalog/v-podmoskovie/">За городом</a>
-                    <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-sharte')echo '_active';?>" href="/catalog/v-sharte/">В шатре</a>
-                    <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'y-vody')echo '_active';?>" href="/catalog/y-vody/">У воды</a>
-                    <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'na-verande')echo '_active';?>" href="/catalog/na-verande/">На веранде</a>
-                </div>
+                        <div class="header_city_select _grey_link">
 
-                <div class="header_phone">
-                    <p>(846) 205-78-45</p>
-                    <div class="header_phone_button">
-                        <div class="header_phone_button_img"></div>
-                        <p class="_grey_link">Подберите мне зал</p>
+                            <span><?=Yii::$app->params['subdomen_name']?></span>
+
+                        </div>
+
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'banketnye-zaly')echo '_active';?>" href="/ploshhadki/banketnye-zaly/">Банкетные залы</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'restorany')echo '_active';?>" href="/ploshhadki/restorany/">Рестораны</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kafe')echo '_active';?>" href="/ploshhadki/kafe/">Кафе</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kluby')echo '_active';?>" href="/ploshhadki/kluby/">Клубы</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'bary')echo '_active';?>" href="/ploshhadki/bary/">Бары</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'contacts')echo '_active';?>" href="/contacts/">Контакты</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'blog')echo '_active';?>" href="/blog/">Блог</a>
                     </div>
-                </div>
 
-                <div class="header_burger">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div class="header_phone">
+                        <a href="tel:+79252382207">+7(925)238-22-07</a>
+                        <div class="header_phone_button">
+                            <div class="header_phone_button_img"></div>
+                            <p class="_grey_link">Подберите мне зал</p>
+                        </div>
+                    </div>
+
+                    <div class="header_burger">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
                 </div>
 
                 <div class="header_form_popup _hide">
                     <div class="header_form_popup_content">
                     
-                        <?= $this->render('../components/generic/form_callback.twig') ?>
+                        <?= $this->render('../components/generic/form_callback.twig', ['type' => 'header']) ?>
                         <div class="close_button"></div>
 
                         <div class="header_form_popup_message_sent _hide">
@@ -155,15 +184,21 @@ AppAsset::register($this);
                         <div class="footer_block _left">
                             <a href="/" class="footer_logo">
                                 <div class="footer_logo_img"></div>
+                                <div class="footer_logo_text">
+                                    <p>
+                                        <span>Новогодний корпоратив</span><br>
+                                        <span>корпоративы твоего города <?php echo date('Y') + 1; ?></span>
+                                    </p>
+                                </div>
                             </a>
                             <div class="footer_info">
                                 <p class="footer_copy">© <?php echo date("Y");?> Новогодний корпоратив</p>
-                                <a href="#" class="footer_pc _link">Политика конфиденциальности</a>
+                                <a href="/privacy/" class="footer_pc _link">Политика конфиденциальности</a>
                             </div>                        
                         </div>
                         <div class="footer_block _right">
                             <div class="footer_phone">
-                                <p>Тел.: (846) 205-78-45</p>
+                                <a href="tel:+79252382207">+7(925)238-22-07</a>
                             </div>
                             <div class="footer_phone_button">
                             <div class="footer_phone_button_img"></div>
@@ -178,7 +213,7 @@ AppAsset::register($this);
     </div> 
 
 <?php $this->endBody() ?>
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600&display=swap&subset=cyrillic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&amp;display=swap&amp;subset=cyrillic" rel="stylesheet">
 </body>
 </html>
 <?php $this->endPage() ?>

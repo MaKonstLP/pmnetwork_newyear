@@ -91,6 +91,7 @@
             }
 
             &:hover:before{
+              top: 12px;
               background: url("/img/calendar_icon_active.svg");
             }
           }

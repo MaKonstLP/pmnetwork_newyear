@@ -13,16 +13,23 @@
 
                     <div class="room_card_content">
                         <span class="_subheader _mobile">Вместимость</span>
-                        <p><span class="_subheader">Вместимость</span> на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
-                        <p>на&nbsp;фуршет:<br>до&nbsp;<span>{{item.capacity_reception}}&nbsp;персон</span></p>
+                        {% if item.capacity %}
+                            <p><span class="_subheader">Вместимость</span> на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
+                        {% endif %}
+                        {% if item.capacity_reception %}
+                            <p>на&nbsp;фуршет:<br>до&nbsp;<span>{{item.capacity_reception}}&nbsp;персон</span></p>
+                        {% endif %}
+                        
+                        
                         <span class="_subheader _mobile">Стоимость</span>
-                        <p><span class="_subheader">Стоимость</span> на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
-                        <p>аренды&nbsp;зала:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
+                        {% if item.price %}
+                            <p><span class="_subheader">Стоимость</span> на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
+                        {% endif %}
                     </div>
 
                     <div class="calendar_wrapper">
 
-                        <a class="open_calendar_button _link" href="" onclick="return false">Свободные даты</a>
+                        <a class="open_calendar_button _link" href="" onclick="return false">Выберите дату</a>
 
                         <div class="calendar_container _room _hide">
 

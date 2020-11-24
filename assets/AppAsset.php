@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@frontend/modules/gorko_ny/web/dist';
+    public $sourcePath = '@frontend/modules/gorko_ny/web/dist/';
     //public $baseUrl = '@web';
     //public $baseUrl = '@frontend/modules/svadbanaprirode/web';
     public $css = [

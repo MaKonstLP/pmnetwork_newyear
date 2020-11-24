@@ -1,6 +1,6 @@
 [data-page-type="blog"]{
   position: relative;
-  padding: 0 calc((100% - 1196px) / 2);
+  //padding: 0 calc((100% - 1196px) / 2);
   
   &:before{
     content: "";
@@ -17,6 +17,10 @@
   .content_block{
     padding: 60px 0 60px 0;
 
+    &.items_list_blog{
+      padding-top: 0px;
+    }
+
     &.pagination{
       padding: 45px 0 45px 0;
 
@@ -30,18 +34,22 @@
     }
   }
 
-  .items_list{
+  .list-view{
     position: relative;
     display: flex;
     flex-flow: row wrap;
     background: white;
 
-    .blog_item_wrapper:nth-child(3n + 2){
+    .pagination_wrapper{
+      display: none;
+    }
+
+    &>div[data-key]:nth-child(3n + 2){
       padding: 0 34px;
     }
   }
 
-  .blog_item_wrapper{
+  .list-view>div[data-key]{
     padding-bottom: 30px;
   }
 
@@ -107,26 +115,30 @@
   }
 
   @include for-pad{
-    padding: 0 calc((100% - 748px) / 2);
+    //padding: 0 calc((100% - 748px) / 2);
 
     .content_block{
       padding: 35px 0 50px 0;
     }
 
-    .items_list{
-      justify-content: flex-start;
+    .list-view{
+      justify-content: center;
 
-      .blog_item_wrapper:nth-child(3n + 2){
-        padding: 0 0 20px 0;
+      &>div[data-key]{
+        padding: 0px 10px 20px 10px;
       }
 
-      .blog_item_wrapper:nth-child(odd){
-        padding: 0 20px 20px 0;
+      &>div[data-key]:nth-child(3n + 2){
+        padding: 0px 10px 20px 10px;
       }
+
+      //&>div[data-key]:nth-child(odd){
+      //  padding: 0 20px 20px 0;
+      //}
 
     }
 
-    .blog_item_wrapper{
+    .list-view>div[data-key]{
 
       .blog_item{
         width: 364px;
@@ -139,27 +151,27 @@
   }
 
   @include for-mobile{
-    padding: 0 calc((100% - 2900px) / 2) 0;
+    //padding: 0 calc((100% - 2900px) / 2) 0;
 
     .content_block{
       padding: 15px 0 35px 0;
     }
 
-    .items_list{
+    .list-view{
       flex-flow: column nowrap;
       align-items: center;
 
-      .blog_item_wrapper:nth-child(3n + 2){
+      &>div[data-key]:nth-child(3n + 2){
         padding: 0 0 20px 0;
       }
 
-      .blog_item_wrapper:nth-child(odd){
+      &>div[data-key]:nth-child(odd){
         padding: 0 0 20px 0;
       }
 
     }
 
-    .blog_item_wrapper{
+    .list-view>div[data-key]{
 
       .blog_item{
         width: 290px;

@@ -6,7 +6,7 @@
 			<p class="form_title_desc">Это бесплатно!</p>
 		</div>
 
-		<form class="form_block" action="/ajax/form">
+		<form class="form_block" action="/ajax/form/" data-type="main">
 
 			<div class="form_inputs">
 
@@ -54,10 +54,10 @@
 			</div>
 
 			<div class="form_submit">
-				<button class="_button">Забронировать</button>
-				<div class="form_policy checkbox_item">
-					<input type="checkbox" name="policy" class="personalData" checked="">
-					<p class="checkbox_pseudo">Я согласен с <a class="_link">политикой обработки персональных данных</a></p>
+				<button class="_button" type="submit">Отправить</button>
+				<div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+					<input type="checkbox" name="policy" class="personalData" checked=""  data-required>
+					<p class="checkbox_pseudo">Я согласен с <a class="_link" href="/privacy/" target="_blank">политикой обработки персональных данных</a></p>
 				</div>
 			</div>
 				
@@ -65,6 +65,13 @@
 
 	</div>
 	<div class="form_success">
+	    <div class="header_form_popup_message_sent _hide" data-success>
 
-	</div>
+	            <h2>Заявка отправлена</h2>
+	            <p class="header_form_popup_message"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами<br>в течение дня и помогут подобрать зал для корпоратива.</p>
+	            <p class="header_form_popup_message_close _link" data-success-close>Понятно, закрыть</p>
+	            <div class="close_button"></div>
+
+	        </div>
+	  </div>
 </div>

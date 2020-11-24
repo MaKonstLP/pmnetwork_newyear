@@ -1,0 +1,247 @@
+[data-page-type="contacts"]{
+  display: flex;
+  flex-flow: row wrap;
+  width: 1200px;
+  margin: 20px auto 20px auto;
+
+  .breadcrumbs{
+    width: 100%;
+    padding: 0 0 20px 0;
+    flex-grow: 1;
+
+    p{
+      margin: 0 0 0 15px;
+      font-size: 14px;
+      color: #666666;
+
+    }
+  }
+
+  .contacts_container{
+    width: 50%;
+    padding: 0 30px 0 0;
+  }
+
+  .title_wrapper{
+
+    h1{
+      padding: 0 0 10px 0;
+      font-size: 28px;
+    }
+
+    p{
+      font-size: 14px;
+    }
+  }
+
+  .mail_wrapper,
+  .phone_wrapper{
+
+    h4{
+      padding: 0 0 10px 0;
+      font-weight: 600;
+    }
+  }
+
+  .mail_wrapper{
+    padding: 20px 0 0 0;
+  }
+
+  .phone_wrapper{
+    padding: 20px 0 20px 0;
+
+    a{
+      position: relative;
+      padding: 0 0 0 21px;
+      font-weight: 600;
+      font-size: 22px;
+
+      &:before{
+        position: absolute;
+        top: 3px;
+        left: -5px;
+        content: '';
+        width: 24px;
+        height: 24px;
+        background: url(/img/phone_icon.svg) no-repeat;
+      }
+    }
+  }
+  
+  .object_book{
+    max-width: 450px;
+    margin: 0 0 20px 0;
+
+    .object_book_hidden{
+      flex-flow: row wrap;
+      justify-content: space-between;
+
+      .object_book_hidden_button{
+        cursor: default;
+        position: static;
+        padding: 3px 0 0 0;
+
+
+      }
+    }
+
+    ._link:hover{
+      color: #D83603;
+    }
+  
+  }
+
+  .object_book .object_book_action{
+    position: relative;
+    padding: 3px 0 0 43px;
+    background: none;
+
+    &:before{
+      position: absolute;
+      top: 3px;
+      left: 0;
+      content: '';
+      width: 30px;
+      height: 37px;
+      background: url(/img/gift.svg) no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .bottom_pane_wrapper{
+    padding: 0 0 0 30px;
+    border-left: 2px solid #d83603;
+
+    & > p{
+      padding: 0 0 20px 0;
+      font-size: 14px;
+    }
+
+    & > p:last-of-type{
+      padding: 0 0 0 0;
+    }
+  }
+
+  .form_wrapper.callback{
+    width: 50%;
+    margin: 30px 0 0 0;
+    padding: 20px 20px 32px 20px;
+  }
+
+  .form_wrapper.callback .form_title{
+    width: auto;
+  }
+
+  .form_wrapper.callback .form_title .form_title_main{
+    font-size: 22px;
+  }
+
+  .form_wrapper.callback .form_title .form_title_desc,
+  .form_block .form_inputs .input_wrapper .input_label{
+    font-size: 14px;
+  }
+
+  .form_wrapper.callback .form_block .form_inputs{
+    flex-flow: row wrap;
+    width: auto;
+    height: auto;
+  }
+
+  .form_wrapper.callback .form_block .form_inputs .input_wrapper{
+    width: 270px;
+
+    &:nth-of-type(2){
+      margin: 0 0 20px 0;
+    }
+
+    &:nth-child(3){
+      width: 100%;
+      margin: 0 0 20px 0;
+
+      textarea{
+        width: 100%;
+      }
+    }
+  }
+
+  @include for-notdesc{
+
+    .object_book{
+      width: 100%;
+    }
+  }
+
+  @include for-pad{
+    width: 100%;
+    margin: 20px 0 20px 0;
+    padding: 0 15px 0 15px;
+
+    .contacts_container{
+      width: calc(50% - 15px);
+      padding: 0 20px 0 0;
+    }
+    
+    .form_wrapper.callback{
+      width: calc(50% - 15px);
+
+      &:before,
+      &:after{
+        content: none;
+      }
+    }
+
+    .form_wrapper.callback .form_block .form_inputs .input_wrapper{
+      width: calc(50% - 10px);
+  
+      &:nth-of-type(2){
+        margin: 0 0 20px 0;
+      }
+  
+      &:nth-child(3){
+        width: 100%;
+        margin: 0 0 20px 0;
+  
+        textarea{
+          width: 100%;
+        }
+      }
+    }
+  }
+
+
+
+  @media (max-width: 1200px) {
+
+    .form_wrapper.callback .form_block .form_inputs .input_wrapper{
+      width: 100%;
+  
+      &:nth-of-type(2){
+        margin: 0 0 20px 0;
+      }
+    }
+
+  }
+
+  @include for-mobile{
+    width: calc(100% - 30px);
+    margin: 20px 15px 20px 15px;
+    flex-flow: column nowrap;
+
+    .contacts_container,
+    .form_wrapper.callback{
+      width: 100%;
+      padding: 0 0 0 0;
+    }
+
+    .form_wrapper.callback{
+      margin: 20px 0 0 0;
+      padding: 20px 20px 32px 20px;
+    }
+
+    .object_book .object_book_hidden .object_book_phone .object_fake_phone,
+    .object_book .object_book_hidden .object_book_phone .object_real_phone{
+      font-size: 22px;
+    }
+
+  }
+}

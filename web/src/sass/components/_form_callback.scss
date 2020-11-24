@@ -104,6 +104,7 @@
         width: 492px;
         height: 258px;
         flex-flow: row wrap;
+        justify-content: space-between;
       }
 
       @include for-mobile{
@@ -119,7 +120,8 @@
         margin-bottom: 19px;
 
         @include for-pad{
-          width: 200px;
+          width: calc(50% - 10px);
+          margin-right: 0px;
         }
 
         @include for-mobile{
@@ -141,7 +143,7 @@
           box-shadow: inset 0px 1px 2px rgba(140, 140, 140, 0.5);
           border-radius: 2px;
 
-          @include for-mobile {
+          @include for-notdesc {
             width: 100%;
           }
         }
@@ -150,7 +152,7 @@
       .input_wrapper:nth-child(3) {
         width: 435px;
 
-        @include for-mobile{
+        @include for-notdesc{
           width: 100%;
         }
       }
@@ -168,7 +170,7 @@
 
       @include for-pad{
         margin-top: 0;
-        flex-flow: column nowrap;
+        //flex-flow: column nowrap;
 
         .form_policy{
           margin-top: 10px;

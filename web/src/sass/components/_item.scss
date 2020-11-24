@@ -1,5 +1,6 @@
 .item_page_wrapper{
     position: relative;
+    z-index: 0;
 
     &:before{
         content: "";
@@ -10,6 +11,7 @@
         height: 952px;
         background: url("/img/card_page_top_Left_decorations.png");
         background-repeat: no-repeat;
+        z-index: -2;
     }
 
     &:after{
@@ -21,6 +23,7 @@
         height: 952px;
         background: url("/img/card_page_top_Big_Right_Decorations.png");
         background-repeat: no-repeat;
+        z-index: -2;
     }
 
     .map{
@@ -37,8 +40,12 @@
 
     @include for-pad{
 
+        .title{
+            padding: 17px 0 0 0;
+        }
+
         [data-listing-title]{
-            z-index: 1;
+            z-index: 2;
 
             .breadcrumbs{
                 background: white;
@@ -56,7 +63,7 @@
         }
 
         &:after{
-            top: -280px;
+            top: -180px;
         }
     }
 
@@ -74,7 +81,7 @@
 
 .content_block[data-page-type="item"]{
     position: relative;
-    z-index: 10;
+    z-index: -1;
 }
 
 .object_head{
@@ -84,7 +91,7 @@
     padding-left: calc(100% - 450px);
     position: relative;
     min-height: 472px;
-    margin-top: 27px;
+    z-index: 1;
 
     @include for-notdesc{
         align-items: center;
@@ -110,6 +117,10 @@
         .swiper-slide{
             background-size: cover;
             background-position: center;
+
+            img{
+                width: 100%;
+            }
         }
 
         &.gallery-top{
@@ -240,6 +251,10 @@
 
     @include for-notdesc{
         padding-top: 20px;
+    }
+
+    @include for-mobile{
+        align-self: flex-start;
     }
 }
 
@@ -458,7 +473,7 @@
             
             .object_parameters_item{
                 padding-left: 20px;
-                background-image: url("/img/checkbox_pin.svg");
+                background-image: url("/img/korporativ-ng/checkbox_pin.svg");
                 background-position: 0px 6px;
                 background-size: 12px;
                 background-repeat: no-repeat;
@@ -480,7 +495,7 @@
     }
 
     @include for-notdesc{
-        width: 100%;
+        width: 710px;
         display: flex;
         flex-flow: column wrap;
     }
@@ -494,7 +509,7 @@
     }
 
     @include for-mobile{
-
+        width: 100%;
     }
 }
 
@@ -522,7 +537,7 @@
             right: calc(50% - 72px);
             width: 144px;
             height: 144px;
-            background: url("/img/hall_Ball.png");
+            background: url("/img/korporativ-ng/hall_Ball.png");
         }
     }
 
@@ -534,7 +549,7 @@
             left: calc(50% - 72px);
             width: 144px;
             height: 144px;
-            background: url("/img/hall_star.png");
+            background: url("/img/korporativ-ng/hall_star.png");
             background-repeat: no-repeat;
         }
     }
@@ -755,6 +770,7 @@
     margin: 0;
     padding-bottom: 160px;
     width: 100%;
+    overflow: hidden;
     //background: url("/img/index_page_form_star_bg.png");
 
     &:before{
@@ -801,6 +817,98 @@
 
         &:after{
             content: none;
+        }
+    }
+}
+
+.object_book_email{
+    margin-top: 8px;
+
+    ._pseudolink{
+        display: inline;
+    }
+
+    &._form{
+
+        .object_book_email_text,
+        .object_book_email_success{
+            display: none;
+        }
+
+        .object_book_email_form{
+            display: block;
+        }
+    }
+
+    &._success{
+
+        .object_book_email_text,
+        .object_book_email_form{
+            display: none;
+        }
+
+        .object_book_email_success{
+            display: block;
+        }
+    }
+
+    .object_book_email_text{
+
+    }
+
+    .object_book_email_form{
+        display: none;
+        margin-top: 13px;
+        justify-content: space-between;
+
+        .form_block{
+            margin-top: 0px;
+        }
+
+        .input_wrapper{
+            width: calc(100% - 8px);
+            input{
+                background: white;
+            }
+        }
+
+        .object_book_email_button{
+            width: calc(40% - 8px);
+            line-height: 40px;
+            text-align: center;
+        }
+
+
+        @include for-mobile{
+            .form_block{
+                flex-direction: column;
+
+                .form_inputs{
+                    width: 100%;
+                }
+            }
+
+            .input_wrapper{
+                width: 100%;
+                margin-right: 0px;
+            }
+
+            .object_book_email_button{
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .object_book_email_success{
+        display: none;
+
+        .object_book_email_success_text{
+
+        }
+
+        .object_book_email_success_reload{
+
         }
     }
 }

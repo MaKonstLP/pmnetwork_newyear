@@ -3,15 +3,15 @@
 	<div class="main_top">
         <h1>{{seo.h1}}</h1>
         <div class="main_top_desc">
-            {{seo.text_top | raw}}
+            {{seo.h1_pag | raw}}
         </div>                    
     </div>
 
 	<div class="content_block submenu">
 		<div class="submenu_wrapper">
-			<div class="submenu submenu_restaurants">
+			<a href="/ploshhadki/v-gorode/" class="submenu submenu_restaurants">
 				<h2>В городе</h2>
-				<div class="submenu_bg_filter"></div>
+				{#<div class="submenu_bg_filter"></div>
 				<div class="slices">
 						<a href="#">Район 1</a>
 						<a href="#">Район 2</a>
@@ -20,12 +20,12 @@
 						<a href="#">Район 5</a>
 						<a href="#">Район 6</a>
 						<a href="#">Район 7</a>
-					</div>
+					</div>#}
 				<img src="/img/restaurant_image.png" alt="restaurant_image">
-			</div>
-			<div class="submenu submenu_cottages">
+			</a>
+			<a href="/ploshhadki/na-prirode/" class="submenu submenu_cottages">
 				<h2>На природе</h2>
-				<div class="submenu_bg_filter"></div>
+				{#<div class="submenu_bg_filter"></div>
 				<div class="slices">
 					<a href="#">Район 1</a>
 					<a href="#">Район 2</a>
@@ -34,9 +34,9 @@
 					<a href="#">Район 5</a>
 					<a href="#">Район 6</a>
 					<a href="#">Район 7</a>
-				</div>
+				</div>#}
 				<img src="/img/cottage_image.png" alt="cottage_image">
-			</div>
+			</a>
 		</div>
 	</div>
 
@@ -49,7 +49,6 @@
 		{{ filter | raw }}
 	</div>
 
-	<script defer="" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
 	<div class="content_block map" data-map-api-subid="{{ subid }}"></div>
 
@@ -57,7 +56,7 @@
 		{{ this.render('//components/generic/form_callback.twig') | raw }}
 	</div>
 
-	<div class="content_block seo_text"></div>
+	<div class="content_block seo_text">{{seo.text_top | raw}}</div>
 
 	<div class="best_offer_slider" data-widget-main-wrapper>
 
@@ -67,6 +66,6 @@
 
 
 	<div class="content_block seo_text_wrapper last">
-		<div class="seo_text"></div>
+		<div class="seo_text">{{seo.text_bottom | raw}}</div>
 	</div>
 </div>

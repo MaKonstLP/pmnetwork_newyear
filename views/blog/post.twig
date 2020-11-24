@@ -1,0 +1,16 @@
+<div data-page-type="post">
+
+  	<a class="post back_to_blog_list" href="/blog/">Статьи блога</a>
+
+  	<div class="post_wrapper">
+
+  		<h1>{{ post.name}}</h1>
+
+  		<figure>
+		    <img src="{{ post.getFileData('image').src}}" alt="">
+		</figure>
+
+		{{ post.getHtml()|raw}}
+	</div>
+</div>
+

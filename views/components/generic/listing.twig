@@ -1,11 +1,11 @@
 {% for item in items %}
-	<a href="/catalog/{{item.id}}/" class="item swiper-slide {{type}}">
+	<a href="/ploshhadki/{{item.id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
-            <img src="{{item.restaurant_images[0].subpath}}" alt="{{img_alt | replace({"**restaurant**" : item.restaurant_name})}}"/>
+            <img src="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95" loading="lazy" alt="{{img_alt | replace({"**rest_name**" : item.restaurant_name})}}"/>
 
-            <div class="item_date-availability">
+            {#<div class="item_date-availability">
                 <span>Свободно 12 декабря</span>
-            </div>
+            </div>#}
 
         </div>
         <div class="item_info">
@@ -30,6 +30,12 @@
                         </div>
                     {% endif %}
 
+                    {% if item.restaurant_price %}
+                        <div class="item_meta_item">
+                            <span class="item_meta_label">Стоимость: </span><span class="item_meta_text">от {{item.restaurant_price}} ₽/чел.</span>
+                        </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -39,9 +45,11 @@
                 <span>Подарок за бронирование</span>
             </div>
 
+            {% if item.restaurant_firework %}
             <div class="item_fireworks-availability">
                 <span>Возможность фейерверка</span>
             </div>
+            {% endif %}
 
         </div>
     </a>

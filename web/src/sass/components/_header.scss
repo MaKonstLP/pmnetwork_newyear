@@ -27,59 +27,93 @@ header{
         height: 100%;
 
         .header_logo{
-            position: absolute;
-            left: 35px;
+            display: flex;
+            align-items: center;
+            margin-left: 35px;
 
             @include for-pad{
-                left: 12px;
+                margin-left: 52px;
             }
 
             @include for-mobile{
                 top: 0;
-                left: auto;
+                left: auto; 
                 right: 140px;
             }
 
             .header_logo_img{
-                width: 333px;
-                height: 72px;
-                background: url("/img/ny_logo.svg");
+                width: 70px;
+                height: 70px;
+                background: url("/img/korporativ-ng/ny_ball.svg");
                 background-size: contain;
                 transition: filter 0.2s ease;
 
                 @include for-pad{
-                    position: absolute;
-                    top: -40px;
-                    left: 41px;
+                    width: 56px;
+                    height: 56px;                }
+
+                @include for-mobile{
+                    width: 56px;
+                    height: 56px;
+                }
+            }
+
+            .header_logo_text span{
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 28px;
+                letter-spacing: 0.01em;
+                text-transform: uppercase;
+                color: #BA1904;
+
+                &:last-of-type{
+                    font-size: 11px;
+                    line-height: 15px;
+                    letter-spacing: 0.2em;
+                    color: #000000;
+                }
+
+                @include for-pad{
+                    white-space: nowrap;
+                    font-size: 16px;
+                    line-height: 24px;   
+                    
+                    &:last-of-type{
+                        white-space: nowrap;
+                        font-size: 9px;
+                        line-height: 13px;    
+                    }
+
                 }
 
                 @include for-mobile{
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 57px;
-                    height: 57px;
-                    background-image: url("/img/ny_logo_mobile.svg");
+                    display: none;
                 }
             }
+        }
 
-            &:hover .header_logo_img{
-
-            }
+        .header_menu_wrapper{
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-start;
         }
 
         .header_menu{
             display: flex;
+            width: 100%;
+            align-items: center;
 
             .header_city_select{
-                position: absolute;
-                top: 40px;
-                left: 400px;
+                position: relative;
+                align-self: center;
+                height: 20px;
+                margin-left: 35px;
                 cursor: pointer;
                 font-style: normal;
                 font-weight: 500;
                 font-size: 16px;
                 line-height: 26px;
+                margin-right: 25px;
 
                 &:before{
                     content: "";
@@ -111,8 +145,21 @@ header{
                     transform: rotate(225deg);
                 }
 
+                
+
                 span{
                     display: block;
+                    white-space: nowrap;
+                }
+
+                @include for-notdesc{
+                    align-self: flex-start;
+                    top: -10px;
+                    margin-left: 28px;
+                }
+
+                @include for-mobile{
+                    // display: none;
                 }
             }
 
@@ -120,12 +167,13 @@ header{
                 position: absolute;
                 top: 75px;
                 left: 390px;
-                width: 787px;
-                height: 743px;
-                padding: 20px 25px 20px 25px;
+                width: 850px;
+                max-height: calc(100vh - 60px);
+                padding: 20px 0px 20px 25px;
                 background: white;
                 border-radius: 4px;
                 box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+                overflow-y: auto;
 
                 &:before{
                     content: "";
@@ -181,7 +229,7 @@ header{
                 .city_select_list{
                     display: flex;
                     flex-flow: column wrap;
-                    height: 610px;
+                    height: 548px;
                     padding: 0 0 0 18px;
 
                     .city_select_letter_block{
@@ -211,7 +259,84 @@ header{
                             
                     }
                 }
+
+                @include for-mobile{
+                    left: 0;
+                    width: 320px;
+                    height: 90vh;
+                    padding: 22px 17px 22px 16px;
+                    z-index: 10;
+
+                    &:before{
+                        content: none;
+                    }
+
+                    .back_to_header_menu{
+                        cursor: pointer;
+                        display: block;
+                        width: 120px;
+                        margin: 0 0 0 23px;
+                        border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
+                        font-weight: 500;
+
+                        &:before{
+                            content: "←";
+                            position: absolute;
+                            top: 20px;
+                            left: 17px;
+                        }
+                    }
+
+                    h4{
+                        padding: 15px 0 13px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 23px;
+                    }
+
+                    .city_select_list{
+                        flex-flow: column nowrap;
+                        overflow-y: scroll;
+                        height: calc(100% - 110px);
+                    }
+                }
+
+                @include for-pad{
+                    top: 64px;
+                    left: 0;
+                    width: 768px;
+                    z-index: 10;
+
+                    &:before{
+                        left: 374px;
+                    }
+                }
+
+                @include for-mobile{
+                    top: 56px;
+                    width: 100%;
+                }
             }
+
+            & > .header_city_select{
+                display: none;
+            }
+
+            @include for-pad{
+
+                & > .header_city_select{
+                    display: block;
+                    align-self: auto;
+                    top: auto;
+                }
+            }
+
+            @include for-mobile{
+                justify-content: flex-end;
+            }
+        }
+
+        .header_menu_wrapper{
 
             .header_menu_item{
                 line-height: 30px;
@@ -221,6 +346,25 @@ header{
                 margin: 0px 33px;
                 padding: 0px 10px;
 
+                &._no_wide_screen{
+                    display: none;
+                }
+
+                @include for-notdesc{
+
+                    &._no_wide_screen{
+                        display: block;
+                    }
+                }
+
+                @media (max-width: 1700px) {
+                    margin: 0px 17px;
+                }
+
+                @media (max-width: 1550px) {
+                    margin: 0px 5px;
+                }
+
                 &:hover{
                     color: #F0440D;
                 }
@@ -228,6 +372,7 @@ header{
                 &._active{
                     color: #D83603;
                 }
+
             }
 
             @include for-notdesc{
@@ -260,94 +405,54 @@ header{
                 }
 
                 .header_city_select{
-                    top: 20px;
-                    left: 25px;
 
                     &._active{
                         display: none;
                     }
 
                 }
-
-                .city_select_search_wrapper{
-                    top: 0;
-                    left: 0;
-                    width: 320px;
-                    height: 90vh;
-                    padding: 22px 17px 22px 16px;
-
-                    &:before{
-                        content: none;
-                    }
-
-                    .back_to_header_menu{
-                        cursor: pointer;
-                        display: block;
-                        width: 120px;
-                        margin: 0 0 0 23px;
-                        border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
-
-                        &:before{
-                            content: "←";
-                            position: absolute;
-                            top: 20px;
-                            left: 17px;
-                        }
-                    }
-
-                    h4{
-                        padding: 15px 0 13px;
-                        font-weight: bold;
-                        font-size: 16px;
-                        line-height: 23px;
-                    }
-
-                    .city_select_list{
-                        flex-flow: column nowrap;
-                        overflow-y: scroll;
-                    }
-                }
             }
 
             @include for-pad{
                 top: 90px;
-                padding: 50px 0 11px; 
+                padding: 20px 0 11px; 
             }
 
             @include for-mobile{
                 width: 100%;
-                padding: 50px 0 11px;
+                padding: 30px 0 11px;
                 top: calc(100% + 1px);  
-
-                .city_select_search_wrapper{
-                    width: 100%;
-                }
             }
         }
 
 
         .header_phone{
-            position: absolute;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            right: 35px;
+            margin-right: 35px;
 
             @include for-pad{
-                right: 10px;
+                margin-right: 10px;
+                flex-grow: 1;
             }
 
             @include for-mobile{
-                right: 16px;
+                margin-right: 16px;
             }
 
 
-            & > p{
+            & > a{
                 font-size: 26px;
                 color: #000;
                 font-weight: 600;
                 line-height: 32px;
                 margin-bottom: 7px;
+
+                @include for-pad{
+                    font-size: 22px;
+                    line-height: 28px;
+                }
 
                 @include for-mobile{
                     margin-bottom: 0px;
@@ -372,7 +477,7 @@ header{
                 margin-top: -2px;
                 width: fit-content;
                 cursor: pointer;
-                padding: 0px 0px 0px 30px;
+                // padding: 0px 0px 0px 30px;
                 position: relative;
 
                 @include for-mobile{
@@ -380,10 +485,6 @@ header{
                 }
 
                 .header_phone_button_img{
-                    width: 30px;
-                    height: 31px;
-                    background: url("/img/ny_ball.svg");
-                    background-size: contain;
                 }
 
                 & > p{
@@ -392,6 +493,18 @@ header{
                     line-height: 25px;
                     font-size: 16px;
                     font-weight: 500;
+
+                }
+
+                &:before{
+                    position: absolute;
+                    content: '';
+                    top: -2px;
+                    left: -30px;
+                    width: 30px;
+                    height: 31px;
+                    background: url("/img/ny_ball.svg");
+                    background-size: contain;    
                 }
             }
         }
@@ -487,7 +600,7 @@ header{
                     cursor: pointer;
                     width: 30px;
                     height: 30px;
-                    background: url("/img/close_icon_popup.svg");
+                    background: url("/img/korporativ-ng/close_icon_popup.svg");
                 }
 
                 @include for-mobile{
@@ -503,6 +616,13 @@ header{
                 .form_wrapper.callback{
                     margin: 0;
                 }
+            }
+        }
+
+        @include for-pad{
+
+            .header_city_select{
+                display: none;
             }
         }
 
@@ -525,7 +645,7 @@ header{
             }
         }
 
-        .header_menu{
+        .header_menu_wrapper{
             display: flex;
             flex-flow: column nowrap;
             transform: translateY(0px);

@@ -1,0 +1,29 @@
+<div data-page-type="blog">
+
+  <div class="content_block" data-blog-title>
+
+		<h1>Блог Новогоднего корпоратива</h1>
+		
+	</div>
+
+  <div class="items_list_blog" data-blog-wrapper>
+
+		<div class="items_list" data-blog-list>
+
+			{{ this.render('//components/generic/blog.twig') | raw }}
+
+		</div>
+
+	</div>
+
+	<div class="content_block pagination"> 
+
+		<div data-pagination-wrapper>
+
+			{{pagination | raw }}
+
+		</div>
+    
+	</div>
+
+</div>

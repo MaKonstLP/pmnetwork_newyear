@@ -113,7 +113,7 @@ export default class Filter{
             success: function(response) {
             	if(response){
             		//console.log(response);
-            		self.resolve('/catalog/'+response);
+            		self.resolve('/ploshhadki/'+response);
             	}
             	else{
             		//console.log(response);
@@ -179,11 +179,12 @@ export default class Filter{
 	checkboxStateRefresh($item){
 		let blockType = $item.closest('[data-type]').data('type');
 		if($item.hasClass('_checked')){
-			this.state[blockType] = 1;
+			this.state[blockType] = $item.find('[data-value]').data('value');
 		}
 		else{
 			delete this.state[blockType];
 		}
+		console.log(this.state);
 	}
 
 	inputStateRefresh(type, val){
@@ -197,13 +198,13 @@ export default class Filter{
 
 	filterListingHref(){
 		if(Object.keys(this.state).length > 0){
-			var href = '/catalog/?';
+			var href = '/ploshhadki/?';
 			$.each(this.state, function(key, value){
 				href += '&' + key + '=' + value;
 			});
 		}
 		else{
-			var href = '/catalog/';
+			var href = '/ploshhadki/';
 		}			
 
 		return href;

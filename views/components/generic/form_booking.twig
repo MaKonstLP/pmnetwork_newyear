@@ -4,7 +4,7 @@
 		<p class="form_title_main">Хотите новый год в этом заведении?</p>
 	</div>
 
-  <form class="form_block" action="/ajax/form">
+  <form class="form_block" action="/ajax/form/"  data-type="item">
 
     <div class="form_inputs">
     
@@ -52,13 +52,24 @@
     {% endif %}
 
     <div class="form_submit_booking">
-			<button type="submit" class="_button">Забронировать</button>
-			<div class="form_policy checkbox_item" data-action="form_checkbox">
-				<input type="checkbox" name="policy" class="personalData" checked="" data-required>
-				<p class="checkbox_pseudo">Я согласен с <a class="_link">политикой обработки персональных данных</a></p>
-			</div>
+			<button class="_button" type="submit">Отправить</button>
+      <div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+        <input type="checkbox" name="policy" class="personalData" checked=""  data-required>
+        <p class="checkbox_pseudo">Я согласен с <a class="_link" href="/privacy/" target="_blank">политикой обработки персональных данных</a></p>
+      </div>
 		</div>
 
   </form>
+
+  <div class="form_success">
+      <div class="header_form_popup_message_sent _hide" data-success>
+
+              <h2>Заявка отправлена</h2>
+              <p class="header_form_popup_message">Спасибо за проявленный интерес. Наши менеджеры свяжутся с вами<br>в течение дня и помогут подобрать зал для корпоратива.</p>
+              <p class="header_form_popup_message_close _link" data-success-close>Понятно, закрыть</p>
+              <div class="close_button"></div>
+
+          </div>
+    </div>
   
 </div>

@@ -11,6 +11,7 @@ use common\models\Filter;
 use common\models\Slices;
 use common\models\elastic\ItemsFilterElastic;
 use frontend\modules\gorko_ny\models\ElasticItems;
+use common\models\Seo;
 
 class SiteController extends Controller
 {
@@ -21,10 +22,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $filter_model = Filter::find()->with('items')->all();
+        $filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
         $slices_model = Slices::find()->all();
-
-        $seo = Pages::find()->where(['name' => 'index'])->one();
+        $seo = $this->getSeo('index');
         $this->setSeo($seo);
 
         $filter = FilterWidget::widget([
@@ -35,7 +35,8 @@ class SiteController extends Controller
         $elastic_model = new ElasticItems;
         $items = new ItemsFilterElastic([], 10, 1, false, 'restaurants', $elastic_model);
         $mainWidget = $this->renderPartial('//components/generic/profitable_offer.twig', [
-            'items' => $items->items
+            'items' => $items->items,
+            'city_rod' => Yii::$app->params['subdomen_rod'],
         ]);
 
         return $this->render('index.twig', [
@@ -45,6 +46,36 @@ class SiteController extends Controller
             'seo' => $seo,
             'subid' => isset(Yii::$app->params['subdomen_id']) ? Yii::$app->params['subdomen_id'] : false
         ]);
+    }
+
+    public function actionError()
+    {
+        return $this->render('error.twig');
+    }
+
+    public function actionRobots()
+    {
+        header('Content-type: text/plain');
+        if(Yii::$app->params['subdomen_alias']){
+            $subdomen_alias = Yii::$app->params['subdomen_alias'].'.';
+        }
+        else{
+            $subdomen_alias = '';
+        }
+        echo 'User-agent: *
+Disallow: /*rest_type=
+Disallow: /*chelovek=
+Disallow: /*price=
+Disallow: /*firework=
+Disallow: /*svoy-alko=
+Sitemap: https://'.$subdomen_alias.'korporativ-ng.ru/sitemap/';
+        exit;
+    }
+
+    private function getSeo($type, $page=1, $count = 0){
+        $seo = new Seo($type, $page, $count);
+
+        return $seo->seo;
     }
 
     private function setSeo($seo){

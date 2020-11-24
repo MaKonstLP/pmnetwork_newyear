@@ -18,10 +18,12 @@
     }
 
     h1{
-    	width: calc(50% - 35px);
+    	width: 564px;
     	text-align: center;
-    	font-size: 50px;
+        font-weight: 600;
+        font-size: 48px;
         line-height: 60px;
+        color: black;
 
         @include for-notdesc{
             text-align: center;
@@ -36,7 +38,11 @@
     }
 
     .main_top_desc{
-    	width: 50%;
+    	width: 705px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+        margin-top: 20px;
 
         @include for-notdesc{
             text-align: center;
@@ -48,9 +54,9 @@
         }
 
 	    p{
-		    font-weight: 500;
-			font-size: 24px;
-		    line-height: 39px;
+		    font-weight: 600;
+            font-size: 20px;
+            line-height: 30px;
 
             @include for-mobile{
                 font-size: 20px;

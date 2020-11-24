@@ -43,6 +43,8 @@ footer{
                 }
 
                 .footer_logo{
+                    display: flex;
+                    align-items: center;
                     margin-right: 22px;
 
                     @include for-mobile{
@@ -50,15 +52,31 @@ footer{
                     }
 
                     .footer_logo_img{
-                        width: 253px;
-                        height: 55px;
-                        background-image: url(/img/ny_logo.svg);
+                        width: 56px;
+                        height: 56px;
+                        background-image: url(/img/korporativ-ng/ny_ball.svg);
                         background-size: contain;
                         background-repeat: no-repeat;
                         transition: filter 0.2s ease;
                     }
-                    &:hover .footer_logo_img{
+
+                    .footer_logo_text span{
+                        font-weight: bold;
+                        font-size: 13px;
+                        line-height: 18px;
+                        letter-spacing: 0.01em;
+                        text-transform: uppercase;
+                        color: #BA1904;
+        
+                        &:last-of-type{
+                            font-weight: 600;
+                            font-size: 7px;
+                            line-height: 10px;
+                            letter-spacing: 0.2em;
+                            color: #000000;
+                        }
                     }
+
                 }
 
                 .footer_info{
@@ -93,7 +111,7 @@ footer{
                     background-repeat: no-repeat;
                     margin-bottom: 6px;
 
-                    p{
+                    a{
                         font-weight: 600;
                         font-size: 24px;
                         line-height: 29px;

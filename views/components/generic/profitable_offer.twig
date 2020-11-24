@@ -2,20 +2,20 @@
 
     <h2>Выгодные предложения</h2>
 
-    <p>Рестораны и кафе Санкт-Петербурга для банкета на новый год</p>
+    <p>Рестораны и кафе {{city_rod}} для банкета на новый год</p>
 
   <div class="swiper-button-next"></div>
   <div class="swiper-button-prev"></div>
 
   <div class="swiper-wrapper items-list">
     {% for item in items %}
-      <a href="/catalog/{{item.id}}/" class="item swiper-slide {{type}}">
+      <a href="/ploshhadki/{{item.id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
-            <img src="{{item.restaurant_cover_url}}" alt="{{img_alt | replace({"{название}" : item.restaurant_name})}}"/>
+            <img  loading="lazy" src="{{item.restaurant_cover_url}}=w440-h302-n-l95" alt="{{img_alt | replace({"{название}" : item.restaurant_name})}}"/>
 
-            <div class="item_date-availability">
+            <!--<div class="item_date-availability">
                 <span>Свободно 12 декабря</span>
-            </div>
+            </div>-->
 
         </div>
         <div class="item_info">
@@ -49,9 +49,11 @@
                 <span>Подарок за бронирование</span>
             </div>
 
+            {% if item.restaurant_firework %}
             <div class="item_fireworks-availability">
                 <span>Возможность фейерверка</span>
             </div>
+            {% endif %}
 
         </div>
     </a>

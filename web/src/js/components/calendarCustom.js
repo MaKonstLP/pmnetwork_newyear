@@ -15,6 +15,7 @@ export default class CalendarCustom{
   init(calendarEl) {
 		let calendar = new Calendar(calendarEl, {
 			firstDay: 1,
+			defaultDate: '2020-12-01',
 			locale: ruLocale,
 			aspectRatio: 1.35,
 			height: 230,
@@ -41,7 +42,7 @@ export default class CalendarCustom{
 							let tmp = date.split("-");
 							let correctDate = tmp[2] + "." + tmp[1] + "." + tmp[0];
 							$input.attr("value", correctDate);
-							
+							$input.val(correctDate);							
 						} else {
 							$input.attr("value", "");
 						}
@@ -77,10 +78,14 @@ export default class CalendarCustom{
 					}
 
 				}
+
+				if($(numInCell).closest('form').length > 0){
+					$(numInCell).closest(".calendar_container").addClass("_hide");
+				}
 			}
 		});
 
-    calendar.render();
+		calendar.render();
 	}
 
 	initFooter(calendarEl){
@@ -134,7 +139,9 @@ export default class CalendarCustom{
 							$(checkbox).closest(".checkbox_item").addClass("_active");
 
 							//console.log(`зал найден: ${$("input[name = 'date' ]").length}`);
-							$("input[name ='date']").attr("value", selectedDate);
+							$bookingForm.find("input[name ='date']").attr("value", selectedDate);
+							$bookingForm.find("input[name ='date']").val(selectedDate);							
+
 							break;
 						}
 					}

@@ -67,11 +67,38 @@ export default class Form {
 		$('[data-action="form_checkbox"]').on('click',(e) => {
 			let $el = $(e.currentTarget);
 			let $input = $el.siblings('input');
+			console.log(1);
 
-			$el.toggleClass("_active");
-			$input.prop("checked", !$input.prop("checked"));
-			e.stopImmediatePropagation();
+			if(!$(e.target).hasClass('_link')){
+				console.log(2);
+				$el.toggleClass("_active");
+				$input.prop("checked", !$input.prop("checked"));
+				e.stopImmediatePropagation();
+			}
+
+				
 		});
+
+		this.$formWrap.find('[data-success] [data-success-close]').on('click', (e) => {
+			this.$formWrap.find('[data-success]').addClass('_hide');
+		});
+
+		/*this.$form.find('[data-form-privacy]').on('click', (e) => {
+			let $el = $(e.currentTarget);
+			console.log(1);
+
+			if(!$(e.target).hasClass('_link')){
+				console.log(2);
+				$el.toggleClass('_active');
+
+				if($el.hasClass('_active')){
+					this.$submitButton.removeClass('disabled');
+				}
+				else{
+					this.$submitButton.addClass('disabled');
+				}
+			}
+		});*/
 
 	}
 
@@ -147,14 +174,37 @@ export default class Form {
 	}
 
 	beforeSend() {
-		// this.$submitButton.addClass('button__pending');
+		this.$submitButton.addClass('button__pending');
 	}
 
-	success(data) {
+	success(data, formType) {
 		//modal.append(data);
 		//modal.show();
+		switch(formType) {
+		  case 'main':
+		    ym(66603799,'reachGoal','feedback');
+		    dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Order', 'eventAction' : 'Feedback'});
+		    break;
+
+		  case 'item':
+		    ym(66603799,'reachGoal','roomorder');
+		    dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Order', 'eventAction' : 'Roomorder'});
+		    break;
+		  case 'header':
+		    ym(66603799,'reachGoal','quickorder');
+		    dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Order', 'eventAction' : 'Quickorder'});
+		    break;
+		  case 'book':
+		  	ym(66603799,'reachGoal','roominfo');
+		  	dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Search', 'eventAction' : 'Roominfo'});
+		    $('.object_book_email._form').removeClass('_form').addClass('_success');
+		    break;
+		}
+		this.$submitButton.removeClass('button__pending');
 		this.reset();
-		// this.$submitButton.removeClass('button__pending');
+		this.$formWrap.find('[data-success] [data-success-name]').text(data.name);
+		this.$formWrap.find('[data-success] [data-success-phone]').text(data.phone);
+		this.$formWrap.find('[data-success]').removeClass('_hide');
 	}
 
 	error() {
@@ -172,8 +222,13 @@ export default class Form {
 
 	    var formData = new FormData(this.$form[0]);
 
+	    var formType = this.$form.data('type');
+	    formData.append('type', formType);
+	    var formUrl = window.location.href;
+	    formData.append('url', formUrl);
+
 	    for (var pair of formData.entries()) {
-		    console.log(pair[0]+ ', ' + pair[1]); 
+		    console.log(pair[0]+ ', ' + pair[1]);
 		}
 
 	    fetch(this.to,{
@@ -183,7 +238,7 @@ export default class Form {
 	    .then(status)
 	    .then(json)
 	    .then(data => {
-			this.success(data);
+			this.success(data, formType);
 			// this.reset();
 			this.disabled = false;
 	    })

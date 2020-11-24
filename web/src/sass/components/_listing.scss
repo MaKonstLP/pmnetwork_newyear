@@ -148,13 +148,16 @@
                     display: flex;
                     flex-wrap: wrap;
                     padding-top: 10px;
+                    width: 100%;
+                    justify-content: center;
 
                     .item_meta_item{
-                        width: 50%;
+                        //width: 50%;
                         font-weight: 500;
                         font-size: 14px;
                         line-height: 22px;
                         white-space: nowrap;
+                        padding: 0px 10px;
 
                         @include for-mobile{
                             text-align: center;
@@ -168,9 +171,9 @@
                         .item_meta_text{                            
                         }
 
-                        &:last-child {
-                            padding: 0 0 0 0;
-                        }
+                        //&:last-child {
+                        //    padding: 0 0 0 0;
+                        //}
                     }
 
                     @include for-mobile{

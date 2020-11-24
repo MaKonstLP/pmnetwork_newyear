@@ -1,12 +1,12 @@
 .filter{
     display: flex;
     justify-content: space-between;
-    width: 954px;
-    padding: 16px 40px 23px;
+    width: 879px;
+    padding: 23px 50px 23px;
     background: linear-gradient(139.76deg,
                                    #FEDA5A 0.69%,
                                    #FFBA35 112.92%);
-    align-items: center;
+    align-items: flex-start;
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: 0 5px 20px rgba(253, 172, 77, 0.3);
@@ -19,7 +19,7 @@
         padding: 10px 17px 25px;
         flex-direction: column;
         align-items: flex-start;
-        width: 472px;
+        width: 700px;
     }
 
     @include for-mobile{
@@ -35,12 +35,8 @@
         @include for-pad{
             justify-content: flex-start;
 
-            .filter_select:nth-child(even){
-                margin-right: calc(100% - (165px * 2 + 20px));
-            }
-    
-            .filter_select:nth-child(odd){
-                margin-right: 20px;
+            .filter_select:nth-child(3){
+                margin-right: 0px;
             }
         }
 
@@ -52,10 +48,11 @@
 
         .filter_select{
             cursor: pointer;
-            width: 165px;
+            width: 190px;
             margin-right: 20px;
     
             @include for-pad{
+                width: 208px;
                 margin-top: 20px;
             }
     
@@ -238,7 +235,7 @@
             }
 
             .filter_check_item {
-                position: absolute;
+                position: relative;
                 top: -3px;
             }
     
@@ -332,7 +329,7 @@
     }
 
     .filter_submit_button{
-        //margin: 0 0 0 15px;
+        margin: 20px 0 0 0px;
         background: #D83603;
         font-size: 16px;
         line-height: 50px;
