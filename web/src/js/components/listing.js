@@ -1,13 +1,15 @@
 'use strict';
 import Filter from './filter';
 import YaMapAll from './map';
+import Breadcrumbs from './breadcrumbs';
 
 export default class Listing{
 	constructor($block){
 		self = this;
 		this.block = $block;
 		this.filter = new Filter($('[data-filter-wrapper]'));
-		this.yaMap = new YaMapAll(this.filter);	
+		this.yaMap = new YaMapAll(this.filter);
+		this.breadcrumbs = new Breadcrumbs();
 
 		//КЛИК ПО КНОПКЕ "ПОДОБРАТЬ"
 		$('[data-filter-button]').on('click', function(){
@@ -39,6 +41,7 @@ export default class Listing{
 				self.block.removeClass('_loading');
 				$('html,body').animate({scrollTop:$('.items_list').offset().top - 160}, 400);
 				history.pushState({}, '', '/ploshhadki/'+response.url);
+				self.breadcrumbs = new Breadcrumbs();
 			}
 		);
 	}

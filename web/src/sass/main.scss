@@ -809,13 +809,43 @@ h3{
             left: calc(100% + 6px);
             pointer-events: none;
         }
+
+        &:last-child{
+            pointer-events: none;
+
+            &:after{
+                display: none;
+            }            
+        }
     }
 
     .breadcrumbs_slices_container{
         position: relative;
+        margin-right: 17px;
+
+        &:after{
+            content: '→';
+            position: absolute;
+            left: calc(100% + 10px);
+            pointer-events: none;
+            top: 0px;
+            color: #666;
+            line-height: 18px;
+            font-size: 14px;
+        }
+
+        &:last-child{
+            margin-right: 0px;
+            &:after{
+                display: none;
+            }            
+        }
     }
 
     .breadcrumbs_current_slice{
+        .breadcrumbs_item{
+            top: -1px;
+        }
 
         .breadcrumbs_item:after{
             display: none;
@@ -856,6 +886,7 @@ h3{
         display: flex;
         flex-flow: column nowrap;
         width: calc(100% - 20px);
+        min-width: 147px;
         padding: 5px 0 5px 0;
         background: #ffffff;
         border: 1px solid #c4c4c4;

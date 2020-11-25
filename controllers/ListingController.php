@@ -54,7 +54,7 @@ class ListingController extends Controller
 				$page 			=	$params['page'],
 				$per_page		=	$this->per_page,
 				$params_filter	= 	$params['params_filter'],
-				$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(2),
+				$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(3, $slice),
 				$canonical 		= 	$canonical,
 				$type 			=	$slice
 			);
@@ -79,7 +79,7 @@ class ListingController extends Controller
 				$page 			=	$params['page'],
 				$per_page		=	$this->per_page,
 				$params_filter	= 	$params['params_filter'],
-				$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(1),
+				$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(2),
 				$canonical 		= 	$canonical
 			);	
 		}
@@ -90,7 +90,7 @@ class ListingController extends Controller
 				$page 			=	1,
 				$per_page		=	$this->per_page,
 				$params_filter	= 	[],
-				$breadcrumbs 	= 	Breadcrumbs::get_breadcrumbs(1),
+				$breadcrumbs 	= 	Breadcrumbs::get_breadcrumbs(2),
 				$canonical 		= 	$canonical
 			);
 		}
@@ -150,8 +150,8 @@ class ListingController extends Controller
 			'current' => $params['page'],
 		]);
 
-		substr($params['listing_url'], 0, 1) == '?' ? $breadcrumbs = Breadcrumbs::get_breadcrumbs(1) : $breadcrumbs = Breadcrumbs::get_breadcrumbs(2);
 		$slice_url = ParamsFromQuery::isSlice(json_decode($_GET['filter'], true));
+		substr($params['listing_url'], 0, 1) == '?' ? $breadcrumbs = Breadcrumbs::get_breadcrumbs(2) : $breadcrumbs = Breadcrumbs::get_breadcrumbs(3, $slice_url);
 		$seo_type = $slice_url ? $slice_url : 'listing';
 		$seo = $this->getSeo($seo_type, $params['page'], $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;

@@ -50,10 +50,6 @@ window.$ = $;
 			}
 		}
 
-		if ($('.breadcrumbs_slices_container').length > 0) {
-				var breadcrumbs = new Breadcrumbs();
-		}
-
 		if ($('[data-page-type="contacts"]').length > 0) {
 	    	var contacts = new Contacts();
 	    }

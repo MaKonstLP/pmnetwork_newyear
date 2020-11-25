@@ -12,6 +12,7 @@ use frontend\modules\gorko_ny\components\Breadcrumbs;
 use common\models\elastic\ItemsWidgetElastic;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use common\models\Seo;
+use frontend\components\QueryFromSlice;
 
 class ItemController extends Controller
 {
@@ -29,9 +30,24 @@ class ItemController extends Controller
         $this->setSeo($seo);
 
 		//$item = ApiItem::getData($item->restaurants->gorko_id);
+        $slice_obj = new QueryFromSlice(basename($_SERVER['HTTP_REFERER']));
+		if($slice_obj->flag){
+			$slice_alias = basename($_SERVER['HTTP_REFERER']);
+		}
+		else{
+			$type = $item->restaurant_types[0]->id;
+			$types = [
+				1 => 'restorany',
+				2 => 'banketnye-zaly',
+				3 => 'kafe',
+				4 => 'bary',
+				16 => 'kluby',
+			];
+			$slice_alias = $types[$item->restaurant_types[0]['id']];
+		}
 
 		$seo['h1'] = $item->restaurant_name;
-		$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs(2);
+		$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs(4, $slice_alias, ['id' => $item->id,'name' => $item->restaurant_name]);
 		$seo['desc'] = $item->restaurant_name;
 		$seo['address'] = $item->restaurant_address;
 

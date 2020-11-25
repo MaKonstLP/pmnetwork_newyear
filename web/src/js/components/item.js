@@ -2,11 +2,13 @@
 import Swiper from 'swiper';
 import 'slick-carousel';
 import * as Lightbox from '../../../node_modules/lightbox2/dist/js/lightbox.js';
+import Breadcrumbs from './breadcrumbs';
 
 export default class Item{
 	constructor($item){
 		var self = this;
 		this.sliders = new Array();
+		this.breadcrumbs = new Breadcrumbs();
 		
 		$('[data-action="show_phone"]').on("click", function(){
 			$(".object_book").addClass("_active");
