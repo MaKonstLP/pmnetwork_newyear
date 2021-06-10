@@ -154,7 +154,8 @@ export default class Filter{
 		let self = this;
 		let blockType = $block.data('type');		
 		let $items = $block.find('[data-filter-select-item]._active');
-		let selectText = '-';
+		let $currentSelect = $block.find('[data-filter-select-current]');
+		let selectText = $currentSelect.data('placeholder');
 
 		if($items.length > 0){
 			self.state[blockType] = '';
@@ -162,15 +163,18 @@ export default class Filter{
 				if(self.state[blockType] !== ''){
 					self.state[blockType] += ','+$(this).data('value');
 					selectText = 'Выбрано ('+$items.length+')';
+					$currentSelect.addClass('_disable_placeholder');
 				}
 				else{
 					self.state[blockType] = $(this).data('value');
 					selectText = $(this).text();
+					$currentSelect.addClass('_disable_placeholder');
 				}
 			});
 		}
 		else{
 			delete self.state[blockType];
+			$currentSelect.removeClass('_disable_placeholder');
 		}
 
 		$block.find('[data-filter-select-current] p').text(selectText);
@@ -184,7 +188,7 @@ export default class Filter{
 		else{
 			delete this.state[blockType];
 		}
-		console.log(this.state);
+		// console.log(this.state);
 	}
 
 	inputStateRefresh(type, val){

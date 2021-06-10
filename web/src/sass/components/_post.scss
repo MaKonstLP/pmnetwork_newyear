@@ -1,7 +1,7 @@
 [data-page-type="post"]{
   display: flex;
   flex-flow: column nowrap;
-  padding: 0 calc((100% - 953px) / 2);
+  padding: 30px calc((100% - 953px) / 2) 0px;
 
   .object_head{
     min-height: 385px;
@@ -107,7 +107,7 @@
     }
 
     h1{
-      padding: 20px 0 5px;
+      padding: 40px 0 5px;
       text-align: center;
       font-weight: bold;
       font-size: 38px;
@@ -357,12 +357,16 @@
   }
 
   @include for-pad{
-    padding: 0 calc((100% - 748px) / 2);
+    padding: 30px calc((100% - 748px) / 2) 0px;
 
     .post_wrapper{
 
       .text_with_borders{
         padding: 25px 25px 30px;
+      }
+
+      h1{
+        padding: 30px 0 5px;
       }
     }
 
@@ -463,6 +467,7 @@
       h1{
         font-size: 32px;
         line-height: 36px;
+        padding: 20px 0 5px;
       }
   
       h2{

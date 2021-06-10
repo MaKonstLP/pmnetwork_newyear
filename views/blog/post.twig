@@ -1,6 +1,6 @@
 <div data-page-type="post">
 
-  	<a class="post back_to_blog_list" href="/blog/">Статьи блога</a>
+	{{ this.render('//components/generic/breadcrumbs.twig', {'breadcrumbs':seo.breadcrumbs}) | raw }}
 
   	<div class="post_wrapper">
 

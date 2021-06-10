@@ -9,6 +9,7 @@ use yii\web\Response;
 use common\models\Slices;
 use common\models\elastic\ItemsFilterElastic;
 use frontend\modules\gorko_ny\models\ElasticItems;
+use common\models\blog\BlogPost;
 
 class SitemapController extends Controller
 {
@@ -25,10 +26,21 @@ class SitemapController extends Controller
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic([], 9999, 1, false, 'rooms', $elastic_model);
 
+		$main_subdomain = Yii::$app->params['subdomen_alias'] == '';
+
+		if($main_subdomain){
+			$blog = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true])->all();
+		}
+		else{
+			$blog = [];
+		}
+
 		return $this->renderPartial('sitemap.twig', [
 			'host' => $host,
+			'blog' => $blog,
 			'slices' => $slices,
-			'items' => $items->items
+			'items' => $items->items,
+			'main_subdomain' => $main_subdomain
 		]);
 	}
 }

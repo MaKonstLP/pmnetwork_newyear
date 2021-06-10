@@ -6,6 +6,20 @@
         <url>
             <loc>{{host}}/ploshhadki/</loc>
         </url>
+        <url>
+            <loc>{{host}}/contacts/</loc>
+        </url>
+
+        {% if main_subdomain %}
+            <url>
+                <loc>{{host}}/blog/</loc>
+            </url>
+            {% for post in blog %}
+                <url>
+                    <loc>{{host}}/blog/{{post.alias}}/</loc>
+                </url>
+            {% endfor %}
+        {% endif %}
 
         {% for slice in slices %}
         	<url>

@@ -11,6 +11,7 @@ use frontend\widgets\FilterWidget;
 use frontend\widgets\PaginationWidget;
 use frontend\components\ParamsFromQuery;
 use frontend\components\QueryFromSlice;
+use frontend\components\Declension;
 use frontend\modules\gorko_ny\components\Breadcrumbs;
 use common\models\Pages;
 use frontend\components\RoomsFilter;
@@ -106,9 +107,17 @@ class ListingController extends Controller
 			$seo['text_bottom'] = '';
 		}
 
+		$minPrice = 999999;
+		foreach ($items->items as $item){
+			if ($item->restaurant_price < $minPrice){
+				$minPrice = $item->restaurant_price;
+			}
+		}
+
 		$filter = FilterWidget::widget([
 			'filter_active' => $params_filter,
-			'filter_model' => $this->filter_model
+			'filter_model' => $this->filter_model,
+			'minPrice' => $minPrice
 		]);
 
 		$pagination = PaginationWidget::widget([
@@ -128,11 +137,18 @@ class ListingController extends Controller
 
 		$main_flag = ($seo_type == 'listing' and count($params_filter) == 0);
 
+		$currentRestType = $this->getRestTypeDeclention($params_filter);
+
+		// echo '<pre>';
+		// print_r($params_filter['rest_type']);
+		// exit;
+
 		return $this->render('index.twig', array(
 			'items' => $items->items,
 			'filter' => $filter,
 			'pagination' => $pagination,
 			'seo' => $seo,
+			'currentType' => Declension::get_num_ending($items->total, $currentRestType),
 			'count' => $items->total,
 			'menu' => $type,
 			'main_flag' => $main_flag
@@ -156,9 +172,12 @@ class ListingController extends Controller
 		$seo = $this->getSeo($seo_type, $params['page'], $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
 
+		$currentRestType = $this->getRestTypeDeclention($params['params_filter']);
+
 		$title = $this->renderPartial('//components/generic/title.twig', array(
 			'seo' => $seo,
-			'count' => $items->total
+			'count' => $items->total,
+			'currentType' => Declension::get_num_ending($items->total, $currentRestType),
 		));
 
 		if($params['page'] == 1){
@@ -175,6 +194,13 @@ class ListingController extends Controller
 			$text_bottom = '';
 		}
 
+		$minPrice = 999999;
+		foreach ($items->items as $item){
+			if ($item->restaurant_price < $minPrice){
+				$minPrice = $item->restaurant_price;
+			}
+		}
+
 		return  json_encode([
 			'listing' => $this->renderPartial('//components/generic/listing.twig', array(
 				'items' => $items->items,
@@ -185,7 +211,9 @@ class ListingController extends Controller
 			'title' => $title,
 			'text_top' => $text_top,
 			'text_bottom' => $text_bottom,
-			'seo_title' => $seo['title']
+			'seo_title' => $seo['title'],
+			'minPrice' => $minPrice,
+			'params_filter' => $params['params_filter'],
 		]);
 	}
 
@@ -227,6 +255,27 @@ class ListingController extends Controller
 			$this->view->params['canonical'] = $canonical;
 		}
         $this->view->params['kw'] = $seo['keywords'];
+	}
+
+	private function getRestTypeDeclention($params_filter = [])
+	{
+		$restTypesList = [
+			'1' => ['банкетный зал', 'банкетных зала', 'банкетных залов'],
+			'2' => ['ресторан', 'ресторана', 'ресторанов'],
+			'3' => ['кафе', 'кафе', 'кафе'],
+			'4' => ['клуб', 'клуба', 'клубов'],
+			'5' => ['бар', 'бара', 'баров'],
+			'6' => ['площадка в городе', 'площадки в городе', 'площадок в городе'],
+			'7' => ['площадка на природе', 'площадки на природе', 'площадок на природе'],
+		];
+
+		$currentRestType = ['площадка', 'площадки', 'площадок'];
+
+		if (isset($params_filter['rest_type']) && count($params_filter['rest_type']) === 1){
+			$currentRestType = $restTypesList[$params_filter['rest_type'][0]];
+		}
+
+		return $currentRestType;
 	}
 
 }

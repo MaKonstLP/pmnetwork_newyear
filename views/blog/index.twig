@@ -3,13 +3,10 @@
 
 <div data-page-type="blog">
 
-  <div class="content_block" data-blog-title>
-
-		<h1>{{seo.h1}}</h1>
+	<div class="content_block items_list_blog" data-blog-wrapper>
 		
-	</div>
-
-  <div class="content_block items_list_blog" data-blog-wrapper>
+		{{ this.render('//components/generic/breadcrumbs.twig', {'breadcrumbs':seo.breadcrumbs}) | raw }}
+		<h1>{{seo.h1}}</h1>
 
 		<div class="items_list" data-blog-list>
 

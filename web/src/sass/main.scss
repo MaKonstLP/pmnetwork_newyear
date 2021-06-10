@@ -497,11 +497,21 @@ body._overflow .main_wrap{
     background-position: center;
 
     @include for-pad{
+
+        .form_bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url(/img/big_form_bg.png);
+            background-size: cover;
+            background-position-x: center;
+            background-repeat: no-repeat;
+        }
         padding:  30px 0 30px 0;
-        background: url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png"),
-                    url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
-        background-position: bottom left, bottom right;
-        background-repeat: no-repeat, no-repeat;
+        // background: url("/img/filter_pad_bg/card_page_Bottom_left_decorations.png"),
+        //             url("/img/filter_pad_bg/card_page_Bottom_right_decorations.png");
+        // background-position: bottom left, bottom right;
+        background: none;
     }
 
     @include for-mobile{
@@ -531,6 +541,10 @@ body._overflow .main_wrap{
 .seo_text{
     width: 1200px;
     margin: auto;
+
+    &[data-seo-text-item]{
+        margin-top: 50px;
+    }
 
     A:link{
         color: #d83603;
@@ -812,6 +826,7 @@ h3{
 
         &:last-child{
             pointer-events: none;
+            border: none;
 
             &:after{
                 display: none;
@@ -904,6 +919,10 @@ h3{
                     color: #ffffff;
                     border-bottom: 1px solid rgba(255,255,255,.6);
                 }
+            }
+
+            a{
+                display: block;
             }
         }
 

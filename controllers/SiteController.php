@@ -68,6 +68,7 @@ Disallow: /*chelovek=
 Disallow: /*price=
 Disallow: /*firework=
 Disallow: /*svoy-alko=
+Disallow: /blog/preview-post/
 Sitemap: https://'.$subdomen_alias.'korporativ-ng.ru/sitemap/';
         exit;
     }

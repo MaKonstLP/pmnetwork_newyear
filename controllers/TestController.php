@@ -9,6 +9,7 @@ use common\models\Rooms;
 use common\models\Pages;
 use common\models\SubdomenPages;
 use frontend\modules\gorko_ny\models\ElasticItems;
+use common\models\elastic\ItemsFilterElastic;
 use yii\web\Controller;
 use common\components\AsyncRenewRestaurants;
 
@@ -49,6 +50,22 @@ class TestController extends Controller
 		}
 
 		
+	}
+
+	public function actionCustom()
+	{
+		$aggs = ElasticItems::find()->limit(0)->query(
+			['bool' => ['must' => ['match' => ['restaurant_city_id' => Yii::$app->params['subdomen_id']]]]]
+		)
+			->addAggregate('min_price', [
+				'min' => [
+					'field' => 'restaurant_price',
+				]
+			])->search()['aggregations']['min_price']['value'];
+
+			echo '<pre>';
+			print_r($aggs);
+			exit;
 	}
 
 	public function actionAll()
@@ -194,4 +211,54 @@ class TestController extends Controller
         }
         return $message->send();
     }
+    public function actionShowfull(){
+    	$log = json_decode(file_get_contents('/var/www/pmnetwork/pmnetwork/log/count.json'), true);
+    	uasort($log, function ($a, $b) {
+		  	return $b['Всего'] - $a['Всего'];
+		});
+    	file_put_contents('/var/www/pmnetwork/pmnetwork/log/count.json', json_encode($log));
+    }
+
+    public function actionFull()
+	{
+		$events = [
+			1  => 'Свадьба',
+            17 => 'Новый год',
+            9  => 'День рождения',
+            11 => 'Выпускной',
+            12 => 'Детский праздник',
+            14 => 'Фуршет',
+            15 => 'Корпоратив',
+            16 => 'Конференция',
+            24 => 'Видеоконференция',
+            25 => 'Выставка',
+            26 => 'Деловая встреча',
+            27 => 'Кастинг',
+            28 => 'Кинопоказ',
+            29 => 'Концерт',
+            30 => 'Кулинарный вечер',
+            32 => 'Модный показ',
+            33 => 'Презентация',
+            31 => 'Мальчишник / Девичник',
+            34 => 'Пресс-конференция',
+            35 => 'Танцы / Бал',
+            36 => 'Театральная постановка',
+            37 => 'Тренинг / Мастер-класс',
+            38 => 'Фокус-группа',
+            10 => 'Праздничный банкет'
+		];
+
+		$subdomen_model = Subdomen::find()
+			//->where(['id' => 1])
+			->all();
+
+		foreach ($subdomen_model as $key => $subdomen) {
+			$count = GorkoApiTest::showFullNew([
+				'params' => 'city_id='.$subdomen->city_id.'&type_id=1'							
+			]);
+			$log = json_decode(file_get_contents('/var/www/pmnetwork/pmnetwork/log/count.json'), true);
+			$log[$subdomen->name] = $count;
+			file_put_contents('/var/www/pmnetwork/pmnetwork/log/count.json', json_encode($log));
+		}
+	}
 }

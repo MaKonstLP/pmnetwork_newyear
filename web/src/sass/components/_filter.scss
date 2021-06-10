@@ -146,6 +146,15 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 width: calc(100% - 42px);
+                color: #676d75;
+            }
+
+            &._disable_placeholder{
+                
+                p{
+                    
+                    color: #333;
+                }
             }
         }
     

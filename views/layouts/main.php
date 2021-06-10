@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use frontend\modules\gorko_ny\assets\AppAsset;
+use frontend\modules\gorko_ny\models\ElasticItems;
 use common\models\Subdomen;
 
 AppAsset::register($this);
@@ -132,12 +133,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kafe')echo '_active';?>" href="/ploshhadki/kafe/">Кафе</a>
                         <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kluby')echo '_active';?>" href="/ploshhadki/kluby/">Клубы</a>
                         <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'bary')echo '_active';?>" href="/ploshhadki/bary/">Бары</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-gorode')echo '_active';?>" href="/ploshhadki/v-gorode/">В городе</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'na-prirode')echo '_active';?>" href="/ploshhadki/na-prirode/">На природе</a>
                         <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'contacts')echo '_active';?>" href="/contacts/">Контакты</a>
-                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'blog')echo '_active';?>" href="/blog/">Блог</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'blog')echo '_active';?>" href="https://korporativ-ng.ru/blog/" target="blank">Блог</a>
                     </div>
 
                     <div class="header_phone">
-                        <a href="tel:+79252382207">+7(925)238-22-07</a>
+                        <a href="tel:<?= Yii::$app->params['subdomen_phone'] ?>"><?= Yii::$app->params['subdomen_phone_pretty'] ?></a>
                         <div class="header_phone_button">
                             <div class="header_phone_button_img"></div>
                             <p class="_grey_link">Подберите мне зал</p>
@@ -152,10 +155,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 </div>
 
+                <?php
+                    $minPrice = ElasticItems::find()->limit(0)->query(
+                        ['bool' => ['must' => ['match' => ['restaurant_city_id' => Yii::$app->params['subdomen_id']]]]]
+                    )
+                        ->addAggregate('min_price', [
+                            'min' => [
+                                'field' => 'restaurant_price',
+                            ]
+                        ])->search()['aggregations']['min_price']['value'];
+                    
+                ?>
+
                 <div class="header_form_popup _hide">
                     <div class="header_form_popup_content">
                     
-                        <?= $this->render('../components/generic/form_callback.twig', ['type' => 'header']) ?>
+                        <?= $this->render('../components/generic/form_callback.twig', ['type' => 'header', 'minPrice' => $minPrice]) ?>
                         <div class="close_button"></div>
 
                         <div class="header_form_popup_message_sent _hide">
@@ -198,7 +213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                         <div class="footer_block _right">
                             <div class="footer_phone">
-                                <a href="tel:+79252382207">+7(925)238-22-07</a>
+                                <a href="tel:<?= Yii::$app->params['subdomen_phone'] ?>"><?= Yii::$app->params['subdomen_phone_pretty'] ?></a>
                             </div>
                             <div class="footer_phone_button">
                             <div class="footer_phone_button_img"></div>

@@ -22,26 +22,13 @@ class FormController extends Controller
 
     public function actionSend()
     {
-		if($_POST['type'] == 'main'){
-            if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['date'])  && isset($_POST['guests_number'])){
-    		    $messageApi = $this->sendApi($_POST['name'], $_POST['phone'], $_POST['date'], $_POST['guests_number']);
-            }
-            else{
-                $messageApi = false;
-            }
-		
-		    //return json_encode($messageApi);
-		}
-		else{
-            if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['date'])  && isset($_POST['guests_number'])){
-        	    $messageApi = $this->sendApi($_POST['name'], $_POST['phone'], $_POST['date'], $_POST['guests_number']);
-            }
-            else{
-                $messageApi = false;
-            }
-		}
+		$messageApi = $this->sendApi($_POST);
 
-		//return $messageApi;
+        $log = file_get_contents('/var/www/pmnetwork/pmnetwork/log/manual.log');
+        $log .= json_encode($messageApi);
+        file_put_contents('/var/www/pmnetwork/pmnetwork/log/manual.log', $log);
+
+		return json_encode($messageApi);
         //$to   = ['martynov@liderpoiska.ru'];
         $to   = ['martynov@liderpoiska.ru', 'callme@korporativ-ng.ru', 'sites@plusmedia.ru'];
 
@@ -155,33 +142,55 @@ class FormController extends Controller
         return $message->send();
     }
 
-    public function sendApi($name, $phone, $date, $count) {
+    public function sendApi($post) {
+        $post_data = json_decode(json_encode($_POST), true);
+
+        //$log = file_get_contents('/var/www/pmnetwork/pmnetwork/log/manual.log');
+        //$log .= json_encode($post_data);
+        //file_put_contents('/var/www/pmnetwork/pmnetwork/log/manual.log', $log);
+
+        $payload = [];
+
+        $payload['city_id'] = Yii::$app->params['subdomen_id'];
+        $payload['event_type'] = "Corporate";
+
+        foreach ($post_data as $key => $value) {
+            switch ($key) {
+                case 'date':
+                    if($value)    
+                        $payload['date'] = $newDate = date("Y.m.d", strtotime($value));
+                    break;
+                case 'name':
+                    $payload['name'] = $value;
+                    break;
+                case 'phone':
+                    $payload['phone'] = $value;
+                    break;
+                case 'guests_number':
+                    if($value)
+                        $payload['guests'] = $value;
+                    break;
+                case 'venue_id':
+                    $payload['venue_id'] = $value;
+                    break;
+                case 'budget':
+                    if($value)
+                       $payload['details'] = 'Бюджет: '.$value;
+                    break;
+                case 'question':
+                    $payload['details'] = $value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //return $payload;
+
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://api.gorko.ru/api/v2/venues/all/request?model_type=restaurants&model_id=1&city_id='.Yii::$app->params['subdomen_id']);
-        $payload = json_encode([
-            "name"      => $name,
-            "phone"     => $phone,
-            "date"      => $date,
-            "guests"    => $count,
-            //'budget' => null,
-            //'details' => null,
-            //'drinks' => null,
-            //'event_type' => "1",
-            //'food' => null,
-            //'line' => null,
-            //'page_type' => null,
-            //'telegram' => null,
-            //'viaLine' => null,
-            //'viaPhone' => 1,
-            //'viaTelegram' => null,
-            //'viaViber' => null,
-            //'viaWhatsApp' => null,
-            //'viber' => null,
-            //'whatsapp' => null,
-        ]);
+        curl_setopt($curl, CURLOPT_URL, 'https://v.gorko.ru/api/korporativ-ng/inquiry/put');
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
         curl_setopt($curl, CURLOPT_ENCODING, '');
         $response = curl_exec($curl);

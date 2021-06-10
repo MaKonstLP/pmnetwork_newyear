@@ -1,5 +1,7 @@
 <div class="item_page_wrapper" data-page-type="item">
 
+  {{ microdata | raw }}
+
     <div class="content_block" data-listing-title>
         {{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
     </div>
@@ -86,17 +88,32 @@
                         <p class="object_book_email_success_reload _pseudolink" data-book-email-reload>Отправить еще раз</p>
                     </div>
                 </div>
-                <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.2020 и получи новогодний подарок!</p>
+
+                {% if 'now'|date('m') != 12 %}
+                    <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.{{ 'now'|date('Y') }} и получи новогодний подарок!</p>
+                {% endif %}
+
             </div>
 
             <div class="object_parameters">
 
-                {{ this.render('//components/generic/item_parameter_list.twig', {'item':item}) | raw }}
+                {{ this.render('//components/generic/item_parameter_list.twig', {'item':item, 'restaurantSpec':restaurantSpec}) | raw }}
                 
             </div>
 
         </div>
     </div>
+
+    {% if item.restaurant_text %}
+        <div class="content_block" data-item-text-top>
+            <div class="seo_text" data-seo-text data-seo-text-item>
+                {{item.restaurant_text}}
+                <div class="seo_text_control" data-seo-control>
+                    <p class="_link">Показать полностью</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
     <div class="map">
         <div id="map" data-mapDotX="{{item.restaurant_latitude}}" data-mapDotY="{{item.restaurant_longitude}}" data-name="{{item.restaurant_name}}" data-address="{{item.restaurant_address}}" data-balloon="" data-hint="">
@@ -107,7 +124,7 @@
 
     <div class="content_block form_booking_wrapper">
 
-        {{ this.render('//components/generic/form_booking.twig', {'items':other_rooms}) | raw }}
+        {{ this.render('//components/generic/form_booking.twig', {'items':other_rooms, 'venue_id':item.restaurant_gorko_id}) | raw }}
 
     </div>
 

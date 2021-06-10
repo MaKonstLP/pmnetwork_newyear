@@ -53,6 +53,30 @@ class Breadcrumbs {
 
 						];				
 				break;
+			case 'blog':
+				return 	['crumbs' =>
+							array_merge(
+								self::get_breadcrumbs(1)['crumbs'],
+								[[
+			                        'type' => 'raw',
+			                        'link' => '/blog/',
+			                        'name' => 'Статьи блога'
+			                    ]]
+							)
+			            ];
+				break;
+			case 'post':
+				return 	['crumbs' =>
+							array_merge(
+								self::get_breadcrumbs('blog')['crumbs'],
+								[[
+			                        'type' => 'raw',
+			                        'link' => '/blog/'.$slice_alias['link'].'/',
+			                        'name' => $slice_alias['name']
+			                    ]]
+							)
+			            ];
+				break;
 		}
 	}
 

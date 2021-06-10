@@ -1,0 +1,49 @@
+<div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+
+	{% for breadcrumb in breadcrumbs.crumbs %}
+
+		{% if breadcrumb.type == 'slices' %}
+
+			<div class="breadcrumbs_slices_container">
+
+				<div class="breadcrumbs_current_slice" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+
+					<a class="breadcrumbs_item" href="{{breadcrumb.link}}" itemprop="item">
+						<span itemprop="name">{{breadcrumb.name}}</span>
+						<meta itemprop="position" content="{{ loop.index }}"/>
+					</a>
+
+					<div class="arrow"></div>
+
+				</div>
+
+				<div class="breadcrumbs_slices_list _hide">
+					{% for slice_alias, slice_name in breadcrumbs.crumbs_list %}
+					<div class="breadcrumbs_item_wrapper">
+						<a href="/ploshhadki/{{slice_alias}}/">
+							<span class="breadcrumbs_item">{{slice_name}}</span>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+
+			</div>
+		{% elseif loop.last %}
+
+			<div class="breadcrumbs_item">
+				<span>{{breadcrumb.name}}</span>
+			</div>
+
+		{% else %}
+
+			<div class="breadcrumbs_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+				<a href="{{breadcrumb.link}}" itemprop="item">
+					<span itemprop="name">{{breadcrumb.name}}</span>
+					<meta itemprop="position" content="{{ loop.index }}"/>
+				</a>
+			</div>
+		{% endif %}
+
+	{% endfor %}
+
+</div>

@@ -1,13 +1,14 @@
 <div class="object_parameters_list _marked">
     <p class="object_parameters_title">О площадке</p>
     <p class="object_parameters_item">
-        {% for type in item.restaurant_types %}
+        {# {% for type in item.restaurant_types %}
             {% if loop.first %}
                 {{type.name}}
             {% else %}
                 , {{type.name}}
             {% endif %}
-        {% endfor %}
+        {% endfor %} #}
+        {{restaurantSpec}}
     </p>
     <p class="object_parameters_item">{{item.restaurant_cuisine}} кухня</p>
     {% if item.restaurant_parking %}
@@ -40,15 +41,17 @@
 </div>
 {% endif %}
 
+{% set services = item.restaurant_extra_services|split(',') %}
+{% if item.restaurant_extra_services != '' %}
 <div class="object_parameters_list _marked _big_list">
     <p class="object_parameters_title">За дополнительную плату</p>
-    <div class="object_parameters_items">
-        {% set services = item.restaurant_extra_services|split(',') %}
+    <div class="object_parameters_items">       
         {% for service in services %}
             <p class="object_parameters_item">{{service}}</p>
         {% endfor %}
     </div>
 </div>
+{% endif %}
 
 <div class="object_parameters_list">
     <p class="object_parameters_title">Оплата</p>

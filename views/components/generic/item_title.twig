@@ -1,38 +1,4 @@
-<div class="breadcrumbs">
-
-	{% for breadcrumb in seo.breadcrumbs.crumbs %}
-
-		{% if breadcrumb.type == 'slices' %}
-
-			<div class="breadcrumbs_slices_container">
-
-				<div class="breadcrumbs_current_slice">
-
-					<a class="breadcrumbs_item" href="{{breadcrumb.link}}">{{breadcrumb.name}}</a>
-
-					<div class="arrow"></div>
-
-				</div>
-
-				<div class="breadcrumbs_slices_list _hide">
-					{% for slice_alias, slice_name in seo.breadcrumbs.crumbs_list %}
-						<a class="breadcrumbs_item_wrapper"  href="/ploshhadki/{{slice_alias}}/">
-							<span class="breadcrumbs_item">{{slice_name}}</span>
-						</a>
-					{% endfor %}
-				</div>
-
-			</div>
-
-		{% else %}
-
-			<a class="breadcrumbs_item" href="{{breadcrumb.link}}">{{breadcrumb.name}}</a>
-
-		{% endif %}
-
-	{% endfor %}
-
-</div>
+{{ this.render('//components/generic/breadcrumbs.twig', {'breadcrumbs':seo.breadcrumbs}) | raw }}
 
 <div class="title">
 

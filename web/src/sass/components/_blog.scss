@@ -1,7 +1,19 @@
 [data-page-type="blog"]{
   position: relative;
-  //padding: 0 calc((100% - 1196px) / 2);
-  
+  padding: 30px 0px 0px;
+
+  h1{
+    padding: 40px 0px 30px;
+
+    @include for-pad{
+      padding: 30px 0px 30px;
+    }
+
+    @include for-mobile{
+      padding: 0px 0px 30px;
+    }
+  }
+
   &:before{
     content: "";
     position: absolute;
@@ -15,7 +27,7 @@
   }
 
   .content_block{
-    padding: 60px 0 60px 0;
+    padding: 0px 0 60px 0;
 
     &.items_list_blog{
       padding-top: 0px;

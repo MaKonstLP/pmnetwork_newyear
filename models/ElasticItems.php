@@ -4,6 +4,7 @@ namespace frontend\modules\gorko_ny\models;
 use Yii;
 use common\models\Restaurants;
 use common\models\RestaurantsTypes;
+use common\models\ItemAdds;
 use yii\helpers\ArrayHelper;
 use common\models\Subdomen;
 
@@ -39,6 +40,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
             'restaurant_types',
             'restaurant_location',
             'restaurant_price',
+            'restaurant_text',
             'rooms',
         ];
     }
@@ -83,6 +85,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
                     'restaurant_special'            => ['type' => 'text'],
                     'restaurant_phone'              => ['type' => 'text'],
                     'restaurant_commission'         => ['type' => 'integer'],
+                    'restaurant_text'               => ['type' => 'text'],
                     'restaurant_types'              => ['type' => 'nested', 'properties' =>[
                         'id'                            => ['type' => 'integer'],
                         'name'                          => ['type' => 'text'],
@@ -332,7 +335,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 
         $record->restaurant_price = $restaurant_price;
 
-
+        $restaurant_text = ItemAdds::findOne(['item_id' => $restaurant->gorko_id, 'item_type' => 1, 'value_type' => 'text']);
+        $record->restaurant_text = $restaurant_text;
         
         try{
             if(!$isExist){

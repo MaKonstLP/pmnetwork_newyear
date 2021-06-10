@@ -53,10 +53,16 @@
 	<div class="content_block map" data-map-api-subid="{{ subid }}"></div>
 
 	<div class="content_block form_callback_wrapper">
+	<div class="form_bg"></div>
 		{{ this.render('//components/generic/form_callback.twig') | raw }}
 	</div>
 
-	<div class="content_block seo_text">{{seo.text_top | raw}}</div>
+	<div class="content_block seo_text" data-seo-text>
+		{{seo.text_top | raw}}
+		<div class="seo_text_control" data-seo-control>
+			<p class="_link">Показать полностью</p>
+		</div>
+	</div>
 
 	<div class="best_offer_slider" data-widget-main-wrapper>
 
@@ -66,6 +72,11 @@
 
 
 	<div class="content_block seo_text_wrapper last">
-		<div class="seo_text">{{seo.text_bottom | raw}}</div>
+		<div class="seo_text" data-seo-text>
+			{{seo.text_bottom | raw}}
+			<div class="seo_text_control" data-seo-control>
+				<p class="_link">Показать полностью</p>
+			</div>
+		</div>
 	</div>
 </div>

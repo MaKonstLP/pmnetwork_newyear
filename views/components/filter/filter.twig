@@ -12,7 +12,8 @@
 				{{ this.render('filter_input.twig', {
 					'filter_item':filter_item,
 					'label':label,
-					'filter_active': filter_active
+					'filter_active': filter_active,
+					'minPrice': minPrice,
 				}) | raw }}
 			{% else %}
 				{{ this.render('filter_checkbox.twig', {

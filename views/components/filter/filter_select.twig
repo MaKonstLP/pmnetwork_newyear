@@ -1,7 +1,8 @@
 <div class="filter_select">
 	<p class="filter_label">{{filter_item.name}}</p>
 	<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
-        <div class="filter_select_current" data-filter-select-current>
+        {% set firstItem = filter_item.items|first %}
+        <div class="filter_select_current" data-filter-select-current data-placeholder="{{firstItem}}">
             {% if filter_item.active is not null %}
                 {% if filter_item.active|length > 1 %}
                     <p>Выбрано ({{filter_item.active|length}})</p>
@@ -9,7 +10,7 @@
                     <p>{{filter_item.items[filter_item.active|keys|first]}}</p>
                 {% endif %}
             {% else %}
-                <p>-</p>
+                <p>{{firstItem}}</p>
             {% endif %}
         </div>
         <div class="filter_select_list">

@@ -31,7 +31,7 @@ class BlogController extends Controller
 		]);
 
 		$seo = (new Seo('blog', $dataProvider->getPagination()->page + 1))->seo;
-		$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs(1);
+		$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs('blog');
 		$this->setSeo($seo);
 
 
@@ -67,8 +67,10 @@ class BlogController extends Controller
 			throw new \yii\web\NotFoundHttpException();
 		}
 		$seo = ArrayHelper::toArray($post->seoObject);
+		$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs('post', ['link' => $alias, 'name' => $post->name]);
+
 		$this->setSeo($seo);
-		return $this->render('post.twig', compact('post'));
+		return $this->render('post.twig', compact('post','seo'));
 	}
 
 	public function actionPreview($id)
