@@ -124,7 +124,7 @@
 
     <div class="content_block form_booking_wrapper">
 
-        {{ this.render('//components/generic/form_booking.twig', {'items':other_rooms, 'venue_id':item.restaurant_gorko_id}) | raw }}
+        {{ this.render('//components/generic/form_booking.twig', {'items':other_rooms, 'venue_id':item.restaurant_gorko_id, 'minPrice': item.restaurant_price}) | raw }}
 
     </div>
 

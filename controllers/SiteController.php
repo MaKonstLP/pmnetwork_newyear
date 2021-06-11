@@ -84,4 +84,34 @@ Sitemap: https://'.$subdomen_alias.'korporativ-ng.ru/sitemap/';
         $this->view->params['desc'] = $seo['description'];
         $this->view->params['kw'] = $seo['keywords'];
     }
+
+    public function actionApitest()
+    {
+        $api_url = 'https://v.wedding.net/api/banket_wedding/inquiry/put';
+        //$payload = [
+        //    'city_id' => 15789641,
+        //    'name' => 'G',
+        //    'phone' => '+91 8563587525',
+        //    'event_type' => 'Wedding',
+        //    'guests' => 150,
+        //    'price' => '1000 - 1399 ₹',
+        //    'is_phone_preferred' => 1
+        //];
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $api_url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        //curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl, CURLOPT_ENCODING, '');
+        $response = json_decode(curl_exec($curl), true);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+
+        echo '<pre>';
+        print_r($api_url);
+        //print_r($payload);
+        print_r($response);
+        return 1;
+    }
 }
