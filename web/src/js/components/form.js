@@ -202,8 +202,8 @@ export default class Form {
 		}
 		this.$submitButton.removeClass('button__pending');
 		this.reset();
-		this.$formWrap.find('[data-success] [data-success-name]').text(data.name);
-		this.$formWrap.find('[data-success] [data-success-phone]').text(data.phone);
+		this.$formWrap.find('[data-success] [data-success-name]').text(data.payload.name);
+		this.$formWrap.find('[data-success] [data-success-phone]').text(data.payload.phone);
 		this.$formWrap.find('[data-success]').removeClass('_hide');
 	}
 
@@ -226,6 +226,8 @@ export default class Form {
 	    formData.append('type', formType);
 	    var formUrl = window.location.href;
 	    formData.append('url', formUrl);
+	    var cityID = $('[data-city-id]').data('city-id');
+	    formData.append('cityID', cityID);
 
 	    for (var pair of formData.entries()) {
 		    console.log(pair[0]+ ', ' + pair[1]);

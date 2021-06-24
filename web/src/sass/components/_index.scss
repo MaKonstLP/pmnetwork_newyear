@@ -10,6 +10,7 @@
     }
 
     @include for-pad{
+        width: 564px;
         margin: 0 auto 35px;
     }
 
@@ -64,4 +65,20 @@
             }
 		}
 	}
+}
+
+[data-page-type="index"]{
+
+    .to_full_catalog_wrapper{
+        display: flex;
+        justify-content: center;
+    }
+
+    .to_full_catalog_button{
+        padding: 15px 20px 15px 20px;
+        // margin: 0 auto 0 auto;
+        // position: relative;
+        // left: calc(50% - 135px);
+        // transform: translateX(-50%);
+    }
 }

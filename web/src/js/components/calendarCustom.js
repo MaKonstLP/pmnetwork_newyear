@@ -15,7 +15,7 @@ export default class CalendarCustom{
   init(calendarEl) {
 		let calendar = new Calendar(calendarEl, {
 			firstDay: 1,
-			defaultDate: '2020-12-01',
+			defaultDate: '2021-12-01',
 			locale: ruLocale,
 			aspectRatio: 1.35,
 			height: 230,

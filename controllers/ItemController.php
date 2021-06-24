@@ -21,7 +21,12 @@ class ItemController extends Controller
 	public function actionIndex($id)
 	{
 		$elastic_model = new ElasticItems;
-		$item = $elastic_model::get($id);
+		$item = $elastic_model::find()
+		->query(['bool' => ['must' => ['match'=>['restaurant_unique_id' => $id]]]])
+		->limit(1)
+		->search();
+
+		$item = $item['hits']['hits'][0];
 
 		if(!$item)
 			throw new \yii\web\NotFoundHttpException();
@@ -68,9 +73,14 @@ class ItemController extends Controller
 		$microdata = RoomMicrodata::getRoomMicrodata($item);
 
 		$restaurantSpec = '';
+		$restaurantMainSpec = '';
+
 
 		foreach ($item->restaurant_types as $type){
 			$restaurantSpec .= $type['name'] . ', ';
+			if ($restaurantMainSpec === ''){
+				$restaurantMainSpec = $type['name'];
+			}
 		}
 
 		$restaurantSpec = substr($restaurantSpec, 0, -2);
@@ -85,6 +95,7 @@ class ItemController extends Controller
 			'other_rooms' => $other_rooms,
 			'microdata' => $microdata,
 			'restaurantSpec' => $restaurantSpec,
+			'restaurantMainSpec' => $restaurantMainSpec,
 		));
 	}
 

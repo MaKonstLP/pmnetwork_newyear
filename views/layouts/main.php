@@ -35,7 +35,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="main_wrap">
         
-        <header>
+        <header data-city-id="<?=Yii::$app->params['subdomen_id']?>">
             <div class="header_wrap">
 
                 <div class="header_menu">
@@ -98,7 +98,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     $currentLetterBlock = "";
 
                                     foreach ($subdomen_list as $key => $subdomen){
-                                        $currentFirstLetter = substr($subdomen->name, 0, 1);
+                                        $currentFirstLetter = substr($subdomen->name, 0, 2);
                                         if ($currentFirstLetter !== $currentLetterBlock){
                                             $currentLetterBlock = $currentFirstLetter;
                                             $citiesListResult .= "</div>";
@@ -156,21 +156,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 
                 <?php
-                    $minPrice = ElasticItems::find()->limit(0)->query(
-                        ['bool' => ['must' => ['match' => ['restaurant_city_id' => Yii::$app->params['subdomen_id']]]]]
-                    )
-                        ->addAggregate('min_price', [
-                            'min' => [
-                                'field' => 'restaurant_price',
-                            ]
-                        ])->search()['aggregations']['min_price']['value'];
+                    // $minPrice = ElasticItems::find()->limit(0)->query(
+                    //     ['bool' => ['must' => ['match' => ['restaurant_city_id' => Yii::$app->params['subdomen_id']]]]]
+                    // )
+                    //     ->addAggregate('min_price', [
+                    //         'min' => [
+                    //             'field' => 'restaurant_price',
+                    //         ]
+                    //     ])->search()['aggregations']['min_price']['value'];
                     
                 ?>
 
                 <div class="header_form_popup _hide">
                     <div class="header_form_popup_content">
                     
-                        <?= $this->render('../components/generic/form_callback.twig', ['type' => 'header', 'minPrice' => $minPrice]) ?>
+                        <?= $this->render('../components/generic/form_callback.twig', ['type' => 'header', 'minPrice' => Yii::$app->params['min_restaurant_price'], 'budgetLabel' => 'Бюджет на гостя']) ?>
                         <div class="close_button"></div>
 
                         <div class="header_form_popup_message_sent _hide">

@@ -5,6 +5,9 @@ namespace app\modules\gorko_ny;
 
 use Yii;
 use common\models\Subdomen;
+use common\models\elastic\ItemsFilterElastic;
+use frontend\modules\gorko_ny\models\ElasticItems;
+
 /**
  * svadbanaprirode module definition class
  */
@@ -48,11 +51,23 @@ class Module extends \yii\base\Module
             Yii::$app->params['subdomen_rod'] = $subdomen_model->name_rod;
             Yii::$app->params['subdomen_phone'] = $subdomen_model->phone;
             $subdomen_phone_pretty = null;
-            if(  preg_match( '/^\+\d(\d{3})(\d{3})(\d{2})(\d{2})$/', $subdomen_model->phone,  $matches ) )
+
+            if (  preg_match( '/^\+\d(\d{3})(\d{3})(\d{2})(\d{2})$/', $subdomen_model->phone,  $matches ) )
             {
                 $subdomen_phone_pretty = '+7 ('.$matches[1].') '.$matches[2].'-'. $matches[3].'-'. $matches[4];
             }
             Yii::$app->params['subdomen_phone_pretty'] = $subdomen_phone_pretty;
+
+            $elastic_model = new ElasticItems;
+            $items = new ItemsFilterElastic([], 9999, 1, false, 'restaurants', $elastic_model);    
+            $minPrice = 999999;
+
+            foreach ($items->items as $item){
+                if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250){ // второе условие - костыль под опечатку в инфе из горько
+                    $minPrice = $item->restaurant_price;
+                }
+            }    
+            Yii::$app->params['min_restaurant_price'] = $minPrice;
         }
             
         //Yii::$app->setLayoutPath('@app/modules/svadbanaprirode/layouts');

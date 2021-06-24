@@ -9,7 +9,13 @@
 
                 <div class="room_card" data-listing-list>
 
-                    <h2>{{item.name}}</h2>
+                    {% if items|length == 1 %}
+                        <h2>{{ restaurantMainSpec }} «{{ restaurant_name }}»</h2>
+                    {% endif %}
+
+                    {% if items|length > 1 %}
+                        <h2>{{item.name}}</h2>
+                    {% endif %}
 
                     <div class="room_card_content">
                         <span class="_subheader _mobile">Вместимость</span>

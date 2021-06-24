@@ -133,8 +133,13 @@
       padding: 35px 0 50px 0;
     }
 
+    #blog-listing{
+      display: flex;
+    }
+
     .list-view{
-      justify-content: center;
+      width: 768px;
+      margin: 0 auto 0 auto;
 
       &>div[data-key]{
         padding: 0px 10px 20px 10px;

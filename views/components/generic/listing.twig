@@ -1,5 +1,5 @@
 {% for item in items %}
-	<a href="/ploshhadki/{{item.id}}/" class="item swiper-slide {{type}}">
+	<a href="/ploshhadki/{{item.restaurant_unique_id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
             <img src="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95" loading="lazy" alt="{{img_alt | replace({"**rest_name**" : item.restaurant_name})}}"/>
 

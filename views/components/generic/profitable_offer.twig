@@ -9,7 +9,7 @@
 
   <div class="swiper-wrapper items-list">
     {% for item in items %}
-      <a href="/ploshhadki/{{item.id}}/" class="item swiper-slide {{type}}">
+      <a href="/ploshhadki/{{item.restaurant_unique_id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
             <img  loading="lazy" src="{{item.restaurant_cover_url}}=w440-h302-n-l95" alt="{{img_alt | replace({"{название}" : item.restaurant_name})}}"/>
 

@@ -13,6 +13,7 @@ use frontend\components\ParamsFromQuery;
 use frontend\components\QueryFromSlice;
 use frontend\components\Declension;
 use frontend\modules\gorko_ny\components\Breadcrumbs;
+use frontend\modules\gorko_ny\components\FilterOneParamSeoGenerator;
 use common\models\Pages;
 use frontend\components\RoomsFilter;
 use common\models\Filter;
@@ -107,9 +108,11 @@ class ListingController extends Controller
 			$seo['text_bottom'] = '';
 		}
 
+		$itemsAllPages = new ItemsFilterElastic($params_filter, 9999, $page, false, 'restaurants', $elastic_model);
+
 		$minPrice = 999999;
-		foreach ($items->items as $item){
-			if ($item->restaurant_price < $minPrice){
+		foreach ($itemsAllPages->items as $item){
+			if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250){ // второе условие - костыль под опечатку в инфе из горько
 				$minPrice = $item->restaurant_price;
 			}
 		}
@@ -120,6 +123,11 @@ class ListingController extends Controller
 			'minPrice' => $minPrice
 		]);
 
+		    //     echo '<pre>';
+        // print_r(count($items->items));
+        // exit;
+
+
 		$pagination = PaginationWidget::widget([
 			'total' => $items->pages,
 			'current' => $page,
@@ -127,7 +135,17 @@ class ListingController extends Controller
 
 		$seo_type = $type ? $type : 'listing';
 		$seo = $this->getSeo($seo_type, $page, $items->total);
+
+		$activeFilterParams = $_GET;
+		unset($activeFilterParams['q']);
+		unset($activeFilterParams['slice']);
+
+		if (count($activeFilterParams) === 1){
+			$seo = (new FilterOneParamSeoGenerator($params_filter, $this->filter_model))->seo;
+		}
+
 		$seo['breadcrumbs'] = $breadcrumbs;
+
 		$this->setSeo($seo, $page, $canonical);
 
 		if($seo_type == 'listing' and count($params_filter) > 0){
@@ -140,7 +158,7 @@ class ListingController extends Controller
 		$currentRestType = $this->getRestTypeDeclention($params_filter);
 
 		// echo '<pre>';
-		// print_r($params_filter['rest_type']);
+		// print_r($activeFilterParams);
 		// exit;
 
 		return $this->render('index.twig', array(
@@ -167,7 +185,8 @@ class ListingController extends Controller
 		]);
 
 		$slice_url = ParamsFromQuery::isSlice(json_decode($_GET['filter'], true));
-		substr($params['listing_url'], 0, 1) == '?' ? $breadcrumbs = Breadcrumbs::get_breadcrumbs(2) : $breadcrumbs = Breadcrumbs::get_breadcrumbs(3, $slice_url);
+
+		!$slice_url ? $breadcrumbs = Breadcrumbs::get_breadcrumbs(2) : $breadcrumbs = Breadcrumbs::get_breadcrumbs(3, $slice_url);
 		$seo_type = $slice_url ? $slice_url : 'listing';
 		$seo = $this->getSeo($seo_type, $params['page'], $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
@@ -251,10 +270,14 @@ class ListingController extends Controller
 	private function setSeo($seo, $page, $canonical){
 		$this->view->title = $seo['title'];
 		$this->view->params['desc'] = $seo['description'];
-		if($page != 1){
+
+		if ($page != 1){
 			$this->view->params['canonical'] = $canonical;
 		}
-        $this->view->params['kw'] = $seo['keywords'];
+
+		if (isset($seo['keywords'])){
+			$this->view->params['kw'] = $seo['keywords'];
+		}
 	}
 
 	private function getRestTypeDeclention($params_filter = [])

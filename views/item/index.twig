@@ -76,8 +76,8 @@
                         <form class="form_block" action="/ajax/sendroom/" data-type="book">
                             <div class="form_inputs">
                                 <div class="input_wrapper">
-                                    <input type="email" name="book_email" data-book-email-id="{{item.id}}">
-                                    <input type="hidden" name="room_id" value="{{item.id}}">
+                                    <input type="email" name="book_email" data-book-email-id="{{item.restaurant_unique_id}}">
+                                    <input type="hidden" name="room_id" value="{{item.restaurant_unique_id}}">
                                 </div>
                             </div>
                             <input type="submit" class="object_book_email_button _button" value="Отправить"/>
@@ -120,7 +120,7 @@
         </div>
     </div>
 
-    {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.restaurant_name}) | raw }}
+    {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.restaurant_name, 'restaurantMainSpec':restaurantMainSpec}) | raw }}
 
     <div class="content_block form_booking_wrapper">
 
