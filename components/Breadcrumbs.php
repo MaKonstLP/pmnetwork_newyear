@@ -94,7 +94,7 @@ class Breadcrumbs {
 
 	private static function get_slice_crumb($slice_alias) {
 		$breadcrumbs_slices = self::get_slice_list();
-		if($breadcrumbs_slices[$slice_alias]){
+		if (isset($breadcrumbs_slices[$slice_alias])){
 			return 	['crumbs' =>
 						[[
 		                    'type' => 'slices',
@@ -103,8 +103,7 @@ class Breadcrumbs {
 		                ]],
 		             'crumbs_list' => $breadcrumbs_slices
 		            ];
-		}
-		else{
+		}	else {
 			return 	['crumbs' =>
 						[[
 		                    'type' => 'slices',

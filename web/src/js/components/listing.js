@@ -20,7 +20,7 @@ export default class Listing{
 		$('body').on('click', '[data-pagination-wrapper] [data-listing-pagitem]', function(){
 			self.reloadListing($(this).data('page-id'));
 		});
-		console.log(this);
+		// console.log(this);
 	}
 
 	reloadListing(page = 1){
@@ -30,7 +30,8 @@ export default class Listing{
 		self.filter.filterListingSubmit(page);
 		self.filter.promise.then(
 			response => {
-				console.log(response);
+				// console.log(response.params_filter);
+				// console.log(self.filter.state);
 				ym(66603799,'reachGoal','filter');
 				dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Search', 'eventAction' : 'Filter'});
 				$('[data-listing-list]').html(response.listing);

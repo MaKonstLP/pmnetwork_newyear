@@ -23,6 +23,8 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <?php if (!empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
     <?php if (!empty($this->params['kw'])) echo "<meta name='keywords' content='".$this->params['kw']."'>";?>
+    <?php if (isset($this->params['canonical']) and !empty($this->params['canonical'])) echo "<link rel='canonical' href='".$this->params['canonical']."'>";?>
+    <?php if (isset($this->params['robots']) && $this->params['robots'] === true) echo "<meta name='robots' content='noindex, nofollow'>";?>
     <?= Html::csrfMetaTags() ?>
 
 </head>

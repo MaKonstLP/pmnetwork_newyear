@@ -6,32 +6,30 @@ use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 use common\models\Filter;
+use common\models\Seo;
 
 class FilterOneParamSeoGenerator extends BaseObject
 {
   public $seo;
 
-  public function __construct($filter, $filterModel)
+  public function __construct($filter, $filterModel, $type, $page, $count = 0)
   {
-    $this->getSeoFromValues($filter, $filterModel);
+    $this->getSeoFromValues($filter, $filterModel, $type, $page, $count);
   }
 
-  public function getSeoFromValues($filter, $filterModel){
+  public function getSeoFromValues($filter, $filterModel, $type, $page, $count){
     $filterModel = ArrayHelper::index($filterModel, 'alias');
     $paramSring = '';
     $itemsTmp = null;
 
-    // foreach ($filter as $key => $item){
+    foreach ($filter as $key => $item){
 
-    //   if (count($item) > 1) {
-    //     $this->seo['h1'] = 'Подбор банкетного зала в Москве и Московской области';
-    //     $this->seo['title'] = 'Рестораны, банкетные залы';
-    //     $this->seo['description'] = 'Каталог ресторанов и кафе. Выберите для вашего праздника подходящий банкетный зал';
-    //     $this->seo['keywords'] = 'банкетные залы, кафе, рестораны';
-    //     $this->seo['robots'] = true;
-    //     return;
-    //   }
-    // }
+      if (count($item) > 1) {
+        $this->seo = (new Seo($type, $page, $count))->seo;
+        $this->seo['robots'] = true;
+        return;
+      }
+    }
 
     if (isset($filter['chelovek'])){
       $itemsTmp = ArrayHelper::index($filterModel['chelovek']['items'], 'value');
@@ -48,12 +46,12 @@ class FilterOneParamSeoGenerator extends BaseObject
     }
 
     if (isset($filter['price'])){
-      $itemsTmp = ArrayHelper::index($filterModel['price']['items'], 'value');
-      $paramSring .= 'от ' . $itemsTmp[$filter['price'][0]]['text'] . ' ';
+      // $itemsTmp = ArrayHelper::index($filterModel['price']['items'], 'value');
+      $paramSring .= $filter['price'][0] . ' ';
 
       $this->seo['title'] = 'Новогодний корпоратив в ' . Yii::$app->params['subdomen_dec'] . ' до ' . $paramSring . ' рублей';
       $this->seo['description'] =  'Лучшие площадки ' . Yii::$app->params['subdomen_rod'] . ' для новогодних корпоративов на нашем сайте: новогодний корпоратив до ' . $paramSring . ' рублей в ' . Yii::$app->params['subdomen_dec'] . '. Скидки и подарки.';
-      $this->seo['h1'] = 'Новогодний корпоратив до ' . $paramSring . ' рублей';
+      $this->seo['h1'] = 'Новогодний корпоратив от ' . $paramSring . ' рублей';
     }
 
     if (isset($filter['firework'])){
@@ -67,6 +65,10 @@ class FilterOneParamSeoGenerator extends BaseObject
       $this->seo['description'] =  'Все заведения ' . Yii::$app->params['subdomen_rod'] . ' для новогоднего корпоратива. Свой алкоголь и выгодные цены на аренду зала для корпоратива. Бронируйте и получайте подарки!';
       $this->seo['h1'] = 'Новогодние корпоративы со своим алкоголем';
     }
+
+    $this->seo['text_top'] = '';
+    $this->seo['text_bottom'] = '';
+    $this->seo['img_alt'] = '';
   }
 
 }

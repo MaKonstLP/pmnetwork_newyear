@@ -12,15 +12,15 @@ use frontend\widgets\PaginationWidget;
 use frontend\components\ParamsFromQuery;
 use frontend\components\QueryFromSlice;
 use frontend\components\Declension;
+use frontend\components\RoomsFilter;
 use frontend\modules\gorko_ny\components\Breadcrumbs;
 use frontend\modules\gorko_ny\components\FilterOneParamSeoGenerator;
+use frontend\modules\gorko_ny\models\ElasticItems;
 use common\models\Pages;
-use frontend\components\RoomsFilter;
 use common\models\Filter;
 use common\models\Slices;
 use common\models\GorkoApi;
 use common\models\elastic\ItemsFilterElastic;
-use frontend\modules\gorko_ny\models\ElasticItems;
 use common\models\Seo;
 
 
@@ -29,20 +29,33 @@ class ListingController extends Controller
 	protected $per_page = 24;
 
 	public $filter_model,
-		   $slices_model;
+				 $slices_model,
+				 $paramList;
 
 	public function beforeAction($action)
 	{
 		$this->filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
 		$this->slices_model = Slices::find()->all();
+		$this->paramList = [
+			'rest_type' => '',
+			'chelovek' => '',
+			'price' => '',
+			'svoy-alko' => '',
+			'firework' => ''
+		];
 
-	    return parent::beforeAction($action);
+		return parent::beforeAction($action);
 	}
 
 	public function actionSlice($slice)
 	{
 		$slice_obj = new QueryFromSlice($slice);
-		if($slice_obj->flag){
+
+		if (count(array_intersect_key($this->paramList, $_GET)) > 0){
+			return $this->actionSliceWhithParams($slice_obj->params);
+		}
+		
+		if ($slice_obj->flag){
 			$this->view->params['menu'] = $slice;
 			$params = $this->parseGetQuery($slice_obj->params, Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all(), $this->slices_model);
 			isset($_GET['page']) ? $params['page'] = $_GET['page'] : $params['page'];
@@ -64,6 +77,30 @@ class ListingController extends Controller
 		else{
 			throw new \yii\web\NotFoundHttpException();
 		}				
+	}
+
+	public function actionSliceWhithParams($paramFromAlias)
+	{
+		$getQuery = $_GET;
+		unset($getQuery['q']);
+		$params = $this->parseGetQuery($getQuery, $this->filter_model, $this->slices_model);
+		$params['params_filter']['rest_type'] = [];
+		array_push($params['params_filter']['rest_type'], $paramFromAlias['rest_type']);
+		$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+
+		if ($params['page'] > 1){
+			$canonical .= $params['canonical'];
+		}
+
+		return $this->actionListing(
+			$page 			=	$params['page'],
+			$per_page		=	$this->per_page,
+			$params_filter	= 	$params['params_filter'],
+			$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(2),
+			$canonical 		= 	$canonical,
+			$type = false,
+			$sliceWithParams = true,
+		);	
 	}
 
 	public function actionIndex()
@@ -98,7 +135,7 @@ class ListingController extends Controller
 		}
 	}
 
-	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false)
+	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false, $sliceWithParams = false)
 	{
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'restaurants', $elastic_model);
@@ -108,7 +145,7 @@ class ListingController extends Controller
 			$seo['text_bottom'] = '';
 		}
 
-		$itemsAllPages = new ItemsFilterElastic($params_filter, 9999, $page, false, 'restaurants', $elastic_model);
+		$itemsAllPages = new ItemsFilterElastic($params_filter, 999, $page, false, 'restaurants', $elastic_model);
 
 		$minPrice = 999999;
 		foreach ($itemsAllPages->items as $item){
@@ -117,34 +154,28 @@ class ListingController extends Controller
 			}
 		}
 
+		if ($minPrice === 999999){
+			$minPrice = 2100;
+		}
+
 		$filter = FilterWidget::widget([
 			'filter_active' => $params_filter,
 			'filter_model' => $this->filter_model,
 			'minPrice' => $minPrice
 		]);
 
-		    //     echo '<pre>';
-        // print_r(count($items->items));
-        // exit;
-
-
 		$pagination = PaginationWidget::widget([
 			'total' => $items->pages,
 			'current' => $page,
 		]);
-
+		
 		$seo_type = $type ? $type : 'listing';
 		$seo = $this->getSeo($seo_type, $page, $items->total);
-
-		$activeFilterParams = $_GET;
-		unset($activeFilterParams['q']);
-		unset($activeFilterParams['slice']);
-
-		if (count($activeFilterParams) === 1){
-			$seo = (new FilterOneParamSeoGenerator($params_filter, $this->filter_model))->seo;
-		}
-
 		$seo['breadcrumbs'] = $breadcrumbs;
+
+		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0){
+			$seo['robots'] = true;
+		}
 
 		$this->setSeo($seo, $page, $canonical);
 
@@ -158,7 +189,7 @@ class ListingController extends Controller
 		$currentRestType = $this->getRestTypeDeclention($params_filter);
 
 		// echo '<pre>';
-		// print_r($activeFilterParams);
+		// print_r($seo);
 		// exit;
 
 		return $this->render('index.twig', array(
@@ -169,7 +200,8 @@ class ListingController extends Controller
 			'currentType' => Declension::get_num_ending($items->total, $currentRestType),
 			'count' => $items->total,
 			'menu' => $type,
-			'main_flag' => $main_flag
+			'main_flag' => $main_flag,
+			'filterMinPrice' => isset($params_filter['price']) ? array_shift($params_filter['price']) : 0,
 		));	
 	}
 
@@ -187,8 +219,10 @@ class ListingController extends Controller
 		$slice_url = ParamsFromQuery::isSlice(json_decode($_GET['filter'], true));
 
 		!$slice_url ? $breadcrumbs = Breadcrumbs::get_breadcrumbs(2) : $breadcrumbs = Breadcrumbs::get_breadcrumbs(3, $slice_url);
+
 		$seo_type = $slice_url ? $slice_url : 'listing';
 		$seo = $this->getSeo($seo_type, $params['page'], $items->total);
+
 		$seo['breadcrumbs'] = $breadcrumbs;
 
 		$currentRestType = $this->getRestTypeDeclention($params['params_filter']);
@@ -224,9 +258,10 @@ class ListingController extends Controller
 			'listing' => $this->renderPartial('//components/generic/listing.twig', array(
 				'items' => $items->items,
 				'img_alt' => $seo['img_alt'],
+				'filterMinPrice' => isset($params['params_filter']['price']) ? $params['params_filter']['price'][0] : 0,
 			)),
 			'pagination' => $pagination,
-			'url' => $params['listing_url'],
+			'url' => !$slice_url ? $this->getUrl($params['listing_url'], $params['params_filter']) : $params['listing_url'],
 			'title' => $title,
 			'text_top' => $text_top,
 			'text_bottom' => $text_bottom,
@@ -268,16 +303,27 @@ class ListingController extends Controller
 	}
 
 	private function setSeo($seo, $page, $canonical){
-		$this->view->title = $seo['title'];
-		$this->view->params['desc'] = $seo['description'];
 
 		if ($page != 1){
 			$this->view->params['canonical'] = $canonical;
 		}
 
+		if (isset($seo['title'])){
+			$this->view->title = $seo['title'];
+		}
+
+		if (isset($seo['description'])){
+			$this->view->params['desc'] = $seo['description'];
+		}
+
 		if (isset($seo['keywords'])){
 			$this->view->params['kw'] = $seo['keywords'];
 		}
+
+		if (isset($seo['robots'])){
+			$this->view->params['robots'] = $seo['robots'];
+		}
+
 	}
 
 	private function getRestTypeDeclention($params_filter = [])
@@ -301,6 +347,16 @@ class ListingController extends Controller
 		return $currentRestType;
 	}
 
+	private function getUrl($listing_url, $params_filter)
+	{
+		if (isset($params_filter['rest_type']) && count($params_filter['rest_type']) === 1){
+			$currentSlice = Slices::find()->where(['params' => '{"rest_type":' . $params_filter['rest_type'][0] . '}'])->one();
+			$newUrl = $currentSlice->alias . '/' . str_replace(('rest_type=' . $params_filter['rest_type'][0] . '&'), '', $listing_url);
+			return $newUrl;
+		}
+
+		return $listing_url;
+	}
 }
 
 //class ListingController extends Controller

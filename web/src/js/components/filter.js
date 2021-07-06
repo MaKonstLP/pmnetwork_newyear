@@ -66,6 +66,15 @@ export default class Filter{
 		this.$filter.find('[data-filter-checkbox-item]').each(function(){
 			self.checkboxStateRefresh($(this));
 		});
+
+		let $budgetValue = this.$filter.find('[data-filter-budget-input]');
+		if (+$budgetValue.data('value') > 0){
+			console.log($budgetValue.data('value'));
+			this.state['price'] = $budgetValue.data('value');
+		} else {
+			delete this.state['price'];
+		}
+
 	}
 
 	filterListingSubmit(page = 1){

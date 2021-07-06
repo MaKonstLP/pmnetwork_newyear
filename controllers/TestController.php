@@ -2,16 +2,20 @@
 namespace app\modules\gorko_ny\controllers;
 
 use Yii;
+use yii\web\Controller;
 use common\models\GorkoApiTest;
 use common\models\Subdomen;
 use common\models\Restaurants;
 use common\models\Rooms;
 use common\models\Pages;
 use common\models\SubdomenPages;
-use frontend\modules\gorko_ny\models\ElasticItems;
+use common\models\FilterItems;
+use common\models\Slices;
+use common\models\siteobject\SiteObject;
+use common\models\siteobject\SiteObjectSeo;
 use common\models\elastic\ItemsFilterElastic;
-use yii\web\Controller;
 use common\components\AsyncRenewRestaurants;
+use frontend\modules\gorko_ny\models\ElasticItems;
 
 class TestController extends Controller
 {
@@ -54,18 +58,103 @@ class TestController extends Controller
 
 	public function actionCustom()
 	{
-		$aggs = ElasticItems::find()->limit(0)->query(
-			['bool' => ['must' => ['match' => ['restaurant_city_id' => Yii::$app->params['subdomen_id']]]]]
-		)
-			->addAggregate('min_price', [
-				'min' => [
-					'field' => 'restaurant_price',
-				]
-			])->search()['aggregations']['min_price']['value'];
+		// $rest_slices = Slices::find()->where(['id' => [1,2,3,4,5,6,7]])->all();
+		// $capacities = FilterItems::find()->where(['filter_id' => 1])->all();
 
-			echo '<pre>';
-			print_r($aggs);
-			exit;
+		// foreach ($rest_slices as $rest_slice){
+
+		// 	$priceList = [700, 1000, 1500, 2000];
+
+			// foreach ($capacities as $capacity){
+
+			// 	$slice = new Slices();
+			// 	$slice->alias = 'ploshhadki-' . $capacity->value . '-chelovek';
+			// 	$slice->h1 = 'h1';
+			// 	$slice->title = 'title';
+			// 	$slice->description = 'description';
+			// 	$slice->keywords = 'keywords';
+			// 	$slice->text_top = '';
+			// 	$slice->text_bottom = '';
+			// 	$slice->img_alt = '';
+			// 	$slice->params = '{"chelovek":"' . $capacity->value . '"}';
+			// 	$slice->save();
+				// echo '<pre>';
+				// print_r($slice);
+				// exit;
+
+			// }
+		// }
+		
+		// $rest_slices = Slices::find()->where(['>', 'id', 135])->all();
+
+	// 	foreach ($rest_slices as $rest_slice){
+	// 		$page = new Pages();
+	// 		$page->name = 'Срез - ' . $rest_slice->alias;
+	// 		$page->type = $rest_slice->alias;
+	// 		$page->title = 'empty';
+	// 		$page->description = 'empty';
+	// 		$page->keywords = 'empty';
+	// 		$page->img_alt = 'empty';
+	// 		$page->h1 = 'empty';
+	// 		$page->text_top = 'empty';
+	// 		$page->text_bottom = 'empty';
+	// 		$page->title_pag = 'empty';
+	// 		$page->description_pag = 'empty';
+	// 		$page->keywords_pag = 'empty';
+	// 		$page->h1_pag = 'empty';
+	// 		$page->save();
+	// }
+
+	// $rest_pages = Pages::find()->where(['>', 'id', 153])->all();
+	// foreach ($rest_pages as $key => $value) {
+	// 	$value::createSiteObjects();
+	// }
+	// $rest_pages = Pages::find()->where(['id' => 119])->one();
+	// 	$rest_pages::createSiteObjects();
+
+	// $page = Pages::find()->where(['>', 'id', 147])->andWhere(['<', 'id', 160])->with('seoObject')->all();
+	// $page = Pages::find()->where(['id' => [162,163]])->with('seoObject')->all();
+
+	// foreach($page as $p){
+	// 	$seo = SiteObjectSeo::find()->where(['id'=> $p->seoObject->id])->one();
+	// 	$seo->heading = 'Новогодний корпоратив за ' . explode('-', $p->type)[2] . ' рублей';
+	// 	$seo->title = 'Заказать новогодний корпоратив в **city_dec** от ' . explode('-', $p->type)[2] . ' рублей с человека';
+	// 	$seo->description = 'Лучшие площадки **city_rod** для новогодних корпоративов на нашем сайте: новогодний корпоратив от ' . explode('-', $p->type)[2] . ' рублей в **city_dec**. Скидки и подарки.';
+	// 	$seo->save();
+	// }
+
+		// $rest_slices = Slices::find()->where(['id' => [154,155]])->all();
+
+		// foreach ($rest_slices as $slice){
+			// $page = Pages::find()->where(['type' => $slice->alias])->with('seoObject')->one();
+			// $object = SiteObject::find()->where(['id' => $page->seoObject->site_object_id])->one();
+			// $seo = SiteObjectSeo::find()->where(['id' => $page->seoObject->id])->one();
+
+			// $page = new Pages();
+			// $page->name = 'Срез - ' . $slice->alias;
+			// $page->type = $slice->alias;
+			// $page->title = 'empty';
+			// $page->description = 'empty';
+			// $page->keywords = 'empty';
+			// $page->img_alt = 'empty';
+			// $page->h1 = 'empty';
+			// $page->text_top = 'empty';
+			// $page->text_bottom = 'empty';
+			// $page->title_pag = 'empty';
+			// $page->description_pag = 'empty';
+			// $page->keywords_pag = 'empty';
+			// $page->h1_pag = 'empty';
+			// $page->save();
+
+
+		// }
+
+	// echo '<pre>';
+	// print_r($page);
+	// exit;
+
+		
+		exit;
 	}
 
 	public function actionAll()

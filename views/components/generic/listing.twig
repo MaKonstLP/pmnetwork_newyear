@@ -31,9 +31,33 @@
                     {% endif %}
 
                     {% if item.restaurant_price %}
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Стоимость: </span><span class="item_meta_text">от {{item.restaurant_price}} ₽/чел.</span>
-                        </div>
+
+                        {% if item.restaurant_price >= filterMinPrice %}
+
+                            <div class="item_meta_item">
+                                <span class="item_meta_label">Стоимость: </span><span class="item_meta_text">от {{item.restaurant_price}} ₽/чел.</span>
+                            </div>
+
+                        {% else %}
+                            
+                            {% set minPrice = 999999 %}
+
+                            {% for room in item.rooms %}
+
+                                {% if room.price < minPrice and room.price >= filterMinPrice %}
+
+                                    {% set minPrice = room.price %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                            <div class="item_meta_item">
+                                <span class="item_meta_label">Стоимость: </span><span class="item_meta_text">от {{minPrice}} ₽/чел.</span>
+                            </div>
+
+                        {% endif %}
+
                     {% endif %}
 
                 </div>

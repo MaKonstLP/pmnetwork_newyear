@@ -85,7 +85,7 @@ class ItemController extends Controller
 
 		$restaurantSpec = substr($restaurantSpec, 0, -2);
 		// echo '<pre>';
-		// print_r($restaurantSpec);
+		// print_r($item);
 		// exit;
 
 		return $this->render('index.twig', array(

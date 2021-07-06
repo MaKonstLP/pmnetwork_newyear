@@ -7,6 +7,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use frontend\widgets\FilterWidget;
 use common\models\Pages;
+use common\models\SubdomenPages;
 use common\models\Filter;
 use common\models\Slices;
 use common\models\elastic\ItemsFilterElastic;
@@ -26,25 +27,26 @@ class SiteController extends Controller
     public function actionIndex()
     {
         //$leadLogElastic = LeadLogElastic::updateMapping();
-        //$siteobject_seo = SiteObjectSeo::find()->joinwith('siteObject')->where(['site_object.table_name' => 'pages'])->all();
-//
-        //foreach ($siteobject_seo as $key => $seo) {
-        //  $page = Pages::find()->where(['id' => $seo->siteObject->row_id])->one();
-        //  $seo->title = $page->title;
-        //  $seo->description = $page->description;
-        //  $seo->keywords = $page->keywords;
-        //  $seo->img_alt = $page->img_alt;
-        //  $seo->heading = $page->h1;
-        //  $seo->text1 = $page->text_top;
-        //  $seo->text2 = $page->text_bottom;
-        //  $seo->pagination_heading = $page->h1_pag;
-        //  $seo->pagination_title = $page->title_pag;
-        //  $seo->pagination_description = $page->description_pag;
-        //  $seo->pagination_keywords = $page->keywords_pag;
-//
-        //  $seo->save();
-        //}
-        //Pages::createSiteObjects();
+        /*$siteobject_seo = SiteObjectSeo::find()->joinwith('siteObject')->where(['site_object.table_name' => 'subdomen_pages'])->all();
+
+        foreach ($siteobject_seo as $key => $seo) {
+          $page = SubdomenPages::find()->where(['id' => $seo->siteObject->row_id])->one();
+          $seo->title = $page->title;
+          $seo->description = $page->description;
+          $seo->keywords = $page->keywords;
+          $seo->img_alt = $page->img_alt;
+          $seo->heading = $page->h1;
+          $seo->text1 = $page->text_top;
+          $seo->text2 = $page->text_bottom;
+          $seo->pagination_heading = $page->h1_pag;
+          $seo->pagination_title = $page->title_pag;
+          $seo->pagination_description = $page->description_pag;
+          $seo->pagination_keywords = $page->keywords_pag;
+
+          if(!$seo->save())
+            print_r($seo);
+        }
+        Pages::createSiteObjects();*/
 
 
         $filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();

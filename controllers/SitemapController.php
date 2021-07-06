@@ -21,7 +21,8 @@ class SitemapController extends Controller
 
 		$host = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'];
 
-		$slices = Slices::find('alias')->all();
+		// $slices = Slices::find('alias')->all(); вернуть, когда останутся только актуальные срезы
+		$slices = Slices::find('alias')->where(['<', 'id', 8])->all();
 
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic([], 9999, 1, false, 'rooms', $elastic_model);
