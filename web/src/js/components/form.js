@@ -184,21 +184,24 @@ export default class Form {
 		  case 'main':
 		    ym(66603799,'reachGoal','feedback');
 		    dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Order', 'eventAction' : 'Feedback'});
+				gtag('event', 'feedback', {'event_category' : 'Order', 'event_action' : 'Feedback'});
 		    break;
-
 		  case 'item':
 		    ym(66603799,'reachGoal','roomorder');
 		    dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Order', 'eventAction' : 'Roomorder'});
+				gtag('event', 'roomorder', {'event_category' : 'Order', 'event_action' : 'Roomorder'});
 		    break;
 		  case 'header':
 		    ym(66603799,'reachGoal','quickorder');
 		    dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Order', 'eventAction' : 'Quickorder'});
+				gtag('event', 'quickorder', {'event_category' : 'Order', 'event_action' : 'Quickorder'});
 		    break;
-		  case 'book':
-		  	ym(66603799,'reachGoal','roominfo');
-		  	dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Search', 'eventAction' : 'Roominfo'});
-		    $('.object_book_email._form').removeClass('_form').addClass('_success');
-		    break;
+			case 'book':
+				ym(66603799,'reachGoal','roominfo');
+				dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Search', 'eventAction' : 'Roominfo'});
+				gtag('event', 'roominfo', {'event_category' : 'Order', 'event_action' : 'Roominfo'});
+				$('.object_book_email._form').removeClass('_form').addClass('_success');
+				break;
 		}
 		this.$submitButton.removeClass('button__pending');
 		this.reset();

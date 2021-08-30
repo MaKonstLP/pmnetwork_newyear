@@ -6,15 +6,16 @@ use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use frontend\widgets\FilterWidget;
-use common\models\Pages;
-use common\models\SubdomenPages;
+//use common\models\Pages;
+//use common\models\SubdomenPages;
 use common\models\Filter;
 use common\models\Slices;
 use common\models\elastic\ItemsFilterElastic;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use common\models\Seo;
-use common\models\RestaurantsModule;
-use common\models\siteobject\SiteObjectSeo;
+//use common\models\RestaurantsModule;
+//use common\models\RestaurantsUniqueId;
+//use common\models\siteobject\SiteObjectSeo;
 //use common\models\elastic\LeadLogElastic;
 
 class SiteController extends Controller
@@ -26,27 +27,13 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        //$leadLogElastic = LeadLogElastic::updateMapping();
-        /*$siteobject_seo = SiteObjectSeo::find()->joinwith('siteObject')->where(['site_object.table_name' => 'subdomen_pages'])->all();
-
-        foreach ($siteobject_seo as $key => $seo) {
-          $page = SubdomenPages::find()->where(['id' => $seo->siteObject->row_id])->one();
-          $seo->title = $page->title;
-          $seo->description = $page->description;
-          $seo->keywords = $page->keywords;
-          $seo->img_alt = $page->img_alt;
-          $seo->heading = $page->h1;
-          $seo->text1 = $page->text_top;
-          $seo->text2 = $page->text_bottom;
-          $seo->pagination_heading = $page->h1_pag;
-          $seo->pagination_title = $page->title_pag;
-          $seo->pagination_description = $page->description_pag;
-          $seo->pagination_keywords = $page->keywords_pag;
-
-          if(!$seo->save())
-            print_r($seo);
-        }
-        Pages::createSiteObjects();*/
+        //$rest_mod = RestaurantsModule::find()->all();
+        //foreach ($rest_mod as $key => $value) {
+        //    $rest_uid = new RestaurantsUniqueId();
+        //    $rest_uid->id = $value->id;
+        //    $rest_uid->unique_id = $value->unique_id;
+        //    $rest_uid->save();
+        //}
 
 
         $filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();

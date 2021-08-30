@@ -17,6 +17,7 @@ export default class Item{
 			$(".object_book_send_mail").removeClass("_hide");
 			ym(66603799,'reachGoal','showphone');
 			dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Search', 'eventAction' : 'ShowPhone'});
+			gtag('event', 'showphone', {'event_category' : 'Search', 'event_action' : 'ShowPhone'});
 		});
 
 		$('[data-action="show_form"]').on("click", function(){

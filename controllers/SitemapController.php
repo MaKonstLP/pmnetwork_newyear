@@ -9,6 +9,7 @@ use yii\web\Response;
 use common\models\Slices;
 use common\models\elastic\ItemsFilterElastic;
 use frontend\modules\gorko_ny\models\ElasticItems;
+use frontend\modules\gorko_ny\components\GetSlicesForSitemap;
 use common\models\blog\BlogPost;
 
 class SitemapController extends Controller
@@ -21,10 +22,13 @@ class SitemapController extends Controller
 
 		$host = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'];
 
-		// $slices = Slices::find('alias')->all(); вернуть, когда останутся только актуальные срезы
-		$slices = Slices::find('alias')->where(['<', 'id', 8])->all();
+		$slices = Slices::find('alias')->all(); // вернуть, когда останутся только актуальные срезы
+		// $slices = Slices::find('alias')->where(['<', 'id', 8])->all();
 
 		$elastic_model = new ElasticItems;
+
+		$slices = GetSlicesForSitemap::getAggregateResult($slices, $elastic_model);
+
 		$items = new ItemsFilterElastic([], 9999, 1, false, 'rooms', $elastic_model);
 
 		$main_subdomain = Yii::$app->params['subdomen_alias'] == '';

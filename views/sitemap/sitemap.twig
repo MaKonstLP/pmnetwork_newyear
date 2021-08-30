@@ -21,9 +21,9 @@
             {% endfor %}
         {% endif %}
 
-        {% for slice in slices %}
+        {% for key, alias in slices %}
         	<url>
-	            <loc>{{host}}/ploshhadki/{{slice.alias}}/</loc>
+	            <loc>{{host}}/ploshhadki/{{alias}}/</loc>
 	        </url>
         {% endfor %}
 

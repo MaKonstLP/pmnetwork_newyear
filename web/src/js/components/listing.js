@@ -14,6 +14,7 @@ export default class Listing{
 		//КЛИК ПО КНОПКЕ "ПОДОБРАТЬ"
 		$('[data-filter-button]').on('click', function(){
 			self.reloadListing();
+			gtag('event', 'filter', {'event_category' : 'Search', 'event_action' : 'Filter'});
 		});
 
 		//КЛИК ПО ПАГИНАЦИИ

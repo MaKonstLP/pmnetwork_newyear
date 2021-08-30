@@ -12,6 +12,7 @@ export default class Index{
 		//КЛИК ПО КНОПКЕ "ПОДОБРАТЬ"
 		$('[data-filter-button]').on('click', function(){
 			self.redirectToListing();
+			gtag('event', 'filter', {'event_category' : 'Search', 'event_action' : 'Filter'});
 		});
 	}
 

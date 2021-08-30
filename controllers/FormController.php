@@ -47,6 +47,7 @@ class FormController extends Controller
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $resp;
+        // return 1;
     }
 
     public function actionRoom()

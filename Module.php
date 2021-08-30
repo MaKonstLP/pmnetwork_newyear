@@ -70,6 +70,8 @@ class Module extends \yii\base\Module
             Yii::$app->params['min_restaurant_price'] = $minPrice;
         }
             
+        Yii::$app->params['uploadFolder'] = 'upload';
+
         //Yii::$app->setLayoutPath('@app/modules/svadbanaprirode/layouts');
         //Yii::$app->layout = 'svadbanaprirode';
         //$this->viewPath = '@app/modules/svadbanaprirode/views/';

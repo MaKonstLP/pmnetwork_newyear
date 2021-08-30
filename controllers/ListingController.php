@@ -22,6 +22,7 @@ use common\models\Slices;
 use common\models\GorkoApi;
 use common\models\elastic\ItemsFilterElastic;
 use common\models\Seo;
+use common\models\SubdomenPages;
 
 
 class ListingController extends Controller
@@ -54,16 +55,21 @@ class ListingController extends Controller
 		if (count(array_intersect_key($this->paramList, $_GET)) > 0){
 			return $this->actionSliceWhithParams($slice_obj->params);
 		}
-		
+
 		if ($slice_obj->flag){
 			$this->view->params['menu'] = $slice;
 			$params = $this->parseGetQuery($slice_obj->params, Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all(), $this->slices_model);
 			isset($_GET['page']) ? $params['page'] = $_GET['page'] : $params['page'];
 
 			$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
-			if($params['page'] > 1){
-				$canonical .= $params['canonical'];
-			}
+
+			// if($params['page'] > 1){
+			// 	$canonical .= $params['canonical'];
+			// }
+
+			// echo '<pre>';
+			// print_r($params['params_filter']);
+			// exit;
 
 			return $this->actionListing(
 				$page 			=	$params['page'],
@@ -91,6 +97,11 @@ class ListingController extends Controller
 		if ($params['page'] > 1){
 			$canonical .= $params['canonical'];
 		}
+
+			// echo '<pre>';
+			// print_r($params);
+			// exit;
+
 
 		return $this->actionListing(
 			$page 			=	$params['page'],
@@ -173,7 +184,7 @@ class ListingController extends Controller
 		$seo = $this->getSeo($seo_type, $page, $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
 
-		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0){
+		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0 || count($items->items) < 4){
 			$seo['robots'] = true;
 		}
 
@@ -188,8 +199,39 @@ class ListingController extends Controller
 
 		$currentRestType = $this->getRestTypeDeclention($params_filter);
 
+		$seoObj = Pages::findWithRelations()->where(['type' => $type])->one();
+
+		function getTestSeo($seoObj, $page)
+		{
+			$site = \Yii::$app->params['siteAddress'];
+			$isPagination = $page > 1;
+			$paginationH1 = 'paginationH1';
+			$paginationTitle = "paginationTitle";
+			$paginationDescription = "paginationDescription";
+			$getSeoArray = function ($obj) use ($isPagination, $paginationTitle, $paginationDescription, $paginationH1) {
+				return [
+					'title' 		=> $isPagination ? ($obj->pagination_title ?: $paginationTitle) : $obj->title,
+					'description' 	=> $isPagination ? ($obj->pagination_description ?: $paginationDescription) : $obj->description,
+					'keywords' 		=> $isPagination ? ($obj->pagination_keywords ?: $obj->keywords) : $obj->keywords,
+					'h1' 			=> $isPagination ? ($obj->pagination_heading ?: $paginationH1) : $obj->heading,
+					'h1_pag' 		=> $isPagination ? ($obj->pagination_heading ?: $paginationH1) : $obj->pagination_heading,
+					'text_top'		=> $isPagination ? '' : $obj->text1,
+					'text_bottom'	=> $isPagination ? '' : $obj->text2,
+					'text_1'		=> $isPagination ? '' : $obj->text1,
+					'text_2'		=> $isPagination ? '' : $obj->text2,
+					'text_3'		=> $isPagination ? '' : $obj->text3,
+					'img_alt'		=> $obj->img_alt,
+				];
+			};
+			$restSeoArr = [];
+			return array_merge($getSeoArray($seoObj), array_filter($getSeoArray($seoObj)), $restSeoArr);
+		}
+
+		
+
+
 		// echo '<pre>';
-		// print_r($seo);
+		// print_r($seoObj->seoObject);
 		// exit;
 
 		return $this->render('index.twig', array(
@@ -207,7 +249,7 @@ class ListingController extends Controller
 
 	public function actionAjaxFilter(){
 		$params = $this->parseGetQuery(json_decode($_GET['filter'], true), $this->filter_model, $this->slices_model);
-
+		
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants', $elastic_model);
 

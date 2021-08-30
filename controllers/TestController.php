@@ -16,15 +16,15 @@ use common\models\siteobject\SiteObjectSeo;
 use common\models\elastic\ItemsFilterElastic;
 use common\components\AsyncRenewRestaurants;
 use frontend\modules\gorko_ny\models\ElasticItems;
+use frontend\modules\gorko_ny\components\GetSlicesForSitemap;
 
 class TestController extends Controller
 {
 	public function actionNewseo()
 	{
-		$pages = SubdomenPages::find()->all();
-		foreach ($pages as $key => $value) {
-			$value::createSiteObjects();
-		}
+		echo '<pre>';
+		print_r(get_headers('http://wwwinfo.mfcr.cz/ares/ares_vreo_all.tar.gz'));
+		exit;
 	}
 
 	public function actionSendmessange()
@@ -39,19 +39,31 @@ class TestController extends Controller
 
 	public function actionIndex()
 	{
-		$subdomen_model = Subdomen::find()
-			//->where(['id' => 57])
-			->all();
+		$curl = curl_init();
+		$file = '/var/www/pmnetwork/frontend/web/img/watermark-bzm.png';
+		$mime = mime_content_type($file);
+		$info = pathinfo($file);
+		$name = $info['basename'];
+		$output = curl_file_create($file, $mime, $name);
+		$payload = [
+			'mediaId' => 50367999,
+			'token'=> '4aD9u94jvXsxpDYzjQz0NFMCpvrFQJ1k',
+			'watermark' => $output,
+			'hash_key' => 'banketmoscow',
+			'watermarkPosition' => 1
+		];
+		curl_setopt($curl, CURLOPT_URL, 'https://api.gorko.ru/api/v2/tools/mediaToSatellite');
+	    curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+	    curl_setopt($curl, CURLOPT_ENCODING, '');
+	    curl_setopt($curl, CURLOPT_POST, true);
+	    curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+	    $response = curl_exec($curl);
+	    $response_obj = json_decode($response);
+	    curl_close($curl);
 
-		foreach ($subdomen_model as $key => $subdomen) {
-			GorkoApiTest::renewAllData([
-				[
-					'params' => 'city_id='.$subdomen->city_id.'&type_id=1&event=17',
-					'watermark' => '/var/www/pmnetwork/pmnetwork/frontend/web/img/ny_ball.png',
-					'imageHash' => 'newyearpmn'
-				]				
-			]);
-		}
+	    echo '<pre>';
+	    print_r($response_obj);
+	    exit;
 
 		
 	}
@@ -149,11 +161,56 @@ class TestController extends Controller
 
 		// }
 
-	// echo '<pre>';
-	// print_r($page);
-	// exit;
+	// 	$slices = Slices::find('alias')->all(); // вернуть, когда останутся только актуальные срезы
+	// 	$aliasList = GetSlicesForSitemap::getAggregateResult($slices);
 
-		
+	// $slicesSeo = SiteObjectSeo::find()->where(['>', 'id', '129'])->all();
+
+	// foreach ($slicesSeo as $item){
+	// 	$item->pagination_heading = $item->heading;
+	// 	$item->pagination_title = $item->title;
+	// 	$item->pagination_description = $item->description;
+	// 	$item->pagination_keywords = $item->keywords;
+	// 	$item->save();
+	// }
+
+
+	// $restMainTypeIdsOrder = array_combine($MAIN_REST_TYPE_ORDER, $MAIN_REST_TYPE_ORDER);
+
+	$page = Pages::find()->where(['between', 'id', 20, 167])->with('seoObject')->all();
+
+	foreach ($page as $p){
+		$seo = SiteObjectSeo::find()->where(['id'=> $p->seoObject->id])->one();
+
+		// $aliasExploded = explode('-', $p->type);
+		// $title = '';
+ 
+		// if (stripos($p->type, 'chelovek')) {
+		// 	$slice = array_slice($aliasExploded, -2, 1);
+		// 	$title = 'Заказать новогодний корпоратив в **city_dec** на ' . array_pop($slice) . ' человек';
+		// } elseif (stripos($p->type, 'price')) {
+		// 	$title = 'Заказать новогодний корпоратив в **city_dec** от ' . array_pop($aliasExploded) . ' рублей с человека';
+		// } elseif (stripos($p->type, 'svoy-alko')) {
+		// 	$title = 'Новогодний корпоратив со своим алкоголем в **city_dec** без пробкового сбора';
+		// } elseif (stripos($p->type, 'firework')) {
+		// 	$title = 'Заказать новогодний корпоратив в **city_dec** с фейерверками и салютом';
+		// }
+
+		$seo->pagination_title = $seo->title . ' - Страница №**page**';
+		$seo->save();
+
+		// if ($title === ''){
+		// 	exit;
+		// }
+		// echo '<pre>';
+		// print_r($typeList);
+		// exit;
+	
+	}
+
+
+		echo '<pre>';
+		print_r(count($page));
 		exit;
 	}
 

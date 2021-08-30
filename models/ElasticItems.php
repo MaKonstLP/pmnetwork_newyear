@@ -13,6 +13,7 @@ use common\models\RestaurantsExtra;
 use common\models\RestaurantsLocation;
 use common\models\ImagesModule;
 use common\components\AsyncRenewImages;
+use common\models\RestaurantsUniqueId;
 
 class ElasticItems extends \yii\elasticsearch\ActiveRecord
 {
@@ -226,6 +227,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
             ->with('images')
             ->with('subdomen')
             ->limit(100000)
+            ->where(['active' => 1])
             ->all();
 
         $connection = new \yii\db\Connection($params['site_connection_config']);
@@ -238,19 +240,19 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
             ->all();
         $images_module = ArrayHelper::index($images_module, 'gorko_id');
 
-        $restaurants_module = RestaurantsModule::find()
+        $restaurants_unique_id = RestaurantsUniqueId::find()
             ->limit(100000)
             ->asArray()
             ->all();
-        $restaurants_module = ArrayHelper::index($restaurants_module, 'gorko_id');
+        $restaurants_unique_id = ArrayHelper::index($restaurants_unique_id, 'id');
 
         foreach ($restaurants as $restaurant) {
-            $res = self::addRecord($restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials ,$restaurants_extra, $restaurants_location, $images_module, $restaurants_module, $params);
+            $res = self::addRecord($restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials ,$restaurants_extra, $restaurants_location, $images_module, $restaurants_unique_id, $params);
         }
         echo 'Обновление индекса '. self::index().' '. self::type() .' завершено'."\n";
     }
 
-    public static function addRecord($restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials ,$restaurants_extra, $restaurants_location, $images_module,$restaurants_module, $params){
+    public static function addRecord($restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials ,$restaurants_extra, $restaurants_location, $images_module,$restaurants_unique_id, $params){
         $restaurant_spec_white_list = [17];
         $restaurant_spec_rest = explode(',', $restaurant->restaurants_spec);
         if (count(array_intersect($restaurant_spec_white_list, $restaurant_spec_rest)) === 0) {
@@ -335,17 +337,15 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
         $record->restaurant_images = $images;
 
         //Уникальные св-ва для ресторанов в модуле
-        if(isset($restaurants_module[$restaurant->gorko_id]) && $restaurants_module[$restaurant->gorko_id]['unique_id']){
-            $record->restaurant_unique_id = $restaurants_module[$restaurant->gorko_id]['unique_id'];
+        if(isset($restaurants_unique_id[$restaurant->gorko_id]) && $restaurants_unique_id[$restaurant->gorko_id]['unique_id']){
+            $record->restaurant_unique_id = $restaurants_unique_id[$restaurant->gorko_id]['unique_id'];
         }
         else{
-            $restaurants_module_upd = RestaurantsModule::find()->where(['gorko_id' => $restaurant->gorko_id])->one();
-            if(!$restaurants_module_upd)
-                $restaurants_module_upd = new RestaurantsModule();
-            $new_id = RestaurantsModule::find()->max('unique_id') + 1;
-            $restaurants_module_upd->unique_id = $new_id;
-            $restaurants_module_upd->gorko_id = $restaurant->gorko_id;
-            $restaurants_module_upd->save();
+            $restaurants_unique_id_upd = new RestaurantsUniqueId();
+            $new_id = RestaurantsUniqueId::find()->max('unique_id') + 1;
+            $restaurants_unique_id_upd->unique_id = $new_id;
+            $restaurants_unique_id_upd->id = $restaurant->gorko_id;
+            $restaurants_unique_id_upd->save();
             $record->restaurant_unique_id = $new_id;
         }
 

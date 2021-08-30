@@ -5,6 +5,7 @@ use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\elastic\RestaurantElastic;
@@ -26,14 +27,23 @@ class ItemController extends Controller
 		->limit(1)
 		->search();
 
+		if (!isset($item['hits']['hits'][0])){
+			// Yii::$app​->response->redirect('https://' . (Yii::$app->params['subdomen_alias'] !== '' ? (Yii::$app->params['subdomen_alias'] . '.') : '') . 'korporativ-ng.ru/ploshhadki/');
+			return $this->redirect('https://' . (Yii::$app->params['subdomen_alias'] !== '' ? (Yii::$app->params['subdomen_alias'] . '.') : '') . 'korporativ-ng.ru/ploshhadki/');
+			// throw new \yii\web\NotFoundHttpException();
+		}
+
+
 		$item = $item['hits']['hits'][0];
 
-		if(!$item)
-			throw new \yii\web\NotFoundHttpException();
+		
 
 		$seo = new Seo('item', 1, 0, $item, 'rest');
 		$seo = $seo->seo;
-        $this->setSeo($seo);
+
+		$this->replaceSeoVariables($item, $seo);
+
+		$this->setSeo($seo);
 
 		//$item = ApiItem::getData($item->restaurants->gorko_id);
 		if(isset($_SERVER['HTTP_REFERER'])){
@@ -81,11 +91,11 @@ class ItemController extends Controller
 			if ($restaurantMainSpec === ''){
 				$restaurantMainSpec = $type['name'];
 			}
-		}
+		}	
 
 		$restaurantSpec = substr($restaurantSpec, 0, -2);
 		// echo '<pre>';
-		// print_r($item);
+		// print_r($seo);
 		// exit;
 
 		return $this->render('index.twig', array(
@@ -103,6 +113,36 @@ class ItemController extends Controller
 		$this->view->title = $seo['title'];
 		$this->view->params['desc'] = $seo['description'];
 		$this->view->params['kw'] = $seo['keywords'];
+	}
+
+	private function replaceSeoVariables($item, &$seo){
+		$mainRestTypeDeclention = '';
+		$restTypes = ArrayHelper::index($item['restaurant_types'], 'id');
+		$MAIN_REST_TYPE_ORDER = [
+			1 => "ресторане",
+			2 => "банкетном зале",
+			3 => "кафе",
+			16 => "клубе",
+			4 => "баре"
+		];
+	
+		foreach ($MAIN_REST_TYPE_ORDER as $key => $value){
+
+			if ($mainRestTypeDeclention !== ''){
+				break;
+			}
+
+			$mainRestTypeDeclention = array_key_exists($key, $restTypes) ? $value : '';
+		}
+
+		if ($mainRestTypeDeclention === ''){
+			$mainRestTypeDeclention = "ресторане";
+		}
+
+		$seo['h1'] = str_replace('**about_rest_type**', $mainRestTypeDeclention, $seo['h1']);
+		$seo['title'] = str_replace('**about_rest_type**', $mainRestTypeDeclention, $seo['title']);
+		$seo['description'] = str_replace('**about_rest_type**', $mainRestTypeDeclention, $seo['description']);
+		$seo['keywords'] = str_replace('**about_rest_type**', $mainRestTypeDeclention, $seo['keywords']);
 	}
 
 }
