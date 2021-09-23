@@ -11,6 +11,7 @@ use yii\filters\AccessControl;
 use common\models\elastic\RestaurantElastic;
 use common\models\elastic\ItemsWidgetElastic;
 use common\models\Seo;
+use common\models\RestaurantsRedirect;
 use frontend\components\QueryFromSlice;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use frontend\modules\gorko_ny\components\Breadcrumbs;
@@ -28,9 +29,12 @@ class ItemController extends Controller
 		->search();
 
 		if (!isset($item['hits']['hits'][0])){
-			// Yii::$app​->response->redirect('https://' . (Yii::$app->params['subdomen_alias'] !== '' ? (Yii::$app->params['subdomen_alias'] . '.') : '') . 'korporativ-ng.ru/ploshhadki/');
+			$redirect = RestaurantsRedirect::find()->where(['new_id' => $id])->one();
+			if($redirect){
+				return $this->redirect('https://' . (Yii::$app->params['subdomen_alias'] !== '' ? (Yii::$app->params['subdomen_alias'] . '.') : '') . 'korporativ-ng.ru/ploshhadki/'.$redirect->old_id.'/', 301);
+			}
+
 			return $this->redirect('https://' . (Yii::$app->params['subdomen_alias'] !== '' ? (Yii::$app->params['subdomen_alias'] . '.') : '') . 'korporativ-ng.ru/ploshhadki/');
-			// throw new \yii\web\NotFoundHttpException();
 		}
 
 

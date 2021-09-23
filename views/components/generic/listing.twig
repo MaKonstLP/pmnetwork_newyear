@@ -1,7 +1,11 @@
 {% for item in items %}
 	<a href="/ploshhadki/{{item.restaurant_unique_id}}/" class="item swiper-slide {{type}}">
         <div class="item_img">
-            <img src="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95" loading="lazy" alt="{{img_alt | replace({"**rest_name**" : item.restaurant_name})}}"/>
+            <picture>
+                <source srcset="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95-rw" type="image/webp">
+                <source srcset="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95" type="image/jpeg"> 
+                <img alt="{{img_alt | replace({"**rest_name**" : item.restaurant_name})}}" loading="lazy" src="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95">
+            </picture>
 
             {#<div class="item_date-availability">
                 <span>Свободно 12 декабря</span>

@@ -660,6 +660,7 @@
         }
 
         .calendar_wrapper{
+            display: none; // временно, есть проблемы с наложением элементов при планшетных разрешениях.
             position: relative;
         }
     }

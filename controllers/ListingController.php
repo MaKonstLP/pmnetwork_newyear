@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\widgets\FilterWidget;
 use frontend\widgets\PaginationWidget;
+use frontend\modules\gorko_ny\widgets\PaginationWidgetWithLinks;
 use frontend\components\ParamsFromQuery;
 use frontend\components\QueryFromSlice;
 use frontend\components\Declension;
@@ -107,7 +108,7 @@ class ListingController extends Controller
 			$page 			=	$params['page'],
 			$per_page		=	$this->per_page,
 			$params_filter	= 	$params['params_filter'],
-			$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(2),
+			$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(3),
 			$canonical 		= 	$canonical,
 			$type = false,
 			$sliceWithParams = true,
@@ -151,12 +152,12 @@ class ListingController extends Controller
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'restaurants', $elastic_model);
 
-		if($page > 1){
+		if ($page > 1){
 			$seo['text_top'] = '';
 			$seo['text_bottom'] = '';
 		}
 
-		$itemsAllPages = new ItemsFilterElastic($params_filter, 999, $page, false, 'restaurants', $elastic_model);
+		$itemsAllPages = new ItemsFilterElastic($params_filter, 600, 1, false, 'restaurants', $elastic_model);
 
 		$minPrice = 999999;
 		foreach ($itemsAllPages->items as $item){
@@ -175,17 +176,27 @@ class ListingController extends Controller
 			'minPrice' => $minPrice
 		]);
 
-		$pagination = PaginationWidget::widget([
+		// $pagination = PaginationWidget::widget([
+		// 	'total' => $items->pages,
+		// 	'current' => $page,
+		// ]);
+
+		$pagination = PaginationWidgetWithLinks::widget([
 			'total' => $items->pages,
 			'current' => $page,
+			'url' => null,
 		]);
 		
 		$seo_type = $type ? $type : 'listing';
 		$seo = $this->getSeo($seo_type, $page, $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
 
-		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0 || count($items->items) < 4){
+		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0 || count($items->items) < 1){
 			$seo['robots'] = true;
+		}
+
+		if ($page > 1){
+			$this->getPaginationSeo($seo, $page);
 		}
 
 		$this->setSeo($seo, $page, $canonical);
@@ -199,39 +210,10 @@ class ListingController extends Controller
 
 		$currentRestType = $this->getRestTypeDeclention($params_filter);
 
-		$seoObj = Pages::findWithRelations()->where(['type' => $type])->one();
-
-		function getTestSeo($seoObj, $page)
-		{
-			$site = \Yii::$app->params['siteAddress'];
-			$isPagination = $page > 1;
-			$paginationH1 = 'paginationH1';
-			$paginationTitle = "paginationTitle";
-			$paginationDescription = "paginationDescription";
-			$getSeoArray = function ($obj) use ($isPagination, $paginationTitle, $paginationDescription, $paginationH1) {
-				return [
-					'title' 		=> $isPagination ? ($obj->pagination_title ?: $paginationTitle) : $obj->title,
-					'description' 	=> $isPagination ? ($obj->pagination_description ?: $paginationDescription) : $obj->description,
-					'keywords' 		=> $isPagination ? ($obj->pagination_keywords ?: $obj->keywords) : $obj->keywords,
-					'h1' 			=> $isPagination ? ($obj->pagination_heading ?: $paginationH1) : $obj->heading,
-					'h1_pag' 		=> $isPagination ? ($obj->pagination_heading ?: $paginationH1) : $obj->pagination_heading,
-					'text_top'		=> $isPagination ? '' : $obj->text1,
-					'text_bottom'	=> $isPagination ? '' : $obj->text2,
-					'text_1'		=> $isPagination ? '' : $obj->text1,
-					'text_2'		=> $isPagination ? '' : $obj->text2,
-					'text_3'		=> $isPagination ? '' : $obj->text3,
-					'img_alt'		=> $obj->img_alt,
-				];
-			};
-			$restSeoArr = [];
-			return array_merge($getSeoArray($seoObj), array_filter($getSeoArray($seoObj)), $restSeoArr);
-		}
-
-		
-
+		$this->view->params['currentUrl'] = $_SERVER['REQUEST_URI'];
 
 		// echo '<pre>';
-		// print_r($seoObj->seoObject);
+		// print_r($seo);
 		// exit;
 
 		return $this->render('index.twig', array(
@@ -252,11 +234,6 @@ class ListingController extends Controller
 		
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants', $elastic_model);
-
-		$pagination = PaginationWidget::widget([
-			'total' => $items->pages,
-			'current' => $params['page'],
-		]);
 
 		$slice_url = ParamsFromQuery::isSlice(json_decode($_GET['filter'], true));
 
@@ -289,12 +266,38 @@ class ListingController extends Controller
 			$text_bottom = '';
 		}
 
+		$itemsAllPages = new ItemsFilterElastic($params['params_filter'], 600, 1, false, 'restaurants', $elastic_model);
+
 		$minPrice = 999999;
-		foreach ($items->items as $item){
-			if ($item->restaurant_price < $minPrice){
+		foreach ($itemsAllPages->items as $item){
+			if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250){ // второе условие - костыль под опечатку в инфе из горько
 				$minPrice = $item->restaurant_price;
 			}
 		}
+
+		if ($minPrice === 999999){
+			$minPrice = 2100;
+		}
+
+
+		// $minPrice = 999999;
+		// foreach ($items->items as $item){
+		// 	if ($item->restaurant_price < $minPrice){
+		// 		$minPrice = $item->restaurant_price;
+		// 	}
+		// }
+
+		// $pagination = PaginationWidget::widget([
+		// 	'total' => $items->pages,
+		// 	'current' => $params['page'],
+		// ]);
+
+		$pagination = PaginationWidgetWithLinks::widget([
+			'total' => $items->pages,
+			'current' => $params['page'],
+			'url' => '/ploshhadki/' . (!$slice_url ? $this->getUrl($params['listing_url'], $params['params_filter']) : $params['listing_url']),
+		]);
+
 
 		return  json_encode([
 			'listing' => $this->renderPartial('//components/generic/listing.twig', array(
@@ -398,6 +401,12 @@ class ListingController extends Controller
 		}
 
 		return $listing_url;
+	}
+
+	private function getPaginationSeo(&$seo, $page)
+	{
+		$seo['title'] = $seo['h1'] . " - Страница " . $page;
+		$seo['description'] = "Вы смотрите страницу " . $page . " из раздела " . $seo['h1'] . " на портале korporativ-ng.ru. Поиск и аренда помещений для проведения новогоднего корпоратива.";
 	}
 }
 

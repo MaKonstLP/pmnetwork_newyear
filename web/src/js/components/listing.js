@@ -18,10 +18,11 @@ export default class Listing{
 		});
 
 		//КЛИК ПО ПАГИНАЦИИ
-		$('body').on('click', '[data-pagination-wrapper] [data-listing-pagitem]', function(){
+		$('body').on('click', '[data-pagination-wrapper] [data-listing-pagitem]', function(e){
+			// console.log();
+			e.preventDefault();
 			self.reloadListing($(this).data('page-id'));
 		});
-		// console.log(this);
 	}
 
 	reloadListing(page = 1){
@@ -32,7 +33,7 @@ export default class Listing{
 		self.filter.promise.then(
 			response => {
 				// console.log(response.params_filter);
-				// console.log(self.filter.state);
+				// console.log(response.urlForPagination);
 				ym(66603799,'reachGoal','filter');
 				dataLayer.push({'event': 'event-to-ga', 'eventCategory' : 'Search', 'eventAction' : 'Filter'});
 				$('[data-listing-list]').html(response.listing);

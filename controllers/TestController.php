@@ -6,6 +6,7 @@ use yii\web\Controller;
 use common\models\GorkoApiTest;
 use common\models\Subdomen;
 use common\models\Restaurants;
+use common\models\ImagesExt;
 use common\models\Rooms;
 use common\models\Pages;
 use common\models\SubdomenPages;
@@ -17,13 +18,39 @@ use common\models\elastic\ItemsFilterElastic;
 use common\components\AsyncRenewRestaurants;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use frontend\modules\gorko_ny\components\GetSlicesForSitemap;
+use common\models\RestaurantsUniqueId;
+use yii\helpers\ArrayHelper;
 
 class TestController extends Controller
 {
-	public function actionNewseo()
+	public function actionTestid()
 	{
+		$mysql_config =	\Yii::$app->params['mysql_config'];
+		$main_config = \Yii::$app->params['main_api_config'];
+		$connection_config = array_merge($mysql_config, $main_config['mysql_config']);
+		$connection = new \yii\db\Connection($connection_config);
+		$connection->open();
+		Yii::$app->set('db', $connection);
+
+		$rests = Restaurants::find()
+			->where(['active' => 1])
+			->asArray()
+			->all();
+		$rests = ArrayHelper::index($rests, 'gorko_id');
+
+		$images = ImagesExt::find()
+			->where(['event_id' => 17])
+			->all();
+
+		$iter = array();
+		foreach ($images as $key => $value) {
+			if(isset($rests[$value->rest_id]))
+				$iter[$value->rest_id] = 1;
+		}
+
 		echo '<pre>';
-		print_r(get_headers('http://wwwinfo.mfcr.cz/ares/ares_vreo_all.tar.gz'));
+		print_r($iter);
+		echo count($iter);
 		exit;
 	}
 
@@ -177,31 +204,50 @@ class TestController extends Controller
 
 	// $restMainTypeIdsOrder = array_combine($MAIN_REST_TYPE_ORDER, $MAIN_REST_TYPE_ORDER);
 
+	$restTypesList = [
+		'banketnye' => 'в банкетном зале',
+		'restorany' => 'в ресторане',
+		'kafe' => 'в кафе',
+		'kluby' => 'в клубе',
+		'bary' => 'в баре',
+		'v' => 'на площадке в городе',
+		'na' => 'на площадке на природе',
+		'ploshhadki' => 'ploshhadki',
+	];
+
 	$page = Pages::find()->where(['between', 'id', 20, 167])->with('seoObject')->all();
 
 	foreach ($page as $p){
 		$seo = SiteObjectSeo::find()->where(['id'=> $p->seoObject->id])->one();
 
-		// $aliasExploded = explode('-', $p->type);
-		// $title = '';
+		$title = '';
+		$aliasExploded = explode('-', $p->type);
+		$type = $restTypesList[$aliasExploded[0]];
+
+		if ($type === 'ploshhadki'){
+			continue;
+		}
  
-		// if (stripos($p->type, 'chelovek')) {
-		// 	$slice = array_slice($aliasExploded, -2, 1);
-		// 	$title = 'Заказать новогодний корпоратив в **city_dec** на ' . array_pop($slice) . ' человек';
-		// } elseif (stripos($p->type, 'price')) {
-		// 	$title = 'Заказать новогодний корпоратив в **city_dec** от ' . array_pop($aliasExploded) . ' рублей с человека';
-		// } elseif (stripos($p->type, 'svoy-alko')) {
-		// 	$title = 'Новогодний корпоратив со своим алкоголем в **city_dec** без пробкового сбора';
-		// } elseif (stripos($p->type, 'firework')) {
-		// 	$title = 'Заказать новогодний корпоратив в **city_dec** с фейерверками и салютом';
-		// }
+		if (stripos($p->type, 'chelovek')) {
+			$slice = array_slice($aliasExploded, -2, 1);
+			$title = 'Заказать новогодний корпоратив ' . $type . ' **city_rod** на ' . array_pop($slice) . ' человек';
+		} elseif (stripos($p->type, 'price')) {
+			$title = 'Заказать новогодний корпоратив ' . $type . ' **city_rod** от ' . array_pop($aliasExploded) . ' рублей с человека';
+		} elseif (stripos($p->type, 'svoy-alko')) {
+			$title = 'Новогодний корпоратив со своим алкоголем ' . $type . ' **city_rod** без пробкового сбора';
+		} elseif (stripos($p->type, 'firework')) {
+			$title = 'Заказать новогодний корпоратив ' . $type . ' **city_rod** с фейерверками и салютом';
+		}
 
-		$seo->pagination_title = $seo->title . ' - Страница №**page**';
-		$seo->save();
+		// $seo->pagination_title = $seo->title . ' - Страница №**page**';
 
-		// if ($title === ''){
-		// 	exit;
-		// }
+		if ($title === ''){
+			exit;
+		}
+
+		$seo->title = $title;
+		// $seo->save();
+
 		// echo '<pre>';
 		// print_r($typeList);
 		// exit;

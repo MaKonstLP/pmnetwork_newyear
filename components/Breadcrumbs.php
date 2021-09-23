@@ -94,12 +94,23 @@ class Breadcrumbs {
 
 	private static function get_slice_crumb($slice_alias) {
 		$breadcrumbs_slices = self::get_slice_list();
-		if (isset($breadcrumbs_slices[$slice_alias])){
+		$currentCategory = -1;
+
+		foreach ($breadcrumbs_slices as $key => $value){
+
+			if (stripos($slice_alias, $key) !== false){
+				$currentCategory = $key;
+				break;
+			}
+		}
+
+		// if (isset($breadcrumbs_slices[$slice_alias])){
+		if (isset($breadcrumbs_slices[$currentCategory])){
 			return 	['crumbs' =>
 						[[
 		                    'type' => 'slices',
-		                    'link' => '/ploshhadki/'.$slice_alias.'/',
-		                    'name' => $breadcrumbs_slices[$slice_alias]
+		                    'link' => '/ploshhadki/' . $currentCategory . '/',
+		                    'name' => $breadcrumbs_slices[$currentCategory]
 		                ]],
 		             'crumbs_list' => $breadcrumbs_slices
 		            ];

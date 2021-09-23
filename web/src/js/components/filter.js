@@ -82,7 +82,7 @@ export default class Filter{
 		self.state.page = page;
 
 		let data = {
-			'filter' : JSON.stringify(self.state)
+			'filter' : JSON.stringify(self.state),
 		}
 
 		this.promise = new Promise(function(resolve, reject) {
