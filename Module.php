@@ -24,7 +24,7 @@ class Module extends \yii\base\Module
     public function init()
     {
         $subdomen = explode('.', $_SERVER['HTTP_HOST'])[0];
-        if($subdomen != 'korporativ-ng'){
+        if($subdomen != \Yii::$app->params['module_api_config']['korporativ']['url']){
             Yii::$app->params['subdomen'] = $subdomen;
 
             $subdomen_model = Subdomen::find()

@@ -17,13 +17,38 @@ use common\models\elastic\ItemsFilterElastic;
 use common\components\AsyncRenewRestaurants;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use frontend\modules\gorko_ny\components\GetSlicesForSitemap;
+use yii\helpers\ArrayHelper;
 
 class TestController extends Controller
 {
 	public function actionNewseo()
 	{
+		$mysql_config =	\Yii::$app->params['mysql_config'];
+		$main_config = \Yii::$app->params['main_api_config'];
+		$connection_config = array_merge($mysql_config, $main_config['mysql_config']);
+		$connection = new \yii\db\Connection($connection_config);
+		$connection->open();
+		Yii::$app->set('db', $connection);
+
+		$rest = Restaurants::find()->where(['gorko_id' => 440113])->one();
+		$group = array();
+
+		foreach ($rest->imagesext as $value) {
+		    $group[$value['room_id']][] = $value;
+		}
+
+		$group_sec = array();
+		$room_ids = array();
+		foreach ($group as $room_id => $images) {
+			$room_ids[] = $room_id;
+			foreach($images as $image){
+				$group_sec[$room_id][$image['event_id']][] = $image;	
+			}	    
+		}
+
+		//$rest_arr = ArrayHelper::map($rest->imagesext, 'gorko_id', ['rest_id', 'id'], 'room_id');
 		echo '<pre>';
-		print_r(get_headers('http://wwwinfo.mfcr.cz/ares/ares_vreo_all.tar.gz'));
+		print_r($group_sec);
 		exit;
 	}
 
