@@ -18,7 +18,6 @@ use common\models\elastic\ItemsFilterElastic;
 use common\components\AsyncRenewRestaurants;
 use frontend\modules\gorko_ny\models\ElasticItems;
 use frontend\modules\gorko_ny\components\GetSlicesForSitemap;
-use common\models\RestaurantsUniqueId;
 use yii\helpers\ArrayHelper;
 
 class TestController extends Controller
@@ -32,25 +31,25 @@ class TestController extends Controller
 		$connection->open();
 		Yii::$app->set('db', $connection);
 
-		$rests = Restaurants::find()
-			->where(['active' => 1])
-			->asArray()
-			->all();
-		$rests = ArrayHelper::index($rests, 'gorko_id');
+		$rest = Restaurants::find()->where(['gorko_id' => 440113])->one();
+		$group = array();
 
-		$images = ImagesExt::find()
-			->where(['event_id' => 17])
-			->all();
-
-		$iter = array();
-		foreach ($images as $key => $value) {
-			if(isset($rests[$value->rest_id]))
-				$iter[$value->rest_id] = 1;
+		foreach ($rest->imagesext as $value) {
+		    $group[$value['room_id']][] = $value;
 		}
 
+		$group_sec = array();
+		$room_ids = array();
+		foreach ($group as $room_id => $images) {
+			$room_ids[] = $room_id;
+			foreach($images as $image){
+				$group_sec[$room_id][$image['event_id']][] = $image;	
+			}	    
+		}
+
+		//$rest_arr = ArrayHelper::map($rest->imagesext, 'gorko_id', ['rest_id', 'id'], 'room_id');
 		echo '<pre>';
-		print_r($iter);
-		echo count($iter);
+		print_r($group_sec);
 		exit;
 	}
 
