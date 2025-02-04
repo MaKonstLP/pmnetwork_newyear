@@ -9,20 +9,34 @@
     <div class="form_inputs">
     
       <div class="input_wrapper _big">
-        <div class="input_label">Бюджет на человека</div>
-        <input type="text" name="budget" placeholder="от {{ minPrice|number_format(0, ',', ' ') }}" data-required/>
+        <div class="input_label">Как Вас зовут</div>
+        <input type="text" name="name" placeholder="Имя" data-required/>
+        <div class="form_input_error"></div>
       </div>
+      {# <div class="input_wrapper _big">
+        <div class="input_label">Бюджет на гостя, ₽</div>
+        <input type="number" min="1" name="budget" placeholder="1200" data-required/>
+        <div class="form_input_error"></div>
+      </div> #}
       <div class="input_wrapper _big">
         <div class="input_label">Номер телефона</div>
         <input type="text" name="phone" placeholder="+7 (___) ___-__-__" data-required autocomplete="off"/>
+        <div class="form_input_error"></div>
       </div>
-      <div class="input_wrapper _big">
+      {# <div class="input_wrapper _big">
         <div class="input_label">Эл. почта</div>
         <input type="text" name="email" placeholder="Почта" data-required/>
+        <div class="form_input_error"></div>
+      </div> #}
+      <div class="input_wrapper">
+        <div class="input_label">Число гостей</div>
+        <input type="number" min="1" name="guests_number" placeholder="50" data-required/>
+        <div class="form_input_error"></div>
       </div>
       <div class="input_wrapper _big">
         <div class="input_label">Дата</div>
         <input type="text" name="date" placeholder="Дата" data-required/>
+        <div class="form_input_error"></div>
         <div class="calendar_wrapper">
           <div class="open_calendar_button"></div>
           <div class="calendar_container _hide">

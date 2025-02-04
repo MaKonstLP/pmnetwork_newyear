@@ -24,7 +24,7 @@ class GetSlicesForSitemap
 		return $return;
 	}
 
-  public static function getAggregateResult($slices, $elastic_model)
+  public static function getAggregateResult($slices, $elastic_model, $minItemCount = 0)
   {
     $finalAliasList =[];
     $filter_model = Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all();
@@ -35,7 +35,7 @@ class GetSlicesForSitemap
       $temp_params = GetSlicesForSitemap::parseGetQuery($slice_obj->params, $filter_model, $slices_model);
       $items = new ItemsFilterElastic($temp_params['params_filter'], 100, 1, false, 'restaurants', $elastic_model);
 
-      if (count($items->items) > 0){
+      if (count($items->items) > $minItemCount){
         array_push($finalAliasList, $slice->alias);
       }
     }

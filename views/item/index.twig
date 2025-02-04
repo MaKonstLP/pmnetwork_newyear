@@ -1,131 +1,187 @@
-<div class="item_page_wrapper" data-page-type="item">
+<div class="item_page_wrapper" data-page-type="item" {% if item.restaurant_premium %} data-premium-rest="{{item.restaurant_gorko_id}}" {% endif %}>
+	{% set image_zero_add =  item.restaurant_gorko_id == 477647 ? '' : '=s0' %}
+	{% set image_big_add =  item.restaurant_gorko_id == 477647 ? '' : '=w710-h472-n-l95' %}
+	{% set image_small_add =  item.restaurant_gorko_id == 477647 ? '' : '=w127-h85-n-l95' %}
 
-  {{ microdata | raw }}
+	{{ microdata | raw }}
 
-    <div class="content_block" data-listing-title>
-        {{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
-    </div>
+	<div class="content_block" data-listing-title>
+		{{ this.render('//components/generic/item_title.twig', {'seo':seo, 'premium':item.restaurant_premium, 'item':item, active_slices:active_slices_menu}) | raw }}
+	</div>
 
-    <div class="content_block" data-page-type="item">
-        <div class="object_head">
+	<div class="content_block" data-page-type="item">
+		<div class="object_head">
 
-            <div class="object_gallery" data-gallery data-id="{{item.restaurant_id}}">
+			<div class="object_gallery" data-gallery data-id="{{item.restaurant_id}}">
+				<div class="swiper-container gallery-top">
+					<div class="swiper-wrapper">
+						{% for image in item.restaurant_images %}
+							<div class="swiper-slide">
+								<a href="{{image.waterpath}}{{image_zero_add}}" data-lightbox="top_slider">
+									{% if loop.first %}
+										{# <img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/> #}
+										{# <img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/> #}
+										<picture>
+											<source srcset="{{image.subpath}}{{image_big_add}}" type="image/webp">
+											<source srcset="{{image.subpath}}{{image_big_add}}" type="image/jpeg"> 
+											<img src="{{image.subpath}}{{image_big_add}}" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}" />
+										</picture>
+									{% else %}
+										{# <img data-src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}" class="swiper-lazy" /> #}
+										<picture>
+											<source srcset="{{image.subpath}}{{image_big_add}}" type="image/webp" class="swiper-lazy" >
+											<source srcset="{{image.subpath}}{{image_big_add}}" type="image/jpeg" class="swiper-lazy" >
+											<img src="{{image.subpath}}{{image_big_add}}" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}" loading="lazy" />
+										</picture>
+									{% endif %}
+								</a>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
 
-                <div class="swiper-container gallery-top">
+				<div class="swiper-container gallery-thumbs">
+					<div class="swiper-wrapper">
+						{% for image in item.restaurant_images %}
+							<div class="swiper-slide object_thumb">
+								{# <img src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/> #}
+								{# <img data-src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}" class="swiper-lazy" /> #}
+								<picture>
+									<source srcset="{{image.subpath}}{{image_small_add}}" type="image/webp" class="swiper-lazy" >
+									<source srcset="{{image.subpath}}{{image_small_add}}" type="image/jpeg" class="swiper-lazy" >
+									<img src="{{image.subpath}}{{image_small_add}}" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}" loading="lazy" />
+								</picture>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
 
-                    <div class="swiper-wrapper">
-                        {% for image in item.restaurant_images %}
-                            <div class="swiper-slide">
-                                <a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-                            </div>
-                        {% endfor %}
-                    </div>
+			<div class="object_description">
+				<div class="object_tags">
+					{% for type in item.restaurant_types %}
+						{% if type.id == 1 %}
+							<a class="_link" href="/ploshhadki/restorany/">{{type.name}}</a>
+						{% endif %}
+						{% if type.id == 2 %}
+							<a class="_link" href="/ploshhadki/banketnye-zaly/">{{type.name}}</a>
+						{% endif %}
+						{% if type.id == 3 %}
+							<a class="_link" href="/ploshhadki/kafe/">{{type.name}}</a>
+						{% endif %}
+						{% if type.id == 4 %}
+							<a class="_link" href="/ploshhadki/bary/">{{type.name}}</a>
+						{% endif %}
+						{% if type.id == 16 %}
+							<a class="_link" href="/ploshhadki/kluby/">{{type.name}}</a>
+						{% endif %}
+					{% endfor %}
+				</div>
 
-                </div>
+				<div class="object_book">
+					<p class="object_book_text">Узнать об актуальных акциях и забронировать можно по телефону:</p>
+					<div class="object_book_hidden">
+						<p class="object_book_phone">
+							<span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">❆❆❆ ❆❆❆ ❆❆ ❆❆</span></span>
+							<a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
+						</p>
 
-                <div class="swiper-container gallery-thumbs">
+						<div class="object_book_hidden_button _link" data-action="show_phone">Показать номер</div>
+					</div>
 
-                    <div class="swiper-wrapper">
-                        {% for image in item.restaurant_images %}
-                            <div class="swiper-slide object_thumb">
-                                <img src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/>
-                            </div>
-                        {% endfor %}
-                    </div>
+					<div class="item-info__btns">
+						<div class="item-info__btn item-info__btn_book" data-fast-order-item>Заказать</div>
+						<a href="tel:{{item.restaurant_phone}}" class="item-info__btn item-info__btn_call"><span>Позвонить</span></a>
+					</div>
 
-                </div>
+					<div class="object_book_email">
+						<div class="object_book_email_text" data-book-open>
+							<p class="_pseudolink">Отправить инфо о ресторане себе на эл. почту</p>
+						</div>
+						<div class="object_book_email_form">
+							<form class="form_block" action="/ajax/sendroom/" data-type="book">
+								<div class="form_inputs">
+									<div class="input_wrapper">
+										<input type="email" name="book_email" data-book-email-id="{{item.restaurant_unique_id}}">
+										<input type="hidden" name="room_id" value="{{item.restaurant_unique_id}}">
+									</div>
+								</div>
+								<input type="submit" class="object_book_email_button _button" value="Отправить"/>
+							</form>
+						</div>
+						<div class="object_book_email_success">
+							<p class="object_book_email_success_text">Мы отправили информацию на почту</p>
+							<p class="object_book_email_success_reload _pseudolink" data-book-email-reload>Отправить еще раз</p>
+						</div>
+					</div>
+
+					{% if 'now'|date('m') != 12 %}
+						{% if item.restaurant_gorko_id == 477647 %}
+						<p class="object_book_action">При заказе мероприятия до 28.12.{{ 'now'|date('Y') }} мы дарим проживание в коттедже для двух гостей</p>
+						{% else %}
+						<p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.{{ 'now'|date('Y') }} и получи новогодний подарок!</p>
+						{% endif %}
+					{% endif %}
+
+				</div>
+
+				<div class="object_book_btn _button" data-fast-order-item>Забронировать этот зал</div>
+
+				<div class="object_parameters">
+					{{ this.render('//components/generic/item_parameter_list.twig', {'item':item, 'restaurantSpec':restaurantSpec}) | raw }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	{% if item.restaurant_text %}
+		<div class="content_block" data-item-text-top>
+			<div class="seo_text" data-seo-text data-seo-text-item>
+				{{item.restaurant_text}}
+				<div class="seo_text_control" data-seo-control>
+					<p class="_link">Показать полностью</p>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="reviews-map">
+		{% if item.restaurant_rev_ya.id %}
+			<div id="reviews" class="item__review-yandex-wrap">
+				<div class="item__review-yandex">
+					<p class="item__review-title">Отзывы о ресторане {{item.restaurant_name}}</p>
+					<div class="item__review" data-rest-ya-id="{{item.restaurant_rev_ya.id}}">
+						{# <iframe style="width:100%;height:100%;border:1px solid #e6e6e6;border-radius:10px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/{{item.restaurant_rev_ya.id}}?comments"></iframe> #}
+						<a href="https://yandex.ru/maps/org/pansionat_sm_pension/{{item.restaurant_rev_ya.id}}" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">{{item.restaurant_name}} — Яндекс Карты</a>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="map">
+			<div id="map" data-mapDotX="{{item.restaurant_latitude}}" data-mapDotY="{{item.restaurant_longitude}}" data-name="{{item.restaurant_name}}" data-address="{{item.restaurant_address}}" data-balloon="" data-hint="">
+			</div>
+		</div>
+	</div>
+
+	{{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'venue_id':item.restaurant_gorko_id, 'restaurant_name':item.restaurant_name, 'restaurantMainSpec':restaurantMainSpec}) | raw }}
+
+	<div class="content_block form_booking_wrapper">
+		{{ this.render('//components/generic/form_booking.twig', {'items':other_rooms, 'venue_id':item.restaurant_gorko_id, 'minPrice': item.restaurant_price}) | raw }}
+	</div>
 
 
-            </div>
+	<div class="form_fast_order form_fast_order_item _hide"> 
+		{{ this.render('//components/generic/form_fast_order_item.twig', {'items':other_rooms, 'rest':item, 'venue_id':item.restaurant_gorko_id,})|raw }}
+	</div>
 
-            <div class="object_tags">
-                {% for type in item.restaurant_types %}
-                    {% if type.id == 1 %}
-                        <a class="_link" href="/ploshhadki/restorany/">{{type.name}}</a>
-                    {% endif %}
-                    {% if type.id == 2 %}
-                        <a class="_link" href="/ploshhadki/banketnye-zaly/">{{type.name}}</a>
-                    {% endif %}
-                    {% if type.id == 3 %}
-                        <a class="_link" href="/ploshhadki/kafe/">{{type.name}}</a>
-                    {% endif %}
-                    {% if type.id == 4 %}
-                        <a class="_link" href="/ploshhadki/bary/">{{type.name}}</a>
-                    {% endif %}
-                    {% if type.id == 16 %}
-                        <a class="_link" href="/ploshhadki/kluby/">{{type.name}}</a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="object_book">
-                <p class="object_book_text">Узнать об актуальных акциях и забронировать можно по телефону:</p>
-                <div class="object_book_hidden">
-                    <p class="object_book_phone">
-                        <span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">❆❆❆ ❆❆❆ ❆❆ ❆❆</span></span>
-                        <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
-                    </p>
-
-                    <div class="object_book_hidden_button _link" data-action="show_phone">Показать номер</div>                          
-                </div>
-                <div class="object_book_email">
-                    <div class="object_book_email_text" data-book-open>
-                        <p class="_pseudolink">Отправить инфо о ресторане себе на эл. почту</p>
-                    </div>
-                    <div class="object_book_email_form">
-                        <form class="form_block" action="/ajax/sendroom/" data-type="book">
-                            <div class="form_inputs">
-                                <div class="input_wrapper">
-                                    <input type="email" name="book_email" data-book-email-id="{{item.restaurant_unique_id}}">
-                                    <input type="hidden" name="room_id" value="{{item.restaurant_unique_id}}">
-                                </div>
-                            </div>
-                            <input type="submit" class="object_book_email_button _button" value="Отправить"/>
-                        </form>
-                    </div>
-                    <div class="object_book_email_success">
-                        <p class="object_book_email_success_text">Мы отправили информацию на почту</p>
-                        <p class="object_book_email_success_reload _pseudolink" data-book-email-reload>Отправить еще раз</p>
-                    </div>
-                </div>
-
-                {% if 'now'|date('m') != 12 %}
-                    <p class="object_book_action">Забронируй зал в ресторане {{item.restaurant_name}} до 01.12.{{ 'now'|date('Y') }} и получи новогодний подарок!</p>
-                {% endif %}
-
-            </div>
-
-            <div class="object_parameters">
-
-                {{ this.render('//components/generic/item_parameter_list.twig', {'item':item, 'restaurantSpec':restaurantSpec}) | raw }}
-                
-            </div>
-
-        </div>
-    </div>
-
-    {% if item.restaurant_text %}
-        <div class="content_block" data-item-text-top>
-            <div class="seo_text" data-seo-text data-seo-text-item>
-                {{item.restaurant_text}}
-                <div class="seo_text_control" data-seo-control>
-                    <p class="_link">Показать полностью</p>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-    <div class="map">
-        <div id="map" data-mapDotX="{{item.restaurant_latitude}}" data-mapDotY="{{item.restaurant_longitude}}" data-name="{{item.restaurant_name}}" data-address="{{item.restaurant_address}}" data-balloon="" data-hint="">
-        </div>
-    </div>
-
-    {{ this.render('//components/generic/other_widjet.twig', {'items':other_rooms, 'restaurant_name':item.restaurant_name, 'restaurantMainSpec':restaurantMainSpec}) | raw }}
-
-    <div class="content_block form_booking_wrapper">
-
-        {{ this.render('//components/generic/form_booking.twig', {'items':other_rooms, 'venue_id':item.restaurant_gorko_id, 'minPrice': item.restaurant_price}) | raw }}
-
-    </div>
-
+	<div class="display_bottom">
+		<div class="item-info__btns">
+			<a href="tel:{{item.restaurant_phone}}" class="item-info__btn item-info__btn_call"><span>Позвонить</span></a>
+			<div class="item-info__btn item-info__btn_book" data-fast-order-item>
+				Забронировать
+			</div>
+		</div>
+	</div>
 </div>

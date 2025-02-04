@@ -12,18 +12,22 @@
       <div class="input_wrapper">
         <div class="input_label">Как Вас зовут</div>
         <input type="text" name="name" placeholder="Имя" data-required/>
+        <div class="form_input_error"></div>
       </div>
       <div class="input_wrapper">
         <div class="input_label">Номер телефона</div>
         <input type="text" name="phone" placeholder="+7 (___) ___-__-__" data-required autocomplete="off"/>
+        <div class="form_input_error"></div>
       </div>
       <div class="input_wrapper">
         <div class="input_label">Вопрос</div>
         <textarea name="question" placeholder="Введите текст вопроса"></textarea>
       </div>
       <div class="input_wrapper">
-        <div class="input_label">{{ budgetLabel }}</div>
-        <input type="text" name="budget" placeholder="от {{ minPrice|number_format(0, ',', ' ') }}"/>
+        {# <div class="input_label">{{ budgetLabel }}</div>
+        <input type="text" name="budget" placeholder="от {{ minPrice|number_format(0, ',', ' ') }}"/> #}
+        <div class="input_label">Бюджет на гостя, ₽</div>
+        <input type="number" min="1" name="budget" placeholder="1200"/>
       </div>
       <div class="input_wrapper">
         <div class="input_label">Эл. почта</div>
@@ -41,7 +45,8 @@
       </div>
       <div class="input_wrapper">
         <div class="input_label">Число гостей</div>
-        <input type="text" name="guests_number" placeholder="от 10 человек"/>
+        <input type="number" min="1" name="guests_number" placeholder="50" data-required/>
+        <div class="form_input_error"></div>
       </div>
 
     </div>

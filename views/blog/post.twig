@@ -1,4 +1,4 @@
-<div data-page-type="post">
+<div data-page-type="post"  data-cookie-city-name="{{subdomen.alias}}" data-cookie-subdomain="{{cookie_subdomain}}">
 
 	{{ this.render('//components/generic/breadcrumbs.twig', {'breadcrumbs':seo.breadcrumbs}) | raw }}
 
@@ -10,7 +10,8 @@
 		    <img src="{{ post.getFileData('image').src}}" alt="">
 		</figure>
 
-		{{ post.getHtml()|raw}}
+		{# {{ post.getHtml()|raw}} #}
+		{{ preview ? post.getBodyHtml()|raw : post.getHtml([1])|raw }}
 	</div>
 </div>
 

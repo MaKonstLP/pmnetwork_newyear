@@ -1,10 +1,25 @@
-{{ this.render('//components/generic/breadcrumbs.twig', {'breadcrumbs':seo.breadcrumbs}) | raw }}
+{{ this.render('//components/generic/breadcrumbs.twig', {'breadcrumbs':seo.breadcrumbs, active_slices:active_slices}) | raw }}
+
+{% if premium %}
+	<div class="title_premium">Premium</div>
+{% endif %}
 
 <div class="title">
 
 	<h1>{{seo.h1}}</h1>
 
 	{#<div class="title_desc"><p>{{seo.desc}}</p></div>#}
-	<div class="title_address"><a data-title-address>{{seo.address}}</a></div>
+	<div class="title_address"><a data-title-address href="#">{{seo.address}}</a></div>
+
+	{% if item.restaurant_rev_ya.id and item.restaurant_rev_ya.rate %}
+		<div class="rate">
+			<div class="stars">
+				<div class="stars__empty"></div>
+				<div class="stars__fill" style="width:calc({{item.restaurant_rev_ya.rate}} * 20%)"></div>
+			</div>
+			<p class="rate__count">{{item.restaurant_rev_ya.rate}}</p>
+			<p class="rate__reviews">(<a href="#reviews" class="scroll-to">{{item.restaurant_rev_ya.count}}</a>)</p>
+		</div>
+	{% endif %}
 
 </div>

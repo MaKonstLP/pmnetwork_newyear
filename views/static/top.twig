@@ -1,0 +1,57 @@
+<div class="content_block" data-listing-text-top="">
+	<div class="title">
+		<h1>{{seo.h1|raw}}</h1>
+	</div>
+	<div class="seo_text _nowrap" data-seo-text="">
+		{{seo.text_1|raw}}
+	</div>
+	
+	<div class="form_wrapper advertisement">
+		<div class="form_title">
+			<p class="form_title_main">Заполните форму и мы свяжемся с вами в ближайшее время.</p>
+		</div>
+
+		<form class="form_block" action="/ajax/advertisement/" data-type="advertisement">
+			<div class="form_inputs">
+				<div class="input_wrapper">
+					<input type="text" name="name" placeholder="Ваши имя и фамилия" data-required/>
+				</div>
+				<div class="input_wrapper">
+					<input type="text" name="position" placeholder="Должность" data-required/>
+				</div>
+				<div class="input_wrapper">
+					<input type="text" name="phone" placeholder="Ваш телефон" data-required/>
+				</div>
+				<div class="input_wrapper">
+					<input type="email" name="email" placeholder="Электропочта" data-required/>
+				</div>
+				<div class="input_wrapper">
+					<input type="text" name="rest_name" placeholder="Название площадки" data-required/>
+				</div>
+				<div class="input_wrapper">
+					<input type="text" name="city" placeholder="Город" data-required/>
+				</div>
+				<div class="input_wrapper">
+					<input type="text" name="address" placeholder="Адрес заведения" data-required/>
+				</div>
+			</div>
+
+			<div class="form_submit_callback">
+			<button class="_button" type="submit">Отправить</button>
+			<div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+				<input type="checkbox" name="policy" class="personalData" checked=""  data-required>
+				<p class="checkbox_pseudo">Я согласен с <a class="_link" href="/privacy/" target="_blank">политикой обработки персональных данных</a></p>
+			</div>
+			</div>
+		</form>
+
+		<div class="form_success">
+			<div class="header_form_popup_message_sent _hide" data-success>
+				<h2>Заявка отправлена</h2>
+				<p class="header_form_popup_message"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами в течение дня.</p>
+				<p class="header_form_popup_message_close _link" data-success-close>Понятно, закрыть</p>
+				<div class="close_button"></div>
+			</div>
+		</div>
+	</div>
+</div>

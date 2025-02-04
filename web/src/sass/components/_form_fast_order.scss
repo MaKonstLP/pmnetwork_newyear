@@ -1,0 +1,296 @@
+.form_fast_order {
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 50px 15px 50px 15px;
+	display: flex;
+	justify-content: center;
+	overflow-y: scroll;
+	width: 100%;
+	height: 100vh;
+	min-height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+
+	.fast-order {
+		position: relative;
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		max-width: 605px;
+		height: fit-content;
+		background: linear-gradient(139.76deg, #feda5a 0.69%, #ffba35 112.92%);
+		box-shadow: 0 5px 20px rgba(253, 172, 77, 0.3);
+		padding: 25px 50px 40px;
+
+		@include for-mobile {
+			padding: 25px 20px 40px;
+		}
+	}
+
+	.form_title {
+		flex-flow: column nowrap;
+	}
+	.form_title_main {
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+	.form_title_name {
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 25px;
+		margin-bottom: 15px;
+
+		@include for-mobile {
+			font-size: 16px;
+			line-height: 22px;
+			margin-bottom: 10px;
+		}
+	}
+	.form_title_img {
+		width: 100%;
+		height: auto;
+
+		img {
+			width: 100%;
+			height: 100%;
+			max-height: 350px;
+			object-fit: cover;
+		}
+	}
+
+	.form_title_text {
+		font-size: 12px;
+		line-height: 14px;
+		margin-top: 5px;
+	}
+
+	.form_block {
+		display: flex;
+		flex-flow: column wrap;
+
+		.form_inputs {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: flex-start;
+			gap: 20px;
+			width: 100%;
+			margin-bottom: 25px;
+
+			.input_wrapper {
+				margin-right: 0;
+
+				&:first-child {
+					width: 320px;
+
+					@include for-mobile {
+						width: 100%;
+					}
+				}
+
+				&:nth-child(2),
+				&:nth-child(3) {
+					width: 165px;
+
+					@include for-mobile {
+						width: 100%;
+					}
+				}
+
+				&:nth-child(4) {
+					width: 135px;
+
+					@include for-mobile {
+						width: 100%;
+					}
+				}
+
+				input {
+					border: none;
+					background: #fff;
+					box-shadow: inset 0 1px 2px rgba(140, 140, 140, 0.5);
+				}
+
+				.form_select_block {
+					position: relative;
+
+					&._active {
+						.form_select_current {
+							&::after {
+								transform: rotate(-135deg);
+								top: 17px;
+							}
+						}
+						.form_select_list {
+							display: block;
+						}
+					}
+				}
+				.form_select_current {
+					background: #fff;
+					box-shadow: inset 0 1px 2px rgba(140, 140, 140, 0.5);
+					border-radius: 2px;
+					width: 100%;
+					height: 40px;
+					padding: 9px 16px 6px;
+
+					&::after {
+						content: "";
+						position: absolute;
+						width: 8px;
+						height: 8px;
+						border-right: 2px solid #c4c4c4;
+						border-bottom: 2px solid #c4c4c4;
+						border-radius: 2px;
+						transform: rotate(45deg);
+						top: 13px;
+						right: 12px;
+						z-index: 2;
+					}
+				}
+				.form_select_list {
+					display: none;
+					position: absolute;
+					min-width: 100%;
+					top: calc(100% - 1px);
+					padding: 12px 0 12px;
+					background-color: #fff;
+					border: 1px solid #c4c4c4;
+					border-radius: 2px;
+					cursor: initial;
+					z-index: 3;
+				}
+				.form_select_item {
+					padding: 0 15px 0 15px;
+					white-space: nowrap;
+					cursor: pointer;
+
+					&._active {
+						background: #f0f2ec;
+					}
+
+					&:hover {
+						background: #5ba641;
+						p {
+							color: #fff;
+						}
+					}
+
+					p {
+						line-height: 36px;
+					}
+				}
+
+				.open_calendar_button {
+					position: absolute;
+					top: 26px;
+					width: 135px;
+					height: 40px;
+
+					@include for-mobile {
+						width: 100%;
+					}
+
+					&::before {
+						content: "";
+						cursor: pointer;
+						position: absolute;
+						top: 11px;
+						right: 10px;
+						width: 20px;
+						height: 20px;
+						background: url("/img/calendar_icon.svg");
+					}
+				}
+
+				.calendar_container {
+					left: unset;
+					right: 0;
+					top: 80px;
+
+					.calendar::before {
+						top: -8px;
+						right: 12px;
+					}
+
+					.checkbox_item {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	.form_submit_callback {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+
+		@include for-mobile {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		._button {
+			flex: 0 0 172px;
+			width: 172px;
+			height: 50px;
+			padding: 0 10px;
+			margin-right: 10px;
+
+			@include for-mobile {
+				flex: 0 0 auto;
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	.close_button {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+		background: url(/img/korporativ-ng/close_icon_popup.svg);
+	}
+
+	.form_success_message_sent {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		max-width: calc(100% - 30px);
+		width: 605px;
+		height: auto;
+		padding: 25px 50px;
+		background: linear-gradient(112.95deg, #feda5a 0.69%, #ffba35 112.92%);
+		box-shadow: 0 5px 20px rgba(253, 172, 77, 0.3);
+		border-radius: 5px;
+
+		@include for-mobile {
+			padding: 25px 20px;
+		}
+
+		h2 {
+			@include for-mobile {
+				font-size: 28px;
+			}
+		}
+	}
+
+	.form_success_message {
+		font-weight: 500;
+		line-height: 26px;
+		padding: 20px 0;
+	}
+	.form_success_message_close {
+		cursor: pointer;
+	}
+}

@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\gorko_ny\controllers;
 
 use Yii;
@@ -20,12 +21,30 @@ class StaticController extends Controller
 			->one();
 
 		$seo = new Seo('privacy', 1);
-        $this->setSeo($seo->seo);
+		$this->setSeo($seo->seo);
 
 		return $this->render('privacy.twig', [
 			'page' => $page,
 		]);
 	}
+
+	public function actionTop()
+	{
+		$page = Pages::find()
+			->where([
+				'type' => 'top',
+			])
+			->one();
+
+		$seo = new Seo('top', 1);
+		$this->setSeo($seo->seo);
+
+		return $this->render('top.twig', [
+			'page' => $page,
+			'seo' => $seo->seo,
+		]);
+	}
+
 
 	public function actionRobots()
 	{
@@ -33,9 +52,10 @@ class StaticController extends Controller
 Sitemap:  https://svadbanaprirode.com/sitemap/  ';
 	}
 
-	private function setSeo($seo){
-        $this->view->title = $seo['title'];
-        $this->view->params['desc'] = $seo['description'];
-        $this->view->params['kw'] = $seo['keywords'];
-    }
+	private function setSeo($seo)
+	{
+		$this->view->title = $seo['title'];
+		$this->view->params['desc'] = $seo['description'];
+		$this->view->params['kw'] = $seo['keywords'];
+	}
 }

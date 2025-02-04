@@ -6,7 +6,7 @@ export default class Widget{
 		self = this;
 		this.swiperArr = [];
 
-		if($(window).width() <= 1650){
+		/* if($(window).width() <= 1650){
 			$('[data-widget-wrapper]').each(function(){
 				self.initSwiper($(this).find('[data-listing-wrapper]'));
 			});
@@ -19,7 +19,7 @@ export default class Widget{
 					$('[data-widget-wrapper]').each(function(){
 						self.initSwiper($(this).find('[data-listing-wrapper]'));
 					});
-				}					
+				}
 			}
 			else{
 				$.each(self.swiperArr, function(){
@@ -27,7 +27,9 @@ export default class Widget{
 				});
 				self.swiperArr = [];
 			}
-		});
+		}); */
+
+
 	}
 
 	initSwiper($container){

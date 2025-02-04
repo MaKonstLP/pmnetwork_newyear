@@ -18,7 +18,7 @@ class SitemapController extends Controller
 	public function actionIndex()
 	{
 		Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-    	Yii::$app->response->headers->add('Content-Type', 'text/xml');
+    Yii::$app->response->headers->add('Content-Type', 'text/xml');
 
 		$host = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'];
 
@@ -27,7 +27,11 @@ class SitemapController extends Controller
 
 		$elastic_model = new ElasticItems;
 
-		$slices = GetSlicesForSitemap::getAggregateResult($slices, $elastic_model);
+		$slices = GetSlicesForSitemap::getAggregateResult($slices, $elastic_model, 2);
+
+    // echo '<pre>';
+    // print_r($slices);
+    // exit;
 
 		$items = new ItemsFilterElastic([], 9999, 1, false, 'rooms', $elastic_model);
 

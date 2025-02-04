@@ -16,7 +16,7 @@ AppAsset::register($this);
 <head>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZKQBX8T9D"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZKQBX8T9D"></script> -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -32,14 +32,16 @@ AppAsset::register($this);
     <link rel="icon" type="image/png" href="/img/ny_ball.png">
     <title><?php echo $this->title ?></title>
     <?php $this->head() ?>
-    <?php if (!empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
+    <?php if(Yii::$app->params['noindex_global'] === true){
+        echo '<meta name="robots" content="noindex" />';
+    } ?>
+    <?php if (!empty($this->params['desc'])) echo '<meta name="description" content="'. $this->params["desc"] .'">';?>
     <?php if (!empty($this->params['kw'])) echo "<meta name='keywords' content='".$this->params['kw']."'>";?>
     <?php if (isset($this->params['canonical']) and !empty($this->params['canonical'])) echo "<link rel='canonical' href='".$this->params['canonical']."'>";?>
-    <?php if (isset($this->params['robots']) && $this->params['robots'] === true) echo "<meta name='robots' content='noindex, nofollow'>";?>
+    <?php // if (isset($this->params['robots']) && $this->params['robots'] === true) echo "<meta name='robots' content='noindex, nofollow'>";?>
     <?= Html::csrfMetaTags() ?>
-
 </head>
-<body>
+<body data-channel-id="1">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTTPDSK"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -53,7 +55,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div class="header_menu">
 
-                    <a href="/" class="header_logo">
+                    <a href="https://<?= Yii::$app->params['cookie-domen'] ?>/" class="header_logo" aria-label="Новогодний корпоратив" >
 
                         <div class="header_logo_img"></div>
                         <div class="header_logo_text">
@@ -86,17 +88,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="city_select_list">
 
                             <?php
+                                
                                 $subdomen_list = Subdomen::find()
                                     ->where(['active' => 1])
                                     ->orderBy(['name' => SORT_ASC])
                                     ->all();
 
                                 function createCityNameLine($city){
+                                    $currentUrl = $_SERVER['REQUEST_URI'];
+                                    
+                                    if (preg_match('/ploshhadki\/[0-9]+/', $currentUrl) !== 0 ||
+                                        preg_match('/blog/', $currentUrl) !== 0){
+                                        $currentUrl = '';
+                                    }
+
                                     if($city->alias){
-                                        $newLine = "<p><a href='https://$city->alias.korporativ-ng.ru'>$city->name</a></p>";
+                                        $newLine = "<p><a href='https://$city->alias.korporativ-ng.ru$currentUrl'>$city->name</a></p>";
                                     }
                                     else{
-                                        $newLine = "<p><a href='https://korporativ-ng.ru'>$city->name</a></p>";
+                                        $newLine = "<p><a href='https://korporativ-ng.ru$currentUrl'>$city->name</a></p>";
                                     }
                                     return $newLine;
                                 }
@@ -141,19 +151,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                         </div>
 
-                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'banketnye-zaly')echo '_active';?>" href="/ploshhadki/banketnye-zaly/">Банкетные залы</a>
-                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'restorany')echo '_active';?>" href="/ploshhadki/restorany/">Рестораны</a>
-                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kafe')echo '_active';?>" href="/ploshhadki/kafe/">Кафе</a>
-                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kluby')echo '_active';?>" href="/ploshhadki/kluby/">Клубы</a>
-                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'bary')echo '_active';?>" href="/ploshhadki/bary/">Бары</a>
-                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-gorode')echo '_active';?>" href="/ploshhadki/v-gorode/">В городе</a>
-                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'na-prirode')echo '_active';?>" href="/ploshhadki/na-prirode/">На природе</a>
-                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'contacts')echo '_active';?>" href="/contacts/">Контакты</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'banketnye-zaly')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/banketnye-zaly/">Банкетные залы</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'restorany')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/restorany/">Рестораны</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kafe')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/kafe/">Кафе</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'kluby')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/kluby/">Клубы</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'bary')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/bary/">Бары</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'v-gorode')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/v-gorode/">В городе</a>
+                        <a class="header_menu_item _no_wide_screen <?if(!empty($this->params['menu']) and $this->params['menu'] == 'na-prirode')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/ploshhadki/na-prirode/">На природе</a>
+                        <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'contacts')echo '_active';?>" href="https://<?= Yii::$app->params['cookie-domen'] ?>/contacts/">Контакты</a>
                         <a class="header_menu_item <?if(!empty($this->params['menu']) and $this->params['menu'] == 'blog')echo '_active';?>" href="https://korporativ-ng.ru/blog/" target="blank">Блог</a>
                     </div>
 
                     <div class="header_phone">
+                        <?php if (!isset(Yii::$app->params['premium_rest']) && !isset(Yii::$app->params['page_rest'])): ?>
                         <a href="tel:<?= Yii::$app->params['subdomen_phone'] ?>"><?= Yii::$app->params['subdomen_phone_pretty'] ?></a>
+                        <?php endif; ?>
                         <div class="header_phone_button">
                             <div class="header_phone_button_img"></div>
                             <p class="_grey_link">Подберите мне зал</p>
@@ -210,7 +222,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="footer_wrap">
                     <div class="footer_row">
                         <div class="footer_block _left">
-                            <a href="/" class="footer_logo">
+                            <a href="https://<?= Yii::$app->params['cookie-domen'] ?>/" class="footer_logo">
                                 <div class="footer_logo_img"></div>
                                 <div class="footer_logo_text">
                                     <p>
@@ -221,12 +233,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </a>
                             <div class="footer_info">
                                 <p class="footer_copy">© <?php echo date("Y");?> Новогодний корпоратив</p>
-                                <a href="/privacy/" class="footer_pc _link">Политика конфиденциальности</a>
+                                <a href="https://<?= Yii::$app->params['cookie-domen'] ?>/privacy/" class="footer_pc _link">Политика конфиденциальности</a>
+                                <a href="https://<?= Yii::$app->params['cookie-domen'] ?>/top/" class="footer_pc _link">Реклама на сайте</a>
                             </div>                        
                         </div>
                         <div class="footer_block _right">
                             <div class="footer_phone">
+                                <?php if (!isset(Yii::$app->params['premium_rest']) && !isset(Yii::$app->params['page_rest'])): ?>
                                 <a href="tel:<?= Yii::$app->params['subdomen_phone'] ?>"><?= Yii::$app->params['subdomen_phone_pretty'] ?></a>
+                                <?php endif; ?>
                             </div>
                             <div class="footer_phone_button">
                             <div class="footer_phone_button_img"></div>
@@ -241,7 +256,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div> 
 
 <?php $this->endBody() ?>
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&amp;display=swap&amp;subset=cyrillic" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&amp;display=swap&amp;subset=cyrillic" rel="stylesheet"> -->
 </body>
 </html>
 <?php $this->endPage() ?>

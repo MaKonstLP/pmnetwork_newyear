@@ -1,0 +1,84 @@
+<div class="form_wrapper fast-order">
+
+	<div class="form_title">
+		<p class="form_title_main">Бронирование места</p>
+		<p class="form_title_name">{{items[0].restaurant_name}}</p>
+		<div class="form_title_img">
+			<img loading="lazy" src="{{items[0].restaurant_images[0].subpath}}">
+		</div>
+		<p class="form_title_text">
+			Вы оформляете предварительное бронирование. Заявка не требует оплаты и не является гарантией бронирования. Дождитесь звонка менеджера для подтверждения заказа.
+		</p>
+	</div>
+
+	<form class="form_block" action="/ajax/form/"  data-type="fast-order"  data-premium-listing-form-rest>
+
+		<div class="form_inputs">
+		
+			<div class="input_wrapper">
+				<div class="input_label">Как Вас зовут</div>
+				<input type="text" name="name" placeholder="Имя" data-required/>
+				<div class="form_input_error"></div>
+			</div>
+			<div class="input_wrapper">
+				<div class="input_label">Номер телефона</div>
+				<input type="text" name="phone" placeholder="+7 (___) ___-__-__" data-required autocomplete="off"/>
+				<div class="form_input_error"></div>
+			</div>
+
+			<div class="input_wrapper">
+				<p class="input_label">Вместимость зала</p>
+				<input type="hidden" min="1" id="guests_number" name="guests_number" value="{{items[0].rooms[0].capacity}}">
+				<div class="form_select_block" data-form-select-block>
+					<div class="form_select_current" data-form-select-current data-placeholder="до 15 чел.">
+						<p>до 15 чел.</p>
+					</div>
+					<div class="form_select_list">
+						<div class="form_select_item " data-value="1" data-min-val="1" data-max-val="15" data-form-select-item><p>до 15 чел.</p></div>
+						<div class="form_select_item " data-value="15" data-min-val="15" data-max-val="19" data-form-select-item><p>15 – 19 чел.</p></div>
+						<div class="form_select_item " data-value="20" data-min-val="20" data-max-val="29" data-form-select-item><p>20 – 29 чел.</p></div>
+						<div class="form_select_item " data-value="30" data-min-val="30" data-max-val="39" data-form-select-item><p>30 – 39 чел.</p></div>
+						<div class="form_select_item " data-value="40" data-min-val="40" data-max-val="49" data-form-select-item><p>40 – 49 чел.</p></div>
+						<div class="form_select_item " data-value="50" data-min-val="50" data-max-val="59" data-form-select-item><p>50 – 59 чел.</p></div>
+						<div class="form_select_item " data-value="60" data-min-val="60" data-max-val="79" data-form-select-item><p>60 – 79 чел.</p></div>
+						<div class="form_select_item " data-value="80" data-min-val="80" data-max-val="99" data-form-select-item><p>80 – 99 чел.</p></div>
+						<div class="form_select_item " data-value="100" data-min-val="100" data-max-val="149" data-form-select-item><p>100 – 149 чел.</p></div>
+						<div class="form_select_item " data-value="150" data-min-val="150" data-max-val="199" data-form-select-item><p>150 – 199 чел.</p></div>
+						<div class="form_select_item " data-value="200" data-min-val="200" data-max-val="299" data-form-select-item><p>200 – 299 чел.</p></div>
+						<div class="form_select_item " data-value="300" data-min-val="300" data-max-val="9999" data-form-select-item><p>от 300 чел.</p></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="input_wrapper">
+				<div class="input_label">Дата</div>
+				<input type="text" name="date" placeholder="Дата"/>
+				<div class="calendar_wrapper">
+					<div class="open_calendar_button"></div>
+					<div class="calendar_container _hide">
+						<div class="calendar"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form_submit_callback">
+			<button class="_button" type="submit">Забронировать</button>
+			<div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+				<input type="checkbox" name="policy" class="personalData" checked=""  data-required>
+				<p class="checkbox_pseudo">Я согласен с <a class="_link" href="/privacy/" target="_blank">политикой обработки персональных данных</a></p>
+			</div>
+		</div>
+	</form>
+
+	<div class="close_button"></div>
+</div>
+
+<div class="form_success">
+	<div class="form_success_message_sent _hide" data-success>
+		<h2>Заявка отправлена</h2>
+		<p class="form_success_message"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами в течение дня.</p>
+		<p class="form_success_message_close _link" data-success-close>Понятно, закрыть</p>
+		<div class="close_button"></div>
+	</div>
+</div>

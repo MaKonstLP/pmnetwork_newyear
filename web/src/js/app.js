@@ -12,11 +12,17 @@ import CalendarCustom from './components/calendarCustom';
 import WidgetMain from './components/widgetMain';
 import Breadcrumbs from './components/breadcrumbs';
 import Post from './components/post';
+import Premium from './components/premium';
+import Snowflakes from './components/snowflakes';
 
 window.$ = $;
 
 (function($) {
   	$(function() {
+
+  		if ($('[data-premium-rest]').length > 0) {
+	    	var premium = new Premium();
+	    }
 
   		if ($('[data-page-type="listing"]').length > 0) {
 	    	var listing = new Listing($('[data-page-type="listing"]'));
@@ -58,7 +64,7 @@ window.$ = $;
 	    	var post = new Post($('[data-page-type="post"]'));
 	    }
 
-
+	    var snowflakes = new Snowflakes();
 
 	    var main = new Main();
 	    var form = [];

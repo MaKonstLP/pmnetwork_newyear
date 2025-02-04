@@ -1,16 +1,16 @@
 <div class="content_block">
 	<div class="slices">
-		<a  class="slice _link {{menu == 'banketnye-zaly' ? '_active' : ''}}" href="/ploshhadki/banketnye-zaly/"><span>банкетные залы</span></a>
+		{# <a  class="slice _link {{menu == 'banketnye-zaly' ? '_active' : ''}}" href="/ploshhadki/banketnye-zaly/"><span>банкетные залы</span></a>
 		<a  class="slice _link {{menu == 'restorany' ? '_active' : ''}}" href="/ploshhadki/restorany/"><span>Рестораны</span></a>
 		<a  class="slice _link {{menu == 'kafe' ? '_active' : ''}}" href="/ploshhadki/kafe/"><span>Кафе</span></a>
 		<a  class="slice _link {{menu == 'kluby' ? '_active' : ''}}" href="/ploshhadki/kluby/"><span>клубы</span></a>
-		<a  class="slice _link {{menu == 'bary' ? '_active' : ''}}" href="/ploshhadki/bary/"><span>бары</span></a>
+		<a  class="slice _link {{menu == 'bary' ? '_active' : ''}}" href="/ploshhadki/bary/"><span>бары</span></a> #}
+		{% for slice in active_slices %}
+			<a class="slice _link {{menu == slice.alias ? '_active' : ''}}" href="/ploshhadki/{{slice.alias}}/"><span>{{slice.plural}}</span></a>
+		{% endfor %}
 		<a  class="slice _link {{menu == 'v-gorode' ? '_active' : ''}}" href="/ploshhadki/v-gorode/"><span>в городе</span></a>
 		<a  class="slice _link {{menu == 'na-prirode' ? '_active' : ''}}" href="/ploshhadki/na-prirode/"><span>на природе</span></a>
-		{#{{menu}}
-		<a  class="slice _link" href=""><span>в городе</span></a>
-		<a  class="slice _link" href=""><span>на природе</span></a>
-		<a  class="slice _link" href=""><span>С баней</span></a>#}
+
 		{% if not main_flag %}
 			<a  class="slice _link _active" href="/ploshhadki/"><span>Перейти в каталог<span> →</span></span></a>
 		{% endif %}

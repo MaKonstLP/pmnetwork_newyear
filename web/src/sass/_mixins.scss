@@ -6,6 +6,10 @@
  	@media (max-width: 767px) { @content; }
 }
 
+@mixin for-smalldesc {
+ 	@media (max-width: 1200px) { @content; }
+}
+
 @mixin for-notdesc {
  	@media (max-width: 1440px) { @content; }
 }

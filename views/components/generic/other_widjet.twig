@@ -1,90 +1,85 @@
 {% if items|length > 0 %}
 
+{% set image_zero_add =  venue_id == 477647 ? '' : '=s0' %}
+{% set image_big_add =  venue_id == 477647 ? '' : '=w710-h472-n-l95' %}
+{% set image_small_add =  venue_id == 477647 ? '' : '=w127-h85-n-l95' %}
+
 <div data-widget-wrapper>
-    <div class="items_list_listing" data-listing-wrapper>
+	<div class="items_list_listing" data-listing-wrapper>
+		{% for item in items %}
+				<div class="room_card_wrapper">
+					<div class="room_card" data-listing-list>
+						{# {% if items|length == 1 %}
+								<h2>{{ restaurantMainSpec }} «{{ restaurant_name }}»</h2>
+						{% endif %} #}
 
-        {% for item in items %}
+						{# {% if items|length > 1 %} #}
+								<h2>{{item.name}}</h2>
+						{# {% endif %} #}
 
-            <div class="room_card_wrapper">
+						<div class="room_card_content">
+							<span class="_subheader _mobile">Вместимость</span>
+							{% if item.capacity %}
+								<p><span class="_subheader">Вместимость</span> на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
+							{% endif %}
+							{% if item.capacity_reception %}
+								<p>на&nbsp;фуршет:<br>до&nbsp;<span>{{item.capacity_reception}}&nbsp;персон</span></p>
+							{% endif %}
+							<span class="_subheader _mobile">Стоимость</span>
+							{% if item.price %}
+								<p><span class="_subheader">Стоимость</span> на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
+							{% endif %}
+						</div>
 
-                <div class="room_card" data-listing-list>
+						<div class="calendar_wrapper">
+							<a class="open_calendar_button _link" href="" onclick="return false">Выберите дату</a>
+							<div class="calendar_container _room _hide">
+								<div class="calendar"></div>
+							</div>
+						</div>
+					</div>
 
-                    {% if items|length == 1 %}
-                        <h2>{{ restaurantMainSpec }} «{{ restaurant_name }}»</h2>
-                    {% endif %}
+					<div class="object_gallery _room {% if item.images|length == 0 %}_blank{% endif %}">
+						{% if item.images|length > 0 %}
+							<div class="swiper-container gallery-top-room">
+								<div class="swiper-wrapper">
+									{% for image in item.images %}
+										<div class="swiper-slide object_thumb">
+											<a href="{{image.waterpath}}{{image_zero_add}}" data-lightbox="top_slider">
+												{# <img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}"/> #}
+												<picture>
+													<source srcset="{{image.subpath}}{{image_big_add}}" type="image/webp">
+													<source srcset="{{image.subpath}}{{image_big_add}}" type="image/jpeg">
+													<img src="{{image.subpath}}{{image_big_add}}" alt="Фото №{{loop.index}} зала {{item.name}}" loading="lazy" />
+												</picture>
+											</a>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% else %}
+							<div class="object_gallery_blank"></div>
+						{% endif %}
 
-                    {% if items|length > 1 %}
-                        <h2>{{item.name}}</h2>
-                    {% endif %}
-
-                    <div class="room_card_content">
-                        <span class="_subheader _mobile">Вместимость</span>
-                        {% if item.capacity %}
-                            <p><span class="_subheader">Вместимость</span> на&nbsp;банкет:<br>до&nbsp;<span>{{item.capacity}}&nbsp;персон</span></p>
-                        {% endif %}
-                        {% if item.capacity_reception %}
-                            <p>на&nbsp;фуршет:<br>до&nbsp;<span>{{item.capacity_reception}}&nbsp;персон</span></p>
-                        {% endif %}
-                        
-                        
-                        <span class="_subheader _mobile">Стоимость</span>
-                        {% if item.price %}
-                            <p><span class="_subheader">Стоимость</span> на&nbsp;человека:<br>от&nbsp;<span>{{item.price}}&nbsp;₽</span></p>
-                        {% endif %}
-                    </div>
-
-                    <div class="calendar_wrapper">
-
-                        <a class="open_calendar_button _link" href="" onclick="return false">Выберите дату</a>
-
-                        <div class="calendar_container _room _hide">
-
-                            <div class="calendar"></div>
-
-                        </div>
-
-                    </div>
-
-                </div>    
-
-                <div class="object_gallery _room">
-
-                        <div class="swiper-container gallery-top-room">
-
-                            <div class="swiper-wrapper">
-
-                                {% for image in item.images %}
-                                    <div class="swiper-slide object_thumb">
-                                        <a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}"/></a>
-                                    </div>
-                                {% endfor %}
-
-                            </div>
-
-                        </div>
-
-                        <div class="swiper-container gallery-thumbs-room">
-
-                            <div class="swiper-wrapper">
-
-                                {% for image in item.images %}
-                                    <div class="swiper-slide object_thumb">
-                                        <img src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/>
-                                    </div>
-                                {% endfor %}
-
-                            </div>
-
-                        </div>
-
-                </div>  
-
-            </div>        
-            
-        {% endfor %}
-
-    </div>
-    
+						{% if item.images|length > 0 %}
+							<div class="swiper-container gallery-thumbs-room">
+								<div class="swiper-wrapper">
+									{% for image in item.images %}
+										<div class="swiper-slide object_thumb">
+											{# <img src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/> #}
+											<picture>
+												<source srcset="{{image.subpath}}{{image_small_add}}" type="image/webp">
+												<source srcset="{{image.subpath}}{{image_small_add}}" type="image/jpeg">
+												<img src="{{image.subpath}}{{image_small_add}}" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}" loading="lazy" />
+											</picture>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+		{% endfor %}
+	</div>
 </div>
-
 {% endif %}

@@ -1,12 +1,15 @@
 <div data-page-type="listing">
 
 	<div class="content_block" data-listing-title>
-
-		{{ this.render('//components/generic/title.twig', {'count':count, 'currentType':currentType, 'seo':seo}) | raw }}
-		
+		{{ title | raw }}
 	</div>
 
-	{{ this.render('//components/generic/slice.twig', {menu:menu, main_flag:main_flag}) | raw }}
+	{{ this.render('//components/generic/slice.twig', {
+		menu:menu, 
+		main_flag:main_flag,
+		active_slices:active_slices_menu,
+		}) | raw 
+	}}
 
 	<div class="content_block filter_listing">
 		{{filter | raw }}
@@ -29,9 +32,7 @@
 
 	<div class="items_list_listing" data-listing-wrapper>
 		<div class="items_list" data-listing-list>
-
 			{{ this.render('//components/generic/listing.twig', {'items':items, 'img_alt':seo.img_alt, 'filterMinPrice': filterMinPrice}) | raw }}
-
 		</div>
 	</div>
 
@@ -46,7 +47,6 @@
 	</div>
 
 	<div class="content_block map listing" data-map-api-subid="{{ subid }}"></div>
-
 
 	<div class="content_block" data-listing-text-bottom>
 		<div class="seo_text" data-seo-text>
@@ -64,4 +64,8 @@
 	</div>
 
 	<div class="content_loading"></div>
+
+	<div class="form_fast_order _hide"> 
+		{{ this.render('//components/generic/form_fast_order.twig', {'items':items})|raw }}
+	</div>
 </div>

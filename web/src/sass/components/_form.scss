@@ -1,156 +1,177 @@
-.form_wrapper{
+.form_wrapper {
 	width: 100%;
 	background: white;
 	border-radius: 5px;
 	box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
 	padding: 25px 75px 40px;
 
-	button.button__pending{
+	button.button__pending {
 		background: #df6038;
 		pointer-events: none;
 	}
 
-	.header_form_popup_message_sent{
+	.header_form_popup_message_sent {
 		display: flex;
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100%;
-	    background: linear-gradient(139.76deg,#feda5a .69%,#ffba35 112.92%);
-	    border-radius: 5px;
-	    padding: 25px 75px 40px;
-	    flex-direction: column;
-	    align-items: center;
-	    justify-content: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(139.76deg, #feda5a 0.69%, #ffba35 112.92%);
+		border-radius: 5px;
+		padding: 25px 75px 40px;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 
-	    .header_form_popup_message{
-	    	margin: 20px 0px;
-	    }
+		.header_form_popup_message {
+			margin: 20px 0px;
+		}
 
-	    .header_form_popup_message_close{
-	    	cursor: pointer;
-	    }
+		.header_form_popup_message_close {
+			cursor: pointer;
+		}
 	}
 }
 
-.form_title{
+.form_title {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	.form_title_main{
+	.form_title_main {
 		font-weight: 600;
 		font-size: 36px;
 		line-height: 44px;
 		margin-right: 9px;
-		text-align: center;	
+		text-align: center;
 
-		@include for-mobile{
+		@include for-mobile {
 			font-size: 28px;
 			line-height: 32px;
 		}
 	}
 
-	.form_title_desc{
+	.form_title_desc {
 		font-weight: bold;
 		font-size: 16px;
-		color: #FFB30F;
+		color: #ffb30f;
 	}
 }
 
-.form_block{
+.form_block {
 	display: flex;
 	margin-top: 30px;
 
-	.form_inputs{
+	.form_inputs {
 		display: flex;
 		flex-wrap: wrap;
 		width: 780px;
 
-		.input_wrapper{
+		.input_wrapper {
+			position: relative;
 			width: 130px;
 			margin-right: 20px;
 
-			&._big{
+			&._big {
 				width: 220px;
 			}
 
-			.input_label{
+			.input_label {
 				font-weight: 500;
 				font-size: 16px;
 				line-height: 26px;
 			}
 
-			input{
-				border: 1px solid #C4C4C4;
+			input {
+				border: 1px solid #c4c4c4;
 				box-sizing: border-box;
 				border-radius: 2px;
 				width: 100%;
 				height: 40px;
 				padding: 9px 16px 6px;
 
-				&._invalid{
-					border-color: #ea3e3e;
+				&._invalid {
+					border: 1px solid #d83603 !important;
+				}
+
+				&:focus {
+					border: 1px solid #ffc839 !important;
 				}
 			}
 
-			.input_desc{
+			textarea:focus {
+				border: 1px solid #ffc839 !important;
+			}
+
+			.input_desc {
 				font-weight: 500;
 				font-size: 12px;
 				line-height: 20px;
 				color: #666666;
 			}
+
+			.form_input_error {
+				display: none;
+				font-size: 12px;
+				line-height: 15px;
+				color: #d83603;
+			}
+
+			input._invalid + .form_input_error {
+				position: absolute;
+				display: block;
+			}
 		}
 
-		.form_checkboxes{
+		.form_checkboxes {
 			width: 100%;
 			display: flex;
 			align-items: center;
 			margin-top: 20px;
 
-			.checkbox_title{
+			.checkbox_title {
 				font-weight: bold;
 				font-size: 16px;
 				line-height: 26px;
 				margin-right: 15px;
 			}
 
-			.checkbox_wrapper{
+			.checkbox_wrapper {
 				display: flex;
 			}
 		}
 	}
 
-	.form_submit{
+	.form_submit {
 		width: calc(100% - 780px);
 
-		button{
+		button {
 			height: 50px;
 			margin-top: 21px;
 		}
 
-		.form_policy{
+		.form_policy {
 			margin-top: 10px;
 
-			p{
+			p {
 				font-weight: 500;
 				font-size: 12px;
 				line-height: 15px;
 
-				&:before{
+				&:before {
 					top: 0px;
 				}
 
-				&:after{
+				&:after {
 					top: 3px;
 				}
 			}
 
-			a{
+			a {
 				//text-decoration: underline;
-				color: #5BA641;
+				color: #5ba641;
 			}
 		}
 	}

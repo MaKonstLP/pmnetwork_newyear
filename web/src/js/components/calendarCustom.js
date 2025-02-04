@@ -5,17 +5,25 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import ruLocale from '@fullcalendar/core/locales/ru';
 
-export default class CalendarCustom{
-  constructor(calendarEl){
+export default class CalendarCustom {
+	constructor(calendarEl) {
 		this.init(calendarEl);
-		this.initCalendarButtons();
+		this.initCalendarButtons(calendarEl);
 		this.initFooter(calendarEl);
-  }
+	}
 
-  init(calendarEl) {
+	init(calendarEl) {
+
+		let currentDate = new Date();
+		let dd = String(currentDate.getDate()).padStart(2, '0');
+		let mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+		let yyyy = currentDate.getFullYear();
+		currentDate = yyyy + '-' + mm + '-' + dd;
+
 		let calendar = new Calendar(calendarEl, {
 			firstDay: 1,
-			defaultDate: '2021-12-01',
+			// defaultDate: '2021-12-01',
+			// defaultDate: currentDate, //чтобы отображалась текущая дата, не нужно задать свойство "defaultDate"
 			locale: ruLocale,
 			aspectRatio: 1.35,
 			height: 230,
@@ -24,34 +32,39 @@ export default class CalendarCustom{
 				right: "prev,next"
 			},
 
-			plugins: [ dayGridPlugin, interactionPlugin ],
+			plugins: [dayGridPlugin, interactionPlugin],
 
-			dateClick: function(info){
+			dateClick: function (info) {
 				let numInCell = info.jsEvent.target;
 				let selectedDate = info.dateStr;
 				let $button = $(".fc-booking-button");
 				//console.log(`init book: ${!$(numInCell).has(".fc-selected-date")}`);
 
-				let updateDateFieldIfInForm = function(target, date) {
+				//убираем возможность выбора даты в прошлом
+				if ($(info.dayEl).hasClass('fc-past') || $(info.dayEl).hasClass('fc-other-month')){
+					return 0;
+				}
+
+				let updateDateFieldIfInForm = function (target, date) {
 					let $input = $(target).closest(".calendar_wrapper").siblings("input[name='date']");
 
-					if ( $(target).closest("form").length !== 0 
+					if ($(target).closest("form").length !== 0
 						|| $(target).closest("[data-filter-wrapper]").length !== 0) {
 
-						if (date !== ""){
+						if (date !== "") {
 							let tmp = date.split("-");
 							let correctDate = tmp[2] + "." + tmp[1] + "." + tmp[0];
 							$input.attr("value", correctDate);
-							$input.val(correctDate);							
+							$input.val(correctDate);
 						} else {
 							$input.attr("value", "");
 						}
 					}
 				};
 
-				if(numInCell.tagName == "SPAN"){
+				if (numInCell.tagName == "SPAN") {
 
-					if( $(numInCell).hasClass("fc-selected-date") ){
+					if ($(numInCell).hasClass("fc-selected-date")) {
 						$(numInCell).removeClass("fc-selected-date");
 						selectedDate = "";
 						updateDateFieldIfInForm(numInCell, selectedDate);
@@ -65,7 +78,7 @@ export default class CalendarCustom{
 
 				} else {
 
-					if( $(numInCell).find("span").hasClass("fc-selected-date") ){
+					if ($(numInCell).find("span").hasClass("fc-selected-date")) {
 						$(numInCell).find("span").removeClass("fc-selected-date");
 						selectedDate = "";
 						updateDateFieldIfInForm(numInCell, selectedDate);
@@ -79,8 +92,9 @@ export default class CalendarCustom{
 
 				}
 
-				if($(numInCell).closest('form').length > 0){
+				if ($(numInCell).closest('form').length > 0) {
 					$(numInCell).closest(".calendar_container").addClass("_hide");
+					$(numInCell).closest(".calendar_container").siblings(".open_calendar_button").trigger("close");
 				}
 			}
 		});
@@ -88,50 +102,50 @@ export default class CalendarCustom{
 		calendar.render();
 	}
 
-	initFooter(calendarEl){
+	initFooter(calendarEl) {
 
-		if ( $(calendarEl).closest(".form_wrapper").length !== 0 ) {
+		if ($(calendarEl).closest(".form_wrapper").length !== 0) {
 			let checkbox =
-			 `<div class="checkbox_item" data-action="form_checkbox">
+				`<div class="checkbox_item" data-action="form_checkbox">
 					<input type="checkbox" name="restaurant"/>
 					<div class="checkbox_pseudo"><span class="calendar_checkbox">Все свободные до 31 декабря</span></div>
 				</div>`;
 			$(calendarEl).closest(".calendar_container").append(checkbox);
 
-		} else if ( $(calendarEl).closest(".room_card").length !== 0 ) {
+		} else if ($(calendarEl).closest(".room_card").length !== 0) {
 			let button = `<button class="fc-booking-button _hide">Забронировать</button>`;
 
 			$(calendarEl).closest(".calendar_container").append(button);
 
-			$(".calendar_container").find(".fc-booking-button").on("click", function(e){
+			$(".calendar_container").find(".fc-booking-button").on("click", function (e) {
 				e.stopImmediatePropagation();
 
-				let transformDate = function() {
+				let transformDate = function () {
 					let incorrentDate = $(".fc-selected-date").parent().data("date");
 					let correctDate = "";
 					let datePattern = /[0-9]{4}-[0-1]{1}[0-9]{1}-[0-3]{1}[0-9]{1}/;
 
-					if ( datePattern.test(incorrentDate) ){
+					if (datePattern.test(incorrentDate)) {
 						let tmp = incorrentDate.split("-");
 						return correctDate = tmp[2] + "." + tmp[1] + "." + tmp[0];
 					} else {
 						return;
-					}	
+					}
 				}
 
 				let selectedDate = transformDate();
-				
-				if ( $(e.currentTarget).closest(".form_wrapper").length !== 0 ) {
+
+				if ($(e.currentTarget).closest(".form_wrapper").length !== 0) {
 					$(e.currentTarget).closest("input[name ='date']").attr("value", selectedDate);
 
-				} else if ( $(e.currentTarget).closest(".room_card").length !== 0 ) {
+				} else if ($(e.currentTarget).closest(".room_card").length !== 0) {
 					let hallName = $(e.target).closest(".room_card").children("h2").text();
 					let $bookingForm = $(".booking");
 					//console.log(`click book: ${$bookingForm.find(".checkbox_pseudo").length}`);
 
-					for ( let checkbox of $bookingForm.find(".checkbox_pseudo") ){
+					for (let checkbox of $bookingForm.find(".checkbox_pseudo")) {
 						if ($(checkbox).text() == hallName) {
-							//console.log(`зал найден: ${hallName}`);
+							// console.log(`зал найден: ${hallName}`);
 
 							let destination = $bookingForm.offset().top;
 							$("html").animate({ scrollTop: destination }, 1100);
@@ -140,7 +154,7 @@ export default class CalendarCustom{
 
 							//console.log(`зал найден: ${$("input[name = 'date' ]").length}`);
 							$bookingForm.find("input[name ='date']").attr("value", selectedDate);
-							$bookingForm.find("input[name ='date']").val(selectedDate);							
+							$bookingForm.find("input[name ='date']").val(selectedDate);
 
 							break;
 						}
@@ -151,37 +165,35 @@ export default class CalendarCustom{
 		}
 	}
 
-	initCalendarButtons(){
-		let $buttons = $(".open_calendar_button");
+	initCalendarButtons(calendar) {
+		let $button = $(calendar).closest('.calendar_container').siblings(".open_calendar_button");
 
-		$buttons.on("click", function(e){
-			let $button = $(e.target).closest(".open_calendar_button");
+		$button.on("click", function (e) {
 			let $calendar = $button.next();
 
-			if ( !$button.hasClass("_active") ) {
+			if (!$button.hasClass("_active")) {
 				$button.addClass("_active");
 			} else {
 				$button.removeClass("_active");
 			}
 
-			if ( $calendar.hasClass("_hide") ) {
+			if ($calendar.hasClass("_hide")) {
 				$calendar.removeClass("_hide");
 			} else {
 				$calendar.addClass("_hide");
 			}
-
-			e.stopImmediatePropagation();
 		});
 
-		$(document).mouseup(function (e){
+		$(document).mouseup(function (e) {
 			let div = $(".calendar_wrapper");
 
-			for ( let cal of div){
-				if (!$(cal).is(e.target) 
+			for (let cal of div) {
+				if (!$(cal).is(e.target)
 					&& $(cal).has(e.target).length === 0
 					&& !$(cal).children(".calendar_container").hasClass("_hide")) {
-					$(cal).children(".calendar_container").addClass ("_hide");
+					$(cal).children(".calendar_container").addClass("_hide");
 					$(cal).children(".open_calendar_button").removeClass("_active");
+					$(cal).children(".open_calendar_button").trigger("close");
 				}
 			}
 		});

@@ -32,14 +32,18 @@ class FormController extends Controller
             $payload['date'] = $_POST['date'];
         if(isset($_POST['cityID']))
             $payload['city_id'] = $_POST['cityID'];
+        if(isset($_POST['venue_id']))
+            $payload['venue_id'] = $_POST['venue_id'];
         if(isset($_POST['email']))
             $payload['email'] = $_POST['email'];
         $payload['details'] = '';
+        $payload['event_type'] = 'Corporate';
         if(isset($_POST['question']))
             $payload['details'] .= $_POST['question'].' ';
         if(isset($_POST['url']))
             $payload['details'] .= 'Заявка отправлена с '.$_POST['url'];
-
+		  if(isset($_POST['restaurant_name']))
+		      $payload['details'] .= ' Название ресторана: '.$_POST['restaurant_name'];
         if(!isset($payload['city_id']))
             return false;
 
@@ -85,6 +89,47 @@ class FormController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $resp;
     }
+
+    public function actionAdvertisement()
+	{
+		if (!isset($_POST['name']) || !isset($_POST['phone']))
+			return 1;
+
+		$to = ['so-svoim.ru@yandex.ru'];
+		$subj = 'Заявка с сайта';
+		$msg  = "";
+		$post_string_array = [
+			'name'				=>	'Имя и фамилия',
+			'position'			=>	'Должность',
+			'phone'				=>	'Телефон',
+			'email'				=>	'Электропочта',
+			'rest_name'			=>	'Название площадки',
+			'city'				=>	'Город',
+			'address'			=>	'Адрес',
+		];
+
+		foreach ($post_string_array as $key => $value) {
+			if (isset($_POST[$key]) && $_POST[$key] != '') {
+				$msg .= $value . ': ' . $_POST[$key] . '<br/>';
+				$payload[$key] = $_POST[$key];
+			}
+		}
+
+		$message = $this->sendMail($to, $subj, $msg);
+
+		if ($message) {
+			$responseMsg = empty($responseMsg) ? 'Успешно отправлено!' : $responseMsg;
+			$resp = [
+				'error' => 0,
+				'msg' => $responseMsg,
+				'payload' => $payload,
+			];
+		} else {
+			$resp = ['error' => 1, 'msg' => 'Ошибка']; //.serialize($_POST)
+		}
+		\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		return $resp;
+	}
 
     public function sendMail($to,$subj,$msg) {
         $message = Yii::$app->mailer->compose()

@@ -8,6 +8,19 @@ export default class Post{
 		this.swipers_gal = [];
 		this.swipers_rest = [];
 
+		//формируем ссылки внутри текста поста с учетом поддомена сохранненого в куки
+		let cookieCityName = document.querySelector('[data-cookie-city-name]').getAttribute('data-cookie-city-name');
+		if (cookieCityName.length > 0) {
+			let cookieSubdomainName = document.querySelector('[data-cookie-subdomain]').getAttribute('data-cookie-subdomain');
+			let links = document.querySelectorAll('.blog_text a');
+
+			links.forEach(function (linkElement) {
+				var hrefValue = linkElement.getAttribute('href');
+				var newHrefValue = `https://${cookieSubdomainName}${hrefValue}`;
+				linkElement.setAttribute('href', newHrefValue);
+			});
+		}
+
 		$('[data-action="show_phone"]').on("click", function(){
 			let $object_book = $(this).closest(".object_book");
 			$object_book.addClass("_active");

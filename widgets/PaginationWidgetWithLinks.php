@@ -60,7 +60,7 @@ class PaginationWidgetWithLinks extends Widget
       if (!stripos($href, 'page=')){
         $href .= '&page=' . $page;
       }
-
+      // /page=(\d+)\D|page=(\d+)$/
       $href = preg_replace('/page=(\d+)/', ('page=' . $page), $href);
     }
     return '<a href="' . ($page === 1 ? (explode('?', $href)[0]) : $href) . '" class="items_pagination_item '.$active.' '.$class.'" data-page-id="'.$page.'" data-listing-pagitem></a>';

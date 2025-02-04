@@ -11,7 +11,7 @@ class Breadcrumbs {
 				return 	['crumbs' =>
 							[[
 		                        'type' => 'raw',
-		                        'link' => '/',
+		                        'link' => 'https://'. Yii::$app->params['cookie-domen'] . '/',
 		                        'name' => 'Новый год '.(date("Y")+1)
 			                ]]
 			            ];

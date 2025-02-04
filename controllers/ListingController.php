@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\gorko_ny\controllers;
 
 use Yii;
@@ -14,6 +15,7 @@ use frontend\components\ParamsFromQuery;
 use frontend\components\QueryFromSlice;
 use frontend\components\Declension;
 use frontend\components\RoomsFilter;
+use frontend\components\PremiumMixer;
 use frontend\modules\gorko_ny\components\Breadcrumbs;
 use frontend\modules\gorko_ny\components\FilterOneParamSeoGenerator;
 use frontend\modules\gorko_ny\models\ElasticItems;
@@ -24,6 +26,10 @@ use common\models\GorkoApi;
 use common\models\elastic\ItemsFilterElastic;
 use common\models\Seo;
 use common\models\SubdomenPages;
+use frontend\modules\gorko_ny\models\RestaurantTypeSlice;
+use yii\web\NotFoundHttpException;
+use yii\helpers\Url;
+use yii\web\Cookie;
 
 
 class ListingController extends Controller
@@ -31,13 +37,27 @@ class ListingController extends Controller
 	protected $per_page = 24;
 
 	public $filter_model,
-				 $slices_model,
-				 $paramList;
+		$slices_model,
+		$GetParamWhiteList,
+		$paramList,
+		$get;
 
 	public function beforeAction($action)
 	{
-		$this->filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
+		$this->get = $_GET;
+		// $this->filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
+		$this->filter_model = Yii::$app->params['filter_model'];
 		$this->slices_model = Slices::find()->all();
+		$this->GetParamWhiteList = [
+			'q' => '',
+			'slice' => '',
+			'page' => '',
+			'rest_type' => '',
+			'chelovek' => '',
+			'price' => '',
+			'svoy-alko' => '',
+			'firework' => ''
+		];
 		$this->paramList = [
 			'rest_type' => '',
 			'chelovek' => '',
@@ -46,6 +66,23 @@ class ListingController extends Controller
 			'firework' => ''
 		];
 
+
+		//проверяем, что указаны корректные get-параметры, а не только состоящие из цифр, например /?3&2&0&2&3&page=9 или /?1&0&6&6&page=10
+		foreach ($this->get as $key => $value) {
+			if (preg_match('/^\d+$/', $key)) {
+				throw new NotFoundHttpException();
+				break;
+			}
+		}
+
+		$page = (int)\Yii::$app->request->getQueryParam('page');
+		if ($page == 1) {
+			$url = Url::current(['page' => null, 'q' => null]);
+			// \Yii::$app->response->redirect('https://korporativ-ng.ru'.$url, 301)->send();
+			\Yii::$app->response->redirect(Url::to($url, 'https'), 301);
+		}
+
+
 		return parent::beforeAction($action);
 	}
 
@@ -53,24 +90,17 @@ class ListingController extends Controller
 	{
 		$slice_obj = new QueryFromSlice($slice);
 
-		if (count(array_intersect_key($this->paramList, $_GET)) > 0){
+		if (count(array_intersect_key($this->paramList, $_GET)) > 0) {
 			return $this->actionSliceWhithParams($slice_obj->params);
 		}
 
-		if ($slice_obj->flag){
+		if ($slice_obj->flag) {
 			$this->view->params['menu'] = $slice;
-			$params = $this->parseGetQuery($slice_obj->params, Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all(), $this->slices_model);
+			// $params = $this->parseGetQuery($slice_obj->params, Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all(), $this->slices_model);
+			$params = $this->parseGetQuery($slice_obj->params, $this->filter_model, $this->slices_model);
 			isset($_GET['page']) ? $params['page'] = $_GET['page'] : $params['page'];
 
-			$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
-
-			// if($params['page'] > 1){
-			// 	$canonical .= $params['canonical'];
-			// }
-
-			// echo '<pre>';
-			// print_r($params['params_filter']);
-			// exit;
+			$canonical = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
 			return $this->actionListing(
 				$page 			=	$params['page'],
@@ -80,10 +110,9 @@ class ListingController extends Controller
 				$canonical 		= 	$canonical,
 				$type 			=	$slice
 			);
+		} else {
+			throw new NotFoundHttpException();
 		}
-		else{
-			throw new \yii\web\NotFoundHttpException();
-		}				
 	}
 
 	public function actionSliceWhithParams($paramFromAlias)
@@ -93,16 +122,11 @@ class ListingController extends Controller
 		$params = $this->parseGetQuery($getQuery, $this->filter_model, $this->slices_model);
 		$params['params_filter']['rest_type'] = [];
 		array_push($params['params_filter']['rest_type'], $paramFromAlias['rest_type']);
-		$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+		$canonical = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
-		if ($params['page'] > 1){
+		if ($params['page'] > 1) {
 			$canonical .= $params['canonical'];
 		}
-
-			// echo '<pre>';
-			// print_r($params);
-			// exit;
-
 
 		return $this->actionListing(
 			$page 			=	$params['page'],
@@ -112,17 +136,17 @@ class ListingController extends Controller
 			$canonical 		= 	$canonical,
 			$type = false,
 			$sliceWithParams = true,
-		);	
+		);
 	}
 
 	public function actionIndex()
 	{
 		$getQuery = $_GET;
 		unset($getQuery['q']);
-		if(count($getQuery) > 0){
+		if (count($getQuery) > 0) {
 			$params = $this->parseGetQuery($getQuery, $this->filter_model, $this->slices_model);
-			$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
-			if($params['page'] > 1){
+			$canonical = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+			if ($params['page'] > 1) {
 				$canonical .= $params['canonical'];
 			}
 
@@ -132,10 +156,9 @@ class ListingController extends Controller
 				$params_filter	= 	$params['params_filter'],
 				$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(2),
 				$canonical 		= 	$canonical
-			);	
-		}
-		else{
-			$canonical = $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+			);
+		} else {
+			$canonical = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
 			return $this->actionListing(
 				$page 			=	1,
@@ -149,24 +172,77 @@ class ListingController extends Controller
 
 	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false, $sliceWithParams = false)
 	{
-		$elastic_model = new ElasticItems;
-		$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'restaurants', $elastic_model);
+		$aggs = ElasticItems::find()->limit(0)->query(
+			['bool' => ['must' => ['match' => ['restaurant_city_id' => Yii::$app->params['subdomen_id']]]]]
+		)
+			->addAggregate('types', [
+				'nested' => [
+					'path' => 'restaurant_types',
+				],
+				'aggs' => [
+					'ids' => [
+						'terms' => [
+							'field' => 'restaurant_types.id',
+							'size' => 10000,
+						]
+					]
+				]
+			])->search();
 
-		if ($page > 1){
+		$active_slices_menu = array_reduce($aggs['aggregations']['types']['ids']['buckets'], function ($acc, $item) {
+			if (
+				$item['doc_count'] > 2 && count($acc) < 5
+				&& ($restTypeSlice = RestaurantTypeSlice::find()->with('slice')->with('restaurantType')->where(['restaurant_type_value' => intval($item['key'])])->one())
+				&& ($sliceObj = $restTypeSlice->slice)
+				&& ($typeObj = $restTypeSlice->restaurantType)
+			) {
+				$acc[] = [
+					'alias' => $sliceObj->alias,
+					'plural' => $sliceObj->h1,
+					'count' => $item['doc_count']
+				];
+			}
+			return $acc;
+		}, []);
+
+		$elastic_model = new ElasticItems;
+
+		$items = PremiumMixer::getItemsWithPremium($params_filter, $per_page, $page, false, 'restaurants', $elastic_model, false, false, false, false, false, true);
+		// $items = PremiumMixer::getItemsWithPremium($params_filter, 70, $page, false, 'restaurants', $elastic_model, false, false, false, false, false, true);
+		//$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'restaurants', $elastic_model, false, false, false, false, false, true);
+
+		if($items->total < 3){
+			return \Yii::$app->response->redirect(Url::to('/ploshhadki/', 'https'), 301);
+		}
+
+		$this->setSubdomenCookie();
+
+
+		// if (($page * $per_page) > ($items->total + $per_page) || $page > 250) {
+		if ($page > $items->pages || $page > 250) {
+			// throw new NotFoundHttpException();
+
+			// \Yii::$app->response->redirect(Url::to(['index'], 'https'), 301);
+
+			$url = Url::current(['page' => null, 'q' => null]);
+			\Yii::$app->response->redirect(Url::to($url, 'https'), 301);
+		}
+
+		if ($page > 1) {
 			$seo['text_top'] = '';
 			$seo['text_bottom'] = '';
 		}
 
-		$itemsAllPages = new ItemsFilterElastic($params_filter, 600, 1, false, 'restaurants', $elastic_model);
+		$itemsAllPages = new ItemsFilterElastic($params_filter, 10000, 1, false, 'restaurants', $elastic_model);
 
 		$minPrice = 999999;
-		foreach ($itemsAllPages->items as $item){
-			if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250){ // второе условие - костыль под опечатку в инфе из горько
+		foreach ($itemsAllPages->items as $item) {
+			if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250) { // второе условие - костыль под опечатку в инфе из горько
 				$minPrice = $item->restaurant_price;
 			}
 		}
 
-		if ($minPrice === 999999){
+		if ($minPrice === 999999) {
 			$minPrice = 2100;
 		}
 
@@ -176,32 +252,31 @@ class ListingController extends Controller
 			'minPrice' => $minPrice
 		]);
 
-		// $pagination = PaginationWidget::widget([
-		// 	'total' => $items->pages,
-		// 	'current' => $page,
-		// ]);
-
 		$pagination = PaginationWidgetWithLinks::widget([
 			'total' => $items->pages,
 			'current' => $page,
 			'url' => null,
 		]);
-		
+
 		$seo_type = $type ? $type : 'listing';
 		$seo = $this->getSeo($seo_type, $page, $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
 
-		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0 || count($items->items) < 1){
+		if ($sliceWithParams || count(array_intersect_key($this->paramList, $_GET)) > 0 || count($items->items) < 3) {
 			$seo['robots'] = true;
 		}
 
-		if ($page > 1){
+		if (!$this->checkGetParams()) {
+			$seo['robots'] = true;
+		}
+
+		if ($page > 1) {
 			$this->getPaginationSeo($seo, $page);
 		}
 
 		$this->setSeo($seo, $page, $canonical);
 
-		if($seo_type == 'listing' and count($params_filter) > 0){
+		if ($seo_type == 'listing' and count($params_filter) > 0) {
 			$seo['text_top'] = '';
 			$seo['text_bottom'] = '';
 		}
@@ -211,29 +286,39 @@ class ListingController extends Controller
 		$currentRestType = $this->getRestTypeDeclention($params_filter);
 
 		$this->view->params['currentUrl'] = $_SERVER['REQUEST_URI'];
+		$currentType = Declension::get_num_ending($items->total, $currentRestType);
 
-		// echo '<pre>';
-		// print_r($seo);
+		// echo ('<pre>');
+		// print_r($items->items);
 		// exit;
 
 		return $this->render('index.twig', array(
-			'items' => $items->items,
+			'title' => $this->renderPartial('//components/generic/title.twig', array(
+				'seo' => $seo,
+				'count' => $items->total,
+				'currentType' => $currentType,
+				'active_slices_menu' => $active_slices_menu,
+			)),
 			'filter' => $filter,
+			'items' => $items->items,
 			'pagination' => $pagination,
 			'seo' => $seo,
-			'currentType' => Declension::get_num_ending($items->total, $currentRestType),
+			'currentType' => $currentType,
 			'count' => $items->total,
 			'menu' => $type,
 			'main_flag' => $main_flag,
 			'filterMinPrice' => isset($params_filter['price']) ? array_shift($params_filter['price']) : 0,
-		));	
+			'active_slices_menu' => $active_slices_menu,
+		));
 	}
 
-	public function actionAjaxFilter(){
+	public function actionAjaxFilter()
+	{
 		$params = $this->parseGetQuery(json_decode($_GET['filter'], true), $this->filter_model, $this->slices_model);
-		
+
 		$elastic_model = new ElasticItems;
-		$items = new ItemsFilterElastic($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants', $elastic_model);
+		$items = PremiumMixer::getItemsWithPremium($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants', $elastic_model, false, false, false, false, false, true);
+		//$items = new ItemsFilterElastic($params['params_filter'], $this->per_page, $params['page'], false, 'restaurants', $elastic_model, false, false, false, false, false, true);
 
 		$slice_url = ParamsFromQuery::isSlice(json_decode($_GET['filter'], true));
 
@@ -252,33 +337,31 @@ class ListingController extends Controller
 			'currentType' => Declension::get_num_ending($items->total, $currentRestType),
 		));
 
-		if($params['page'] == 1){
+		if ($params['page'] == 1) {
 			$text_top = $this->renderPartial('//components/generic/text.twig', array('text' => $seo['text_top']));
 			$text_bottom = $this->renderPartial('//components/generic/text.twig', array('text' => $seo['text_bottom']));
-		}
-		else{
+		} else {
 			$text_top = '';
 			$text_bottom = '';
 		}
 
-		if($seo_type == 'listing' and count($params['params_filter']) > 0){
+		if ($seo_type == 'listing' and count($params['params_filter']) > 0) {
 			$text_top = '';
 			$text_bottom = '';
 		}
 
-		$itemsAllPages = new ItemsFilterElastic($params['params_filter'], 600, 1, false, 'restaurants', $elastic_model);
+		$itemsAllPages = new ItemsFilterElastic($params['params_filter'], 10000, 1, false, 'restaurants', $elastic_model);
 
 		$minPrice = 999999;
-		foreach ($itemsAllPages->items as $item){
-			if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250){ // второе условие - костыль под опечатку в инфе из горько
+		foreach ($itemsAllPages->items as $item) {
+			if ($item->restaurant_price < $minPrice && $item->restaurant_price !== 250) { // второе условие - костыль под опечатку в инфе из горько
 				$minPrice = $item->restaurant_price;
 			}
 		}
 
-		if ($minPrice === 999999){
+		if ($minPrice === 999999) {
 			$minPrice = 2100;
 		}
-
 
 		// $minPrice = 999999;
 		// foreach ($items->items as $item){
@@ -316,7 +399,8 @@ class ListingController extends Controller
 		]);
 	}
 
-	public function actionAjaxFilterSlice(){
+	public function actionAjaxFilterSlice()
+	{
 		$slice_url = ParamsFromQuery::isSlice(json_decode($_GET['filter'], true));
 
 		return $slice_url;
@@ -325,10 +409,9 @@ class ListingController extends Controller
 	private function parseGetQuery($getQuery, $filter_model, $slices_model)
 	{
 		$return = [];
-		if(isset($getQuery['page'])){
+		if (isset($getQuery['page'])) {
 			$return['page'] = $getQuery['page'];
-		}
-		else{
+		} else {
 			$return['page'] = 1;
 		}
 
@@ -341,34 +424,34 @@ class ListingController extends Controller
 		return $return;
 	}
 
-	private function getSeo($type, $page, $count = 0){
+	private function getSeo($type, $page, $count = 0)
+	{
 		$seo = new Seo($type, $page, $count);
 
 		return $seo->seo;
 	}
 
-	private function setSeo($seo, $page, $canonical){
-
-		if ($page != 1){
+	private function setSeo($seo, $page, $canonical)
+	{
+		// if ($page != 1) {
 			$this->view->params['canonical'] = $canonical;
-		}
+		// }
 
-		if (isset($seo['title'])){
+		if (isset($seo['title'])) {
 			$this->view->title = $seo['title'];
 		}
 
-		if (isset($seo['description'])){
+		if (isset($seo['description'])) {
 			$this->view->params['desc'] = $seo['description'];
 		}
 
-		if (isset($seo['keywords'])){
+		if (isset($seo['keywords'])) {
 			$this->view->params['kw'] = $seo['keywords'];
 		}
 
-		if (isset($seo['robots'])){
+		if (isset($seo['robots'])) {
 			$this->view->params['robots'] = $seo['robots'];
 		}
-
 	}
 
 	private function getRestTypeDeclention($params_filter = [])
@@ -385,7 +468,7 @@ class ListingController extends Controller
 
 		$currentRestType = ['площадка', 'площадки', 'площадок'];
 
-		if (isset($params_filter['rest_type']) && count($params_filter['rest_type']) === 1){
+		if (isset($params_filter['rest_type']) && count($params_filter['rest_type']) === 1) {
 			$currentRestType = $restTypesList[$params_filter['rest_type'][0]];
 		}
 
@@ -394,7 +477,7 @@ class ListingController extends Controller
 
 	private function getUrl($listing_url, $params_filter)
 	{
-		if (isset($params_filter['rest_type']) && count($params_filter['rest_type']) === 1){
+		if (isset($params_filter['rest_type']) && count($params_filter['rest_type']) === 1) {
 			$currentSlice = Slices::find()->where(['params' => '{"rest_type":' . $params_filter['rest_type'][0] . '}'])->one();
 			$newUrl = $currentSlice->alias . '/' . str_replace(('rest_type=' . $params_filter['rest_type'][0] . '&'), '', $listing_url);
 			return $newUrl;
@@ -407,6 +490,27 @@ class ListingController extends Controller
 	{
 		$seo['title'] = $seo['h1'] . " - Страница " . $page;
 		$seo['description'] = "Вы смотрите страницу " . $page . " из раздела " . $seo['h1'] . " на портале korporativ-ng.ru. Поиск и аренда помещений для проведения новогоднего корпоратива.";
+	}
+
+	private function checkGetParams()
+	{
+		foreach ($_GET as $key => $value) {
+			if (!array_key_exists($key, $this->GetParamWhiteList)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private function setSubdomenCookie() {
+		// сохраняем в куку значение id поддомена, нужно для вывода рандомных рестов соответствующих городу в постах блога
+		$cookie = new Cookie([
+			'name' => 'subdomen_id',
+			'value' => \Yii::$app->params['subdomen_id'],
+			'domain' => '.' . Yii::$app->params['domen'],
+			'expire' => time() + 36000,
+		]);
+		Yii::$app->response->cookies->add($cookie);
 	}
 }
 

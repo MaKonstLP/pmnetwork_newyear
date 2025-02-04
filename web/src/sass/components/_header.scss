@@ -1,656 +1,621 @@
-header{
-    position: fixed;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    background: white;
-    height: 99px;
-    border-bottom: 1px solid #DEDEDE;
-    box-shadow: 0px 3px 6px rgba(3, 49, 52, 0.06);
-    z-index: 100;
-
-    @include for-pad{
-        height: 90px;
-    }
-
-    @include for-mobile{
-        height: 56px;
-    }
-
-    .header_wrap{
-        position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0px;
-        height: 100%;
-
-        .header_logo{
-            display: flex;
-            align-items: center;
-            margin-left: 35px;
-
-            @include for-pad{
-                margin-left: 52px;
-            }
-
-            @include for-mobile{
-                top: 0;
-                left: auto; 
-                right: 140px;
-            }
-
-            .header_logo_img{
-                width: 70px;
-                height: 70px;
-                background: url("/img/korporativ-ng/ny_ball.svg");
-                background-size: contain;
-                transition: filter 0.2s ease;
-
-                @include for-pad{
-                    width: 56px;
-                    height: 56px;                }
-
-                @include for-mobile{
-                    width: 56px;
-                    height: 56px;
-                }
-            }
-
-            .header_logo_text span{
-                font-weight: bold;
-                font-size: 20px;
-                line-height: 28px;
-                letter-spacing: 0.01em;
-                text-transform: uppercase;
-                color: #BA1904;
-
-                &:last-of-type{
-                    font-size: 11px;
-                    line-height: 15px;
-                    letter-spacing: 0.2em;
-                    color: #000000;
-                }
-
-                @include for-pad{
-                    white-space: nowrap;
-                    font-size: 16px;
-                    line-height: 24px;   
-                    
-                    &:last-of-type{
-                        white-space: nowrap;
-                        font-size: 9px;
-                        line-height: 13px;    
-                    }
-
-                }
-
-                @include for-mobile{
-                    display: none;
-                }
-            }
-        }
-
-        .header_menu_wrapper{
-            flex-grow: 1;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .header_menu{
-            display: flex;
-            width: 100%;
-            align-items: center;
-
-            .header_city_select{
-                position: relative;
-                align-self: center;
-                height: 20px;
-                margin-left: 35px;
-                cursor: pointer;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 26px;
-                margin-right: 25px;
-
-                &:before{
-                    content: "";
-                    position: absolute;
-                    top: -1px;
-                    left: -18px;
-                    background: url("/img/location_icon.svg");
-                    background-size: contain;
-                    width: 20px;
-                    height: 20px;
-                }
-
-                &:after{
-                    content: "";
-                    position: absolute;
-                    top: 5px;
-                    right: -16px;
-                    width: 8px;
-                    height: 8px;
-                    border-right: 2px solid $clrLightGrey;
-                    border-bottom: 2px solid $clrLightGrey;
-                    border-radius: 2px;
-                    transform: rotate(45deg);
-                    z-index: 2;
-                }
-
-                &._active:after{
-                    top: 9px;
-                    transform: rotate(225deg);
-                }
-
-                
-
-                span{
-                    display: block;
-                    white-space: nowrap;
-                }
-
-                @include for-notdesc{
-                    align-self: flex-start;
-                    top: -10px;
-                    margin-left: 28px;
-                }
-
-                @include for-mobile{
-                    // display: none;
-                }
-            }
-
-            .city_select_search_wrapper{
-                position: absolute;
-                top: 75px;
-                left: 390px;
-                width: 850px;
-                max-height: calc(100vh - 60px);
-                padding: 20px 0px 20px 25px;
-                background: white;
-                border-radius: 4px;
-                box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
-                overflow-y: auto;
-
-                &:before{
-                    content: "";
-                    position: absolute;
-                    top: -8px;
-                    left: 30px;
-                    width: 16px;
-                    height: 16px;
-                    transform: rotate(45deg);
-                    background: white;
-                }
-
-                .back_to_header_menu{
-                    display: none;
-                }
-
-                h4{
-                    padding-bottom: 13px;
-                    font-weight: bold;
-                    font-size: 20px;
-                    line-height: 24px;
-                        
-                }
-
-                .input_search_wrapper{
-                    position: relative;
-                    width: 289px;
-
-                    input{
-                        width: 289px;
-                        padding: 9px 16px;
-                        box-sizing: border-box;
-                        box-shadow: inset 0px 1px 2px rgba(140, 140, 140, 0.5);
-                        border-radius: 2px;
-                        font-weight: 500;
-                        font-size: 14px;
-                        line-height: 22px;
-                        color: #666666;
-                    }
-
-                    &:before{
-                        content: "";
-                        position: absolute;
-                        top: 10px;
-                        right: 6px;
-                        width: 20px;
-                        height: 20px;
-                        background: url("/img/search_icon.svg");
-                    }
-
-                }
-
-                .city_select_list{
-                    display: flex;
-                    flex-flow: column wrap;
-                    height: 548px;
-                    padding: 0 0 0 18px;
-
-                    .city_select_letter_block{
-                        position: relative;
-                        width: 154px;
-                        padding: 15px 0 0 0;
-
-                        p{
-                            font-weight: 500;
-                            font-size: 14px;
-                            line-height: 25px;
-                            color: #D83603;
-                        }
-
-                        p._active{
-                            font-weight: 700;
-                            color: #333333;
-                        }
-
-                        &:before{
-                            content: attr(data-first-letter);
-                            position: absolute;
-                            top: 17px;
-                            left: -18px;
-                            font-size: 14px;
-                        }
-                            
-                    }
-                }
-
-                @include for-mobile{
-                    left: 0;
-                    width: 320px;
-                    height: 90vh;
-                    padding: 22px 17px 22px 16px;
-                    z-index: 10;
-
-                    &:before{
-                        content: none;
-                    }
-
-                    .back_to_header_menu{
-                        cursor: pointer;
-                        display: block;
-                        width: 120px;
-                        margin: 0 0 0 23px;
-                        border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
-                        font-weight: 500;
-
-                        &:before{
-                            content: "←";
-                            position: absolute;
-                            top: 20px;
-                            left: 17px;
-                        }
-                    }
-
-                    h4{
-                        padding: 15px 0 13px;
-                        font-weight: bold;
-                        font-size: 16px;
-                        line-height: 23px;
-                    }
-
-                    .city_select_list{
-                        flex-flow: column nowrap;
-                        overflow-y: scroll;
-                        height: calc(100% - 110px);
-                    }
-                }
-
-                @include for-pad{
-                    top: 64px;
-                    left: 0;
-                    width: 768px;
-                    z-index: 10;
-
-                    &:before{
-                        left: 374px;
-                    }
-                }
-
-                @include for-mobile{
-                    top: 56px;
-                    width: 100%;
-                }
-            }
-
-            & > .header_city_select{
-                display: none;
-            }
-
-            @include for-pad{
-
-                & > .header_city_select{
-                    display: block;
-                    align-self: auto;
-                    top: auto;
-                }
-            }
-
-            @include for-mobile{
-                justify-content: flex-end;
-            }
-        }
-
-        .header_menu_wrapper{
-
-            .header_menu_item{
-                line-height: 30px;
-                font-size: 16px;
-                color: #333333;
-                font-weight: 600;
-                margin: 0px 33px;
-                padding: 0px 10px;
-
-                &._no_wide_screen{
-                    display: none;
-                }
-
-                @include for-notdesc{
-
-                    &._no_wide_screen{
-                        display: block;
-                    }
-                }
-
-                @media (max-width: 1700px) {
-                    margin: 0px 17px;
-                }
-
-                @media (max-width: 1550px) {
-                    margin: 0px 5px;
-                }
-
-                &:hover{
-                    color: #F0440D;
-                }
-
-                &._active{
-                    color: #D83603;
-                }
-
-            }
-
-            @include for-notdesc{
-                position: absolute;
-                left: 0px;
-                background: white;
-                justify-content: flex-start;
-                width: 320px;
-                height: 100vh;
-                border-bottom: 1px solid #DEDEDE;
-                transform: translateY(10px);
-                opacity: 0;
-                box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1); 
-                transition: transform 0.3s ease, opacity 0.3s ease; 
-                pointer-events: none;
-
-                .header_menu_item{
-                    margin: 0px;
-                    padding: 0px 10px;
-
-                    &:hover{
-                        color: #333333;
-                        background: rgba(240, 68, 13, 0.1);
-                    }
-    
-                    &._active{
-                        color: #333333;
-                        background: rgba(216, 54, 3, 0.1);
-                    }
-                }
-
-                .header_city_select{
-
-                    &._active{
-                        display: none;
-                    }
-
-                }
-            }
-
-            @include for-pad{
-                top: 90px;
-                padding: 20px 0 11px; 
-            }
-
-            @include for-mobile{
-                width: 100%;
-                padding: 30px 0 11px;
-                top: calc(100% + 1px);  
-            }
-        }
-
-
-        .header_phone{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            margin-right: 35px;
-
-            @include for-pad{
-                margin-right: 10px;
-                flex-grow: 1;
-            }
-
-            @include for-mobile{
-                margin-right: 16px;
-            }
-
-
-            & > a{
-                font-size: 26px;
-                color: #000;
-                font-weight: 600;
-                line-height: 32px;
-                margin-bottom: 7px;
-
-                @include for-pad{
-                    font-size: 22px;
-                    line-height: 28px;
-                }
-
-                @include for-mobile{
-                    margin-bottom: 0px;
-                    font-size: 16px;
-                    line-height: 20px;
-                }
-            }
-
-            p._link{
-                color: #333333;
-                border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
-
-                &:hover{
-
-                }
-            }
-
-            .header_phone_button{
-                display: flex;
-                flex-flow: row nowrap;
-                text-align: right;
-                margin-top: -2px;
-                width: fit-content;
-                cursor: pointer;
-                // padding: 0px 0px 0px 30px;
-                position: relative;
-
-                @include for-mobile{
-                    display: none;
-                }
-
-                .header_phone_button_img{
-                }
-
-                & > p{
-                    height: 21px;
-                    text-align: right;
-                    line-height: 25px;
-                    font-size: 16px;
-                    font-weight: 500;
-
-                }
-
-                &:before{
-                    position: absolute;
-                    content: '';
-                    top: -2px;
-                    left: -30px;
-                    width: 30px;
-                    height: 31px;
-                    background: url("/img/ny_ball.svg");
-                    background-size: contain;    
-                }
-            }
-        }
-
-        .header_burger{
-            display: none;
-            position: absolute;
-            width: 35px;
-            height: 27px;
-            right: 10px;
-            top: 32px;
-            cursor: pointer;
-            overflow: hidden;
-
-            @include for-notdesc{
-                display: block;
-                left: 10px;
-            }
-
-            @include for-mobile{
-                width: 26px;
-                height: 27px;
-                top: 18px;
-                right: 12px;
-            }
-
-            div{
-                width: 35px;
-                height: 5px;
-                border-radius: 2px;
-                background: #F0440D;
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                transition: transform 0.3s ease;
-
-                @include for-mobile{
-                    width: 25px;
-                    height: 4px;
-                }
-            }
-
-            div:nth-child(1){
-                transform: translate(0px,0px);
-
-                @include for-mobile{
-                    transform: translate(0px,0px);
-                }
-            }
-
-            div:nth-child(2){
-                transform: translate(0px,11px);
-
-                @include for-mobile{
-                    transform: translate(0px,8px);
-                }
-            }
-
-            div:nth-child(3){
-                transform: translate(0px,22px);
-
-                @include for-mobile{
-                    transform: translate(0px,16px);
-                }
-            }
-        }
-
-        .header_form_popup{
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 50px 0 0 0;
-            display: flex;
-            justify-content: center;
-            overflow-y: scroll;
-            width: 100%;
-            min-height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-
-            &._hide{
-                display: none;
-            }
-
-            .header_form_popup_content{
-                position: relative;
-                border-radius: 5px;
-
-                .close_button{
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    cursor: pointer;
-                    width: 30px;
-                    height: 30px;
-                    background: url("/img/korporativ-ng/close_icon_popup.svg");
-                }
-
-                @include for-mobile{
-                    .close_button{
-                        //top: 60px;
-                    }
-                }
-            }
-
-            @include for-mobile{
-                padding: 15px 0 0 0;
-
-                .form_wrapper.callback{
-                    margin: 0;
-                }
-            }
-        }
-
-        @include for-pad{
-
-            .header_city_select{
-                display: none;
-            }
-        }
-
-    }
-
-    &._active{
-
-        .header_burger{
-
-            div:nth-child(1){
-                transform: translate(0px,11px) rotate(45deg);
-            }
-
-            div:nth-child(2){
-                transform: translate(0px,11px) rotate(-45deg);
-            }
-
-            div:nth-child(3){
-                transform: translate(0px,50px);
-            }
-        }
-
-        .header_menu_wrapper{
-            display: flex;
-            flex-flow: column nowrap;
-            transform: translateY(0px);
-            opacity: 1;
-            pointer-events: initial;
-        }
-    }
+header {
+	position: fixed;
+	z-index: 100;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 99px;
+	background: white;
+	border-bottom: 1px solid #dedede;
+	box-shadow: 0px 3px 6px rgba(3, 49, 52, 0.06);
+	transition: all 0.3s ease;
+
+	@include for-pad {
+		height: 90px;
+	}
+
+	@include for-mobile {
+		height: 56px;
+	}
+
+	.header_wrap {
+		position: relative;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0px;
+		height: 100%;
+
+		.header_logo {
+			display: flex;
+			align-items: center;
+			margin-left: 35px;
+
+			@include for-pad {
+				margin-left: 52px;
+			}
+
+			@include for-mobile {
+				top: 0;
+				left: auto;
+				right: 140px;
+			}
+
+			.header_logo_img {
+				width: 70px;
+				height: 70px;
+				background: url("/img/korporativ-ng/ny_ball.svg");
+				background-size: contain;
+				transition: filter 0.2s ease;
+
+				@include for-pad {
+					width: 56px;
+					height: 56px;
+				}
+
+				@include for-mobile {
+					width: 56px;
+					height: 56px;
+				}
+			}
+
+			.header_logo_text span {
+				font-weight: bold;
+				font-size: 20px;
+				line-height: 28px;
+				letter-spacing: 0.01em;
+				text-transform: uppercase;
+				color: #ba1904;
+
+				&:last-of-type {
+					font-size: 11px;
+					line-height: 15px;
+					letter-spacing: 0.2em;
+					color: #000000;
+				}
+
+				@include for-pad {
+					white-space: nowrap;
+					font-size: 16px;
+					line-height: 24px;
+
+					&:last-of-type {
+						white-space: nowrap;
+						font-size: 9px;
+						line-height: 13px;
+					}
+				}
+
+				@include for-mobile {
+					display: none;
+				}
+			}
+		}
+
+		.header_menu_wrapper {
+			flex-grow: 1;
+			display: flex;
+			justify-content: flex-start;
+		}
+
+		.header_menu {
+			display: flex;
+			width: 100%;
+			align-items: center;
+
+			.header_city_select {
+				position: relative;
+				align-self: center;
+				height: 20px;
+				margin-left: 35px;
+				cursor: pointer;
+				font-style: normal;
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 26px;
+				margin-right: 25px;
+
+				&:before {
+					content: "";
+					position: absolute;
+					top: -1px;
+					left: -18px;
+					background: url("/img/location_icon.svg");
+					background-size: contain;
+					width: 20px;
+					height: 20px;
+				}
+
+				&:after {
+					content: "";
+					position: absolute;
+					top: 5px;
+					right: -16px;
+					width: 8px;
+					height: 8px;
+					border-right: 2px solid $clrLightGrey;
+					border-bottom: 2px solid $clrLightGrey;
+					border-radius: 2px;
+					transform: rotate(45deg);
+					z-index: 2;
+				}
+
+				&._active:after {
+					top: 9px;
+					transform: rotate(225deg);
+				}
+
+				span {
+					display: block;
+					white-space: nowrap;
+				}
+
+				@include for-notdesc {
+					align-self: flex-start;
+					top: -10px;
+					margin-left: 28px;
+				}
+			}
+
+			.city_select_search_wrapper {
+				position: absolute;
+				top: 75px;
+				left: 390px;
+				width: 850px;
+				max-height: calc(100vh - 60px);
+				padding: 20px 0px 20px 25px;
+				background: white;
+				border-radius: 4px;
+				box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+				overflow-y: auto;
+
+				&:before {
+					content: "";
+					position: absolute;
+					top: -8px;
+					left: 30px;
+					width: 16px;
+					height: 16px;
+					transform: rotate(45deg);
+					background: white;
+				}
+
+				.back_to_header_menu {
+					display: none;
+				}
+
+				h4 {
+					padding-bottom: 13px;
+					font-weight: bold;
+					font-size: 20px;
+					line-height: 24px;
+				}
+
+				.input_search_wrapper {
+					position: relative;
+					width: 289px;
+
+					input {
+						width: 289px;
+						padding: 9px 16px;
+						box-sizing: border-box;
+						box-shadow: inset 0px 1px 2px rgba(140, 140, 140, 0.5);
+						border-radius: 2px;
+						font-weight: 500;
+						font-size: 14px;
+						line-height: 22px;
+						color: #666666;
+					}
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: 10px;
+						right: 6px;
+						width: 20px;
+						height: 20px;
+						background: url("/img/search_icon.svg");
+					}
+				}
+
+				.city_select_list {
+					display: flex;
+					flex-flow: column wrap;
+					height: 548px;
+					padding: 0 0 0 18px;
+
+					.city_select_letter_block {
+						position: relative;
+						width: 154px;
+						padding: 15px 0 0 0;
+
+						p {
+							font-weight: 500;
+							font-size: 14px;
+							line-height: 25px;
+							color: #d83603;
+						}
+
+						p._active {
+							font-weight: 700;
+							color: #333333;
+						}
+
+						&:before {
+							content: attr(data-first-letter);
+							position: absolute;
+							top: 17px;
+							left: -18px;
+							font-size: 14px;
+						}
+					}
+				}
+
+				@include for-mobile {
+					left: 0;
+					width: 320px;
+					height: 90vh;
+					padding: 22px 17px 22px 16px;
+					z-index: 10;
+
+					&:before {
+						content: none;
+					}
+
+					.back_to_header_menu {
+						cursor: pointer;
+						display: block;
+						width: 120px;
+						margin: 0 0 0 23px;
+						border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
+						font-weight: 500;
+
+						&:before {
+							content: "←";
+							position: absolute;
+							top: 20px;
+							left: 17px;
+						}
+					}
+
+					h4 {
+						padding: 15px 0 13px;
+						font-weight: bold;
+						font-size: 16px;
+						line-height: 23px;
+					}
+
+					.city_select_list {
+						flex-flow: column nowrap;
+						overflow-y: scroll;
+						height: calc(100% - 110px);
+					}
+				}
+
+				@include for-pad {
+					top: 64px;
+					left: 0;
+					width: 768px;
+					z-index: 10;
+
+					&:before {
+						left: 374px;
+					}
+				}
+
+				@include for-mobile {
+					top: 56px;
+					width: 100%;
+				}
+			}
+
+			& > .header_city_select {
+				display: none;
+			}
+
+			@include for-pad {
+				& > .header_city_select {
+					display: block;
+					align-self: auto;
+					top: auto;
+				}
+			}
+
+			@include for-mobile {
+				justify-content: flex-end;
+			}
+		}
+
+		.header_menu_wrapper {
+			.header_menu_item {
+				line-height: 30px;
+				font-size: 16px;
+				color: #333333;
+				font-weight: 600;
+				margin: 0px 33px;
+				padding: 0px 10px;
+
+				&._no_wide_screen {
+					display: none;
+				}
+
+				@include for-notdesc {
+					&._no_wide_screen {
+						display: block;
+					}
+				}
+
+				@media (max-width: 1700px) {
+					margin: 0px 17px;
+				}
+
+				@media (max-width: 1550px) {
+					margin: 0px 5px;
+				}
+
+				&:hover {
+					color: #f0440d;
+				}
+
+				&._active {
+					color: #d83603;
+				}
+			}
+
+			@include for-notdesc {
+				position: absolute;
+				left: 0px;
+				background: white;
+				justify-content: flex-start;
+				width: 320px;
+				height: 100vh;
+				border-bottom: 1px solid #dedede;
+				transform: translateY(10px);
+				opacity: 0;
+				box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+				transition: transform 0.3s ease, opacity 0.3s ease;
+				pointer-events: none;
+
+				.header_menu_item {
+					margin: 0px;
+					padding: 0px 10px;
+
+					&:hover {
+						color: #333333;
+						background: rgba(240, 68, 13, 0.1);
+					}
+
+					&._active {
+						color: #333333;
+						background: rgba(216, 54, 3, 0.1);
+					}
+				}
+
+				.header_city_select {
+					&._active {
+						display: none;
+					}
+				}
+			}
+
+			@include for-pad {
+				top: 90px;
+				padding: 20px 0 11px;
+			}
+
+			@include for-mobile {
+				width: 100%;
+				padding: 30px 0 11px;
+				top: calc(100% + 1px);
+			}
+		}
+
+		.header_phone {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			margin-right: 35px;
+
+			@include for-pad {
+				margin-right: 10px;
+				flex-grow: 1;
+			}
+
+			@include for-mobile {
+				margin-right: 16px;
+			}
+
+			& > a {
+				font-size: 26px;
+				color: #000;
+				font-weight: 600;
+				line-height: 32px;
+				margin-bottom: 7px;
+
+				@include for-pad {
+					font-size: 22px;
+					line-height: 28px;
+				}
+
+				@include for-mobile {
+					margin-bottom: 0px;
+					font-size: 16px;
+					line-height: 20px;
+				}
+			}
+
+			p._link {
+				color: #333333;
+				border-bottom: 1px dashed rgba(51, 51, 51, 0.5);
+			}
+
+			.header_phone_button {
+				display: flex;
+				flex-flow: row nowrap;
+				text-align: right;
+				margin-top: -2px;
+				width: fit-content;
+				cursor: pointer;
+				position: relative;
+
+				@include for-mobile {
+					display: none;
+				}
+
+				& > p {
+					height: 21px;
+					text-align: right;
+					line-height: 25px;
+					font-size: 16px;
+					font-weight: 500;
+				}
+
+				&:before {
+					position: absolute;
+					content: "";
+					top: -2px;
+					left: -30px;
+					width: 30px;
+					height: 31px;
+					background: url("/img/ny_ball.svg");
+					background-size: contain;
+				}
+			}
+		}
+
+		.header_burger {
+			display: none;
+			position: absolute;
+			width: 35px;
+			height: 27px;
+			right: 10px;
+			top: 32px;
+			cursor: pointer;
+			overflow: hidden;
+
+			@include for-notdesc {
+				display: block;
+				left: 10px;
+			}
+
+			@include for-mobile {
+				width: 26px;
+				height: 27px;
+				top: 18px;
+				right: 12px;
+			}
+
+			div {
+				width: 35px;
+				height: 5px;
+				border-radius: 2px;
+				background: #f0440d;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				transition: transform 0.3s ease;
+
+				@include for-mobile {
+					width: 25px;
+					height: 4px;
+				}
+			}
+
+			div:nth-child(1) {
+				transform: translate(0px, 0px);
+
+				@include for-mobile {
+					transform: translate(0px, 0px);
+				}
+			}
+
+			div:nth-child(2) {
+				transform: translate(0px, 11px);
+
+				@include for-mobile {
+					transform: translate(0px, 8px);
+				}
+			}
+
+			div:nth-child(3) {
+				transform: translate(0px, 22px);
+
+				@include for-mobile {
+					transform: translate(0px, 16px);
+				}
+			}
+		}
+
+		.header_form_popup {
+			position: fixed;
+			top: 0;
+			left: 0;
+			padding: 50px 0 0 0;
+			display: flex;
+			justify-content: center;
+			overflow-y: scroll;
+			width: 100%;
+			min-height: 100%;
+			background: rgba(0, 0, 0, 0.8);
+			z-index: 1000;
+
+			&._hide {
+				display: none;
+			}
+
+			.header_form_popup_content {
+				position: relative;
+				border-radius: 5px;
+
+				.close_button {
+					position: absolute;
+					top: 10px;
+					right: 10px;
+					cursor: pointer;
+					width: 30px;
+					height: 30px;
+					background: url("/img/korporativ-ng/close_icon_popup.svg");
+				}
+			}
+
+			@include for-mobile {
+				padding: 15px 0 0 0;
+
+				.form_wrapper.callback {
+					margin: 0;
+				}
+			}
+		}
+
+		@include for-pad {
+			.header_city_select {
+				display: none;
+			}
+		}
+	}
+
+	&._active {
+		.header_burger {
+			div:nth-child(1) {
+				transform: translate(0px, 11px) rotate(45deg);
+			}
+
+			div:nth-child(2) {
+				transform: translate(0px, 11px) rotate(-45deg);
+			}
+
+			div:nth-child(3) {
+				transform: translate(0px, 50px);
+			}
+		}
+
+		.header_menu_wrapper {
+			display: flex;
+			flex-flow: column nowrap;
+			transform: translateY(0px);
+			opacity: 1;
+			pointer-events: initial;
+		}
+	}
 }

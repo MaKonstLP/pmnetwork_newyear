@@ -1,0 +1,78 @@
+<div class="form_wrapper fast-order">
+
+	<div class="form_title">
+		<p class="form_title_main">Бронирование места</p>
+		<p class="form_title_name">{{rest.restaurant_name}}</p>
+		<div class="form_title_img">
+			<img loading="lazy" src="{{rest.restaurant_images[0].subpath}}">
+		</div>
+		<p class="form_title_text">
+			Вы оформляете предварительное бронирование. Заявка не требует оплаты и не является гарантией бронирования. Дождитесь звонка менеджера для подтверждения заказа.
+		</p>
+	</div>
+
+	<form class="form_block" action="/ajax/form/"  data-type="fast-order-item" {% if rest.restaurant_premium %} data-premium-listing-rest="{{rest.restaurant_gorko_id}}" {% endif %}>
+
+		<div class="form_inputs">
+			<div class="input_wrapper">
+				<div class="input_label">Как Вас зовут</div>
+				<input type="text" name="name" placeholder="Имя" data-required/>
+				<div class="form_input_error"></div>
+			</div>
+			<div class="input_wrapper">
+				<div class="input_label">Номер телефона</div>
+				<input type="text" name="phone" placeholder="+7 (___) ___-__-__" data-required autocomplete="off"/>
+				<div class="form_input_error"></div>
+			</div>
+
+			<div class="input_wrapper">
+				<div class="input_label">Число гостей</div>
+				<input type="number" min="1" name="guests_number" placeholder="50" data-required/>
+				<div class="form_input_error"></div>
+			</div>
+
+			<div class="input_wrapper">
+				<div class="input_label">Дата</div>
+				<input type="text" name="date" placeholder="Дата"/>
+				<div class="calendar_wrapper">
+					<div class="open_calendar_button"></div>
+					<div class="calendar_container _hide">
+						<div class="calendar"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<input type="hidden" name="venue_id" value="{{venue_id}}"/>
+
+		{# {% if items|length > 0 %}
+			<div class="form_checkboxes">
+				{% for item in items %}
+					<div class="checkbox_item" data-action="form_checkbox">
+						<input type="checkbox" name="restaurant"/>
+						<div class="checkbox_pseudo">{{item.name}}</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %} #}
+
+		<div class="form_submit_callback">
+			<button class="_button" type="submit">Забронировать</button>
+			<div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+				<input type="checkbox" name="policy" class="personalData" checked=""  data-required>
+				<p class="checkbox_pseudo">Я согласен с <a class="_link" href="/privacy/" target="_blank">политикой обработки персональных данных</a></p>
+			</div>
+		</div>
+	</form>
+
+	<div class="close_button"></div>
+</div>
+
+<div class="form_success">
+	<div class="form_success_message_sent _hide" data-success>
+		<h2>Заявка отправлена</h2>
+		<p class="form_success_message"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами в течение дня.</p>
+		<p class="form_success_message_close _link" data-success-close>Понятно, закрыть</p>
+		<div class="close_button"></div>
+	</div>
+</div>

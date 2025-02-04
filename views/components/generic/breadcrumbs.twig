@@ -1,41 +1,58 @@
 <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
-
 	{% for breadcrumb in breadcrumbs.crumbs %}
-
 		{% if breadcrumb.type == 'slices' %}
-
-			<div class="breadcrumbs_slices_container">
-
+			<div class="breadcrumbs_slices_container" data-test="{{breadcrumb.name}}">
 				<div class="breadcrumbs_current_slice" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-
 					<a class="breadcrumbs_item" href="{{breadcrumb.link}}" itemprop="item">
 						<span itemprop="name">{{breadcrumb.name}}</span>
 						<meta itemprop="position" content="{{ loop.index }}"/>
 					</a>
 
 					<div class="arrow"></div>
-
 				</div>
 
 				<div class="breadcrumbs_slices_list _hide">
-					{% for slice_alias, slice_name in breadcrumbs.crumbs_list %}
+					{# {% for slice_alias, slice_name in breadcrumbs.crumbs_list %}
 					<div class="breadcrumbs_item_wrapper">
 						<a href="/ploshhadki/{{slice_alias}}/">
 							<span class="breadcrumbs_item">{{slice_name}}</span>
 						</a>
 					</div>
+					{% endfor %} #}
+					{% set continue = false %}
+					{% for slice in active_slices if not continue %}
+						{% if slice.plural == breadcrumb.name %}
+							{% set continue = true %}
+						{% endif %}
+						{% if not continue %}
+							<div class="breadcrumbs_item_wrapper">
+								<a href="/ploshhadki/{{slice.alias}}/">
+									<span class="breadcrumbs_item">{{slice.plural}}</span>
+								</a>
+							</div>
+						{% endif %}
+						{% if continue %}
+							{% set continue = false %}
+						{% endif %}
 					{% endfor %}
-				</div>
 
+					<div class="breadcrumbs_item_wrapper">
+						<a href="/ploshhadki/v-gorode/">
+							<span class="breadcrumbs_item">В городе</span>
+						</a>
+					</div>
+					<div class="breadcrumbs_item_wrapper">
+						<a href="/ploshhadki/na-prirode/">
+							<span class="breadcrumbs_item">На природе</span>
+						</a>
+					</div>
+				</div>
 			</div>
 		{% elseif loop.last %}
-
 			<div class="breadcrumbs_item">
 				<span>{{breadcrumb.name}}</span>
 			</div>
-
 		{% else %}
-
 			<div class="breadcrumbs_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
 				<a href="{{breadcrumb.link}}" itemprop="item">
 					<span itemprop="name">{{breadcrumb.name}}</span>
@@ -43,7 +60,5 @@
 				</a>
 			</div>
 		{% endif %}
-
 	{% endfor %}
-
 </div>

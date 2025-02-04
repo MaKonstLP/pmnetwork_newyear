@@ -1,0 +1,26 @@
+<h2>Организация праздника</h2>
+<div class="blog_list">
+	{% for post in blog_posts %}
+		<div class="blog_item_wrapper">
+			<a class="blog_item" href="https://korporativ-ng.ru/blog/{{post.alias}}/">
+				{# <img class="blog_item_img" src="{{post.getFileData('image').src}}" alt="blog article image" loading="lazy"> #}
+				<picture>
+					<source media="(max-width: 767px)" srcset="{{post.getFileData('image').src|replace({'.jpeg': '_767.webp', '.jpg': '_767.webp'})}}" type="image/webp" width="370" height="247">
+					<source media="(max-width: 767px)" srcset="{{post.getFileData('image').src|replace({'.jpeg': '_767.jpeg', '.jpg': '_767.jpg'})}}" width="370" height="247">
+					<source srcset="{{post.getFileData('image').src|replace({'.jpeg': '.webp', '.jpg': '.webp'})}}" type="image/webp" width="370" height="247">
+					<img class="blog_item_img" src="{{post.getFileData('image').src}}" alt="blog article image" loading="lazy" width="370" height="247">
+				</picture>
+				<div class="blog_item_text_wrapper">
+					<div class="blog_item_title">
+						{{post.name}}
+					</div>
+
+					<div class="blog_item_text">
+						{{post.short_intro}}
+					</div>
+				</div>
+			</a>
+		</div>
+	{% endfor %}
+</div>
+<a href="https://korporativ-ng.ru/blog/" class="blog_list_btn">Все статьи блога</a>

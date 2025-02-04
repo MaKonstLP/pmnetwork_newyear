@@ -1,21 +1,37 @@
 <div data-page-type="index">
 
 	<div class="main_top">
-        <h1>{{seo.h1}}</h1>
-        <div class="main_top_desc">
-            {{seo.h1_pag | raw}}
-        </div>                    
-    </div>
+		<h1>{{seo.h1}}</h1>
+		<div class="main_top_desc">
+			{{seo.h1_pag|raw}}
+		</div>
+	</div>
 
 	<div class="content_block submenu">
 		<div class="submenu_wrapper">
 			<a href="/ploshhadki/v-gorode/" class="submenu submenu_restaurants">
 				<h2>В городе</h2>
-				<img src="/img/restaurant_image.png" alt="restaurant_image">
+				{# <img src="/img/restaurant_image.png" alt="restaurant_image" loading="lazy"> #}
+				<picture>
+					<source media="(max-width: 620px)" srcset="/img/restaurant_image_620.webp" type="image/webp" width="959" height="533">
+					<source media="(max-width: 620px)" srcset="/img/restaurant_image_620.png" width="959" height="533">
+					<source media="(max-width: 767px)" srcset="/img/restaurant_image_767.webp" type="image/webp" width="959" height="533">
+					<source media="(max-width: 767px)" srcset="/img/restaurant_image_767.png" width="959" height="533">
+					<source srcset="/img/restaurant_image.webp" type="image/webp" width="959" height="533">
+					<img src="/img/restaurant_image.png" alt="restaurant_image" width="959" height="533">
+				</picture>
 			</a>
 			<a href="/ploshhadki/na-prirode/" class="submenu submenu_cottages">
 				<h2>На природе</h2>
-				<img src="/img/cottage_image.png" alt="cottage_image">
+				{# <img src="/img/cottage_image.png" alt="cottage_image" loading="lazy"> #}
+				<picture>
+					<source media="(max-width: 620px)" srcset="/img/cottage_image_620.webp" type="image/webp" width="959" height="533">
+					<source media="(max-width: 620px)" srcset="/img/cottage_image_620.png" width="959" height="533">
+					<source media="(max-width: 767px)" srcset="/img/cottage_image_767.webp" type="image/webp" width="959" height="533">
+					<source media="(max-width: 767px)" srcset="/img/cottage_image_767.png" width="959" height="533">
+					<source srcset="/img/cottage_image.webp" type="image/webp" width="959" height="533">
+					<img src="/img/cottage_image.png" alt="cottage_image" loading="lazy" width="959" height="533" />
+				</picture>
 			</a>
 		</div>
 	</div>
@@ -25,7 +41,8 @@
 			<h2>Найдите своё место</h2>
 		</div>
 
-		{{ this.render('//components/generic/slice.twig') | raw }}
+		{# {{ this.render('//components/generic/slice.twig') | raw }} #}
+		{{ this.render('//components/generic/slice.twig', {active_slices:active_slices_menu}) | raw }}
 		{{ filter | raw }}
 	</div>
 
@@ -48,13 +65,23 @@
 
 		{{ mainWidget | raw }}
 
-
 	</div>
 
 	<div class="content_block to_full_catalog_wrapper">
 
 		<a href="/ploshhadki/" class="_button to_full_catalog_button" target="_blank">Все места для корпоратива</a>
 
+	</div>
+
+	<div class="content_block seo_text" data-seo-text>
+		{{seo.text_3|raw}}
+		<div class="seo_text_control" data-seo-control>
+			<p class="_link">Показать полностью</p>
+		</div>
+	</div>
+
+	<div class="content_block blog_list_wrap">
+		{{ this.render('//components/generic/blog_list.twig', {'blog_posts':blog_posts})|raw }}
 	</div>
 
 	<div class="content_block seo_text_wrapper last">
