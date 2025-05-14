@@ -202,6 +202,8 @@ class ItemController extends Controller
 		$this->view->title = $seo['title'];
 		$this->view->params['desc'] = $seo['description'];
 		$this->view->params['kw'] = $seo['keywords'];
+		$canonical = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+		$this->view->params['canonical'] = $canonical;
 	}
 
 	private function replaceSeoVariables($item, &$seo)
