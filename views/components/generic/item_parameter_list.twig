@@ -40,8 +40,8 @@
     {% endif %}
 </div>
 {% endif %}
-
-{% set services = item.restaurant_extra_services|split(',') %}
+ 
+{% set services = item.restaurant_premium_features[2].value ? item.restaurant_premium_features[2].value|split(',') : item.restaurant_extra_services|split(',') %}
 {% if item.restaurant_extra_services != '' %}
 <div class="object_parameters_list _marked _big_list">
     <p class="object_parameters_title">За дополнительную плату</p>
@@ -52,6 +52,7 @@
     </div>
 </div>
 {% endif %}
+
 
 <div class="object_parameters_list">
     <p class="object_parameters_title">Оплата</p>

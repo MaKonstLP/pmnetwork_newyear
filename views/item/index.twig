@@ -146,6 +146,17 @@
 		</div>
 	{% endif %}
 
+	{% if item.restaurant_premium_features[1].value != '' %}
+		<div class="content_block" data-item-text-top>
+			<div class="seo_text" data-seo-text data-seo-text-item>
+				{{item.restaurant_premium_features[1].value | raw}}
+				<div class="seo_text_control" data-seo-control>
+					<p class="_link">Показать полностью</p>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
 	<div class="reviews-map">
 		{% if item.restaurant_rev_ya.id %}
 			<div id="reviews" class="item__review-yandex-wrap">
